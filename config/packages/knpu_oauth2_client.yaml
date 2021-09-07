@@ -1,0 +1,16 @@
+knpu_oauth2_client:
+    clients:
+        # configure your clients as described here: https://github.com/knpuniversity/oauth2-client-bundle#configuration
+
+        # will create service: "knpu.oauth2.client.twitch"
+        # an instance of: KnpU\OAuth2ClientBundle\Client\Provider\TwitchClient
+        twitch:
+            type: generic
+            provider_class: Vertisan\OAuth2\Client\Provider\TwitchHelix
+            client_id: '%env(OAUTH_TWITCH_CLIENT_ID)%'
+            client_secret: '%env(OAUTH_TWITCH_CLIENT_SECRET)%'
+            # a route name you'll create
+            redirect_route: connect_twitch_check
+            redirect_params: { }
+            # whether to check OAuth2 "state": defaults to true
+            use_state: false

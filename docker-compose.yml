@@ -1,0 +1,17 @@
+# Use postgres/example user/password credentials
+version: '3.4'
+
+services:
+  database:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=multistream
+      - POSTGRES_PASSWORD=!ChangeMe!
+      - POSTGRES_USER=symfony
+    volumes:
+      - db_data:/var/lib/postgresql/data:rw
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
