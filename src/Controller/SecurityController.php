@@ -34,9 +34,9 @@ class SecurityController extends AbstractController
      *
      * @Route("/connect/twitch", name="connect_twitch_start")
      */
-    public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
+    public function twitchConnect(ClientRegistry $clientRegistry): RedirectResponse
     {
-        // will redirect to Discord !
+        // will redirect to Twitch !
         return $clientRegistry
             ->getClient('twitch') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
@@ -45,11 +45,30 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * After going to Discord, you're redirected back here
-     * because this is the "redirect_route" you configured
-     * in config/packages/knpu_oauth2_client.yaml
-     *
      * @Route("/connect/twitch/check", name="connect_twitch_check")
+     */
+    public function twitchConnectCheck(Request $request, ClientRegistry $clientRegistry)
+    {
+    }
+
+
+    /**
+     * Link to this controller to start the "connect" process
+     *
+     * @Route("/connect/google", name="connect_google_start")
+     */
+    public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
+    {
+        // will redirect to Twitch !
+        return $clientRegistry
+            ->getClient('google') // key used in config/packages/knpu_oauth2_client.yaml
+            ->redirect([
+                'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.force-ssl'
+            ], []);
+    }
+
+    /**
+     * @Route("/connect/google/check", name="connect_google_check")
      */
     public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
     {

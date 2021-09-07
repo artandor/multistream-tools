@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "8dc492026abaca9d3fbe3fadbca02bb3",
+  "content-hash": "e42a9a0c015f3f734a95f79cea94fa65",
   "packages": [
     {
       "name": "composer/package-versions-deprecated",
@@ -15,16 +15,16 @@
         "reference": "fff576ac850c045158a250e7e27666e146e78d18"
       },
       "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
-                "reference": "fff576ac850c045158a250e7e27666e146e78d18",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.1.0 || ^2.0",
-                "php": "^7 || ^8"
-            },
-            "replace": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
+        "reference": "fff576ac850c045158a250e7e27666e146e78d18",
+        "shasum": ""
+      },
+      "require": {
+        "composer-plugin-api": "^1.1.0 || ^2.0",
+        "php": "^7 || ^8"
+      },
+      "replace": {
                 "ocramius/package-versions": "1.11.99"
             },
             "require-dev": {
@@ -64,14 +64,14 @@
                 "source": "https://github.com/composer/package-versions-deprecated/tree/1.11.99.3"
             },
             "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/composer",
-                  "type": "github"
-                },
+              {
+                "url": "https://packagist.com",
+                "type": "custom"
+              },
+              {
+                "url": "https://github.com/composer",
+                "type": "github"
+              },
               {
                 "url": "https://tidelift.com/funding/github/packagist/composer/composer",
                 "type": "tidelift"
@@ -134,16 +134,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/doctrine/annotations/zipball/5b668aef16090008790395c02c893b1ba13f7e08",
-                "reference": "5b668aef16090008790395c02c893b1ba13f7e08",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/lexer": "1.*",
-                "ext-tokenizer": "*",
-                "php": "^7.1 || ^8.0",
-                "psr/cache": "^1 || ^2 || ^3"
-            },
-            "require-dev": {
+        "reference": "5b668aef16090008790395c02c893b1ba13f7e08",
+        "shasum": ""
+      },
+      "require": {
+        "doctrine/lexer": "1.*",
+        "ext-tokenizer": "*",
+        "php": "^7.1 || ^8.0",
+        "psr/cache": "^1 || ^2 || ^3"
+      },
+      "require-dev": {
                 "doctrine/cache": "^1.11 || ^2.0",
                 "doctrine/coding-standard": "^6.0 || ^8.1",
                 "phpstan/phpstan": "^0.12.20",
@@ -1621,10 +1621,10 @@
                 "source": "https://github.com/FriendsOfPHP/proxy-manager-lts/tree/v1.0.5"
             },
             "funding": [
-                {
-                    "url": "https://github.com/Ocramius",
-                  "type": "github"
-                },
+              {
+                "url": "https://github.com/Ocramius",
+                "type": "github"
+              },
               {
                 "url": "https://tidelift.com/funding/github/packagist/ocramius/proxy-manager",
                 "type": "tidelift"
@@ -1943,16 +1943,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/laminas/laminas-code/zipball/54251ab2b16c41c6980387839496b235f5f6e10b",
-                "reference": "54251ab2b16c41c6980387839496b235f5f6e10b",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.4 || ~8.0.0"
-            },
-            "conflict": {
-                "phpspec/prophecy": "<1.9.0"
-            },
-            "require-dev": {
+        "reference": "54251ab2b16c41c6980387839496b235f5f6e10b",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.4 || ~8.0.0"
+      },
+      "conflict": {
+        "phpspec/prophecy": "<1.9.0"
+      },
+      "require-dev": {
                 "doctrine/annotations": "^1.10.4",
                 "ext-phar": "*",
                 "laminas/laminas-coding-standard": "^2.1.4",
@@ -1981,16 +1981,16 @@
             "keywords": [
                 "code",
                 "laminas",
-                "laminasframework"
+              "laminasframework"
             ],
-            "support": {
-                "chat": "https://laminas.dev/chat",
-                "docs": "https://docs.laminas.dev/laminas-code/",
-                "forum": "https://discourse.laminas.dev",
-                "issues": "https://github.com/laminas/laminas-code/issues",
-                "rss": "https://github.com/laminas/laminas-code/releases.atom",
-                "source": "https://github.com/laminas/laminas-code"
-            },
+      "support": {
+        "chat": "https://laminas.dev/chat",
+        "docs": "https://docs.laminas.dev/laminas-code/",
+        "forum": "https://discourse.laminas.dev",
+        "issues": "https://github.com/laminas/laminas-code/issues",
+        "rss": "https://github.com/laminas/laminas-code/releases.atom",
+        "source": "https://github.com/laminas/laminas-code"
+      },
       "funding": [
         {
           "url": "https://funding.communitybridge.org/projects/laminas-project",
@@ -2070,6 +2070,61 @@
       "time": "2020-10-28T02:03:40+00:00"
     },
     {
+      "name": "league/oauth2-google",
+      "version": "4.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/thephpleague/oauth2-google.git",
+        "reference": "db6d8ad67cdd7d014a1e5dd5c204a319a966de86"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/thephpleague/oauth2-google/zipball/db6d8ad67cdd7d014a1e5dd5c204a319a966de86",
+        "reference": "db6d8ad67cdd7d014a1e5dd5c204a319a966de86",
+        "shasum": ""
+      },
+      "require": {
+        "league/oauth2-client": "^2.0",
+        "php": ">=7.3"
+      },
+      "require-dev": {
+        "eloquent/phony-phpunit": "^6.0 || ^7.1",
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "squizlabs/php_codesniffer": "^3.0"
+      },
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "League\\OAuth2\\Client\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Woody Gilk",
+          "email": "woody.gilk@gmail.com",
+          "homepage": "http://shadowhand.me"
+        }
+      ],
+      "description": "Google OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+      "keywords": [
+        "Authentication",
+        "authorization",
+        "client",
+        "google",
+        "oauth",
+        "oauth2"
+      ],
+      "support": {
+        "issues": "https://github.com/thephpleague/oauth2-google/issues",
+        "source": "https://github.com/thephpleague/oauth2-google/tree/4.0.0"
+      },
+      "time": "2021-03-04T21:12:06+00:00"
+    },
+    {
       "name": "monolog/monolog",
       "version": "2.3.2",
       "source": {
@@ -2080,16 +2135,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/Seldaek/monolog/zipball/71312564759a7db5b789296369c1a264efc43aad",
-                "reference": "71312564759a7db5b789296369c1a264efc43aad",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2",
-                "psr/log": "^1.0.1"
-            },
-            "provide": {
-                "psr/log-implementation": "1.0.0"
-            },
+        "reference": "71312564759a7db5b789296369c1a264efc43aad",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.2",
+        "psr/log": "^1.0.1"
+      },
+      "provide": {
+        "psr/log-implementation": "1.0.0"
+      },
             "require-dev": {
                 "aws/aws-sdk-php": "^2.4.9 || ^3.0",
                 "doctrine/couchdb": "~1.0@dev",
@@ -2153,16 +2208,16 @@
                 "issues": "https://github.com/Seldaek/monolog/issues",
                 "source": "https://github.com/Seldaek/monolog/tree/2.3.2"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/Seldaek",
-                  "type": "github"
-                },
-              {
-                "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
-                "type": "tidelift"
-              }
-            ],
+      "funding": [
+        {
+          "url": "https://github.com/Seldaek",
+          "type": "github"
+        },
+        {
+          "url": "https://tidelift.com/funding/github/packagist/monolog/monolog",
+          "type": "tidelift"
+        }
+      ],
       "time": "2021-07-23T07:42:52+00:00"
     },
     {
@@ -2226,16 +2281,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/phpDocumentor/ReflectionCommon/zipball/1d01c49d4ed62f25aa84a747ad35d5a16924662b",
-                "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-2.x": "2.x-dev"
+        "reference": "1d01c49d4ed62f25aa84a747ad35d5a16924662b",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.2 || ^8.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-2.x": "2.x-dev"
                 }
             },
             "autoload": {
@@ -2504,16 +2559,16 @@
             ],
             "authors": [
                 {
-                    "name": "PHP-FIG",
-                    "homepage": "http://www.php-fig.org/"
+                  "name": "PHP-FIG",
+                  "homepage": "http://www.php-fig.org/"
                 }
             ],
-            "description": "Standard interfaces for event handling.",
-            "keywords": [
-                "events",
-              "psr",
-              "psr-14"
-            ],
+          "description": "Standard interfaces for event handling.",
+          "keywords": [
+            "events",
+            "psr",
+            "psr-14"
+          ],
           "support": {
             "issues": "https://github.com/php-fig/event-dispatcher/issues",
             "source": "https://github.com/php-fig/event-dispatcher/tree/1.0.0"
@@ -2691,16 +2746,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/php-fig/link/zipball/eea8e8662d5cd3ae4517c9b864493f59fca95562",
-                "reference": "eea8e8662d5cd3ae4517c9b864493f59fca95562",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+        "reference": "eea8e8662d5cd3ae4517c9b864493f59fca95562",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=5.3.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -2767,16 +2822,16 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
+                  "homepage": "https://www.php-fig.org/"
                 }
             ],
-            "description": "Common interface for logging libraries",
-            "homepage": "https://github.com/php-fig/log",
-            "keywords": [
-              "log",
-              "psr",
-              "psr-3"
-            ],
+          "description": "Common interface for logging libraries",
+          "homepage": "https://github.com/php-fig/log",
+          "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+          ],
           "support": {
             "source": "https://github.com/php-fig/log/tree/1.1.4"
           },
@@ -2837,16 +2892,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/3f5b6490878f8a70ba702e9692007cf979b42f0e",
-                "reference": "3f5b6490878f8a70ba702e9692007cf979b42f0e",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/annotations": "^1.0",
-                "php": ">=7.2.5",
-                "symfony/config": "^4.4|^5.0|^6.0",
-                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
-                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
-                "symfony/http-kernel": "^4.4|^5.0|^6.0"
+        "reference": "3f5b6490878f8a70ba702e9692007cf979b42f0e",
+        "shasum": ""
+      },
+      "require": {
+        "doctrine/annotations": "^1.0",
+        "php": ">=7.2.5",
+        "symfony/config": "^4.4|^5.0|^6.0",
+        "symfony/dependency-injection": "^4.4|^5.0|^6.0",
+        "symfony/framework-bundle": "^4.4|^5.0|^6.0",
+        "symfony/http-kernel": "^4.4|^5.0|^6.0"
             },
             "conflict": {
                 "doctrine/doctrine-cache-bundle": "<1.3.1",
@@ -8239,10 +8294,10 @@
                 "source": "https://github.com/twigphp/Twig/tree/v3.3.2"
             },
             "funding": [
-                {
-                    "url": "https://github.com/fabpot",
-                  "type": "github"
-                },
+              {
+                "url": "https://github.com/fabpot",
+                "type": "github"
+              },
               {
                 "url": "https://tidelift.com/funding/github/packagist/twig/twig",
                 "type": "tidelift"
@@ -8318,16 +8373,16 @@
       "dist": {
         "type": "zip",
         "url": "https://api.github.com/repos/webmozarts/assert/zipball/6964c76c7804814a842473e0c8fd15bab0f18e25",
-                "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "conflict": {
-                "phpstan/phpstan": "<0.12.20",
-                "vimeo/psalm": "<4.6.1 || 4.6.2"
+        "reference": "6964c76c7804814a842473e0c8fd15bab0f18e25",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^7.2 || ^8.0",
+        "symfony/polyfill-ctype": "^1.8"
+      },
+      "conflict": {
+        "phpstan/phpstan": "<0.12.20",
+        "vimeo/psalm": "<4.6.1 || 4.6.2"
             },
             "require-dev": {
                 "phpunit/phpunit": "^8.5.13"
