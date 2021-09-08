@@ -57,9 +57,9 @@ class SecurityController extends AbstractController
      *
      * @Route("/connect/google", name="connect_google_start")
      */
-    public function connectAction(ClientRegistry $clientRegistry): RedirectResponse
+    public function googleConnect(ClientRegistry $clientRegistry): RedirectResponse
     {
-        // will redirect to Twitch !
+        // will redirect to Google !
         return $clientRegistry
             ->getClient('google') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
@@ -70,7 +70,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/connect/google/check", name="connect_google_check")
      */
-    public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
+    public function googleConnectCheck(Request $request, ClientRegistry $clientRegistry)
     {
     }
 }

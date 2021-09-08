@@ -24,7 +24,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/update-stream-infos")
+     * @Route("/update-stream-infos", name="updateStreamInfos")
      */
     public function updateStreamInfos(Request $request, LoggerInterface $logger): Response
     {
@@ -43,8 +43,10 @@ class HomeController extends AbstractController
                     $provider = $account->getPlatformName();
                     if ($provider::updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
                         // TODO : Send a success notification
+                        dump('Successfully updated title for ' . $account->getPlatformName());
                     } else {
                         // TODO : Send an error notification
+                        dump('Failure while updated title for ' . $account->getPlatformName());
                     }
                 } else {
                     $logger->error('This provider doesn\'t exist.');

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\AccountRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +48,24 @@ class Account
      * @ORM\Column(type="string", length=255)
      */
     private $platformName;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="datetime_immutable")
+     */
+    private $createdAt;
+
+    public function __construct()
+    {
+        if (!$this->id) {
+            $this->createdAt = new DateTimeImmutable('now');
+        }
+        $this->updatedAt = new DateTimeImmutable('now');
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +140,30 @@ class Account
     public function setPlatformName(string $platformName): self
     {
         $this->platformName = $platformName;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

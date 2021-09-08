@@ -27,7 +27,7 @@ class TwitchProvider implements PlatformProviderInterface
                         ]
                     ]
                 );
-                if ($response->getStatusCode() !== 200) {
+                if ($response->getStatusCode() >= 300) {
                     return false;
                 }
 
@@ -56,7 +56,7 @@ class TwitchProvider implements PlatformProviderInterface
                 ]
             );
 
-            if ($response->getStatusCode() !== 200) {
+            if ($response->getStatusCode() >= 300) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {

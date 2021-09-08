@@ -13,7 +13,7 @@ knpu_oauth2_client:
             redirect_route: connect_twitch_check
             redirect_params: { }
             # whether to check OAuth2 "state": defaults to true
-            use_state: false
+            # use_state: false
 
         # will create service: "knpu.oauth2.client.google"
         # an instance of: KnpU\OAuth2ClientBundle\Client\Provider\GoogleClient
