@@ -19,7 +19,7 @@ class BrimeProvider implements PlatformProviderInterface
             try {
                 $response = $client->request(
                     'GET',
-                    'https://api.brime.tv/v1/categories/search/' . urlencode($category), [
+                    'https://api.brime.tv/v1/categories/search/' . rawurlencode(strtolower($category)), [
                         'headers' => [
                             'Authorization' => 'Bearer ' . $account->getAccessToken(),
                             'Content-Type' => 'application/json',
@@ -32,7 +32,9 @@ class BrimeProvider implements PlatformProviderInterface
                 }
 
                 $responseData = $response->toArray();
-                $categoryId = $responseData[0]['xid'];
+                if (isset($responseData[0])) {
+                    $categoryId = $responseData[0]['xid'];
+                }
 
                 try {
                     $response = $client->request(
@@ -44,7 +46,7 @@ class BrimeProvider implements PlatformProviderInterface
                             ],
                             'json' => [
                                 'title' => $title,
-                                'category' => $categoryId,
+                                'category' => $categoryId ?? 0,
                             ]
                         ]
                     );

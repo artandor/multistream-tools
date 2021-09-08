@@ -73,4 +73,26 @@ class SecurityController extends AbstractController
     public function googleConnectCheck(Request $request, ClientRegistry $clientRegistry)
     {
     }
+
+    /**
+     * Link to this controller to start the "connect" process
+     *
+     * @Route("/connect/brime", name="connect_brime_start")
+     */
+    public function brimeConnect(ClientRegistry $clientRegistry): RedirectResponse
+    {
+        // will redirect to Brime !
+        return $clientRegistry
+            ->getClient('brime') // key used in config/packages/knpu_oauth2_client.yaml
+            ->redirect([
+                'email'
+            ], []);
+    }
+
+    /**
+     * @Route("/connect/brime/check", name="connect_brime_check")
+     */
+    public function brimeConnectCheck(Request $request, ClientRegistry $clientRegistry)
+    {
+    }
 }

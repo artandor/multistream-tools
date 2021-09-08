@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
+use Vasilvestre\Oauth2Brimetv\BrimeResourceOwner;
 use Vertisan\OAuth2\Client\Provider\TwitchHelixResourceOwner;
 
 class PlatformAuthenticator extends OAuth2Authenticator
@@ -41,8 +42,11 @@ class PlatformAuthenticator extends OAuth2Authenticator
     public function supports(Request $request): ?bool
     {
         // continue ONLY if the current ROUTE matches the check ROUTE
-        return ($request->attributes->get('_route') === 'connect_twitch_check'
-            | $request->attributes->get('_route') === 'connect_google_check');
+        return (
+            $request->attributes->get('_route') === 'connect_twitch_check'
+            || $request->attributes->get('_route') === 'connect_google_check'
+            || $request->attributes->get('_route') === 'connect_brime_check'
+        );
     }
 
     public function authenticate(Request $request): PassportInterface
@@ -55,6 +59,9 @@ class PlatformAuthenticator extends OAuth2Authenticator
             case 'connect_google_check':
                 $client = $this->clientRegistry->getClient('google');
                 break;
+            case 'connect_brime_check':
+                $client = $this->clientRegistry->getClient('brime');
+                break;
             default:
                 dump('This provider is not supported');
                 break;
@@ -64,7 +71,7 @@ class PlatformAuthenticator extends OAuth2Authenticator
         return new SelfValidatingPassport(
             new UserBadge($accessToken->getToken(), function () use ($accessToken, $client, $request) {
 
-                /** @var TwitchHelixResourceOwner|GoogleUser $resourceOwner */
+                /** @var TwitchHelixResourceOwner|GoogleUser|BrimeResourceOwner $resourceOwner */
                 $resourceOwner = $client->fetchUserFromToken($accessToken);
 
                 // 1) have they logged in with Twitch before? Easy!
@@ -94,6 +101,9 @@ class PlatformAuthenticator extends OAuth2Authenticator
                             break;
                         case 'connect_google_check':
                             $account->setPlatformName('App\Provider\GoogleProvider');
+                            break;
+                        case 'connect_brime_check':
+                            $account->setPlatformName('App\Provider\BrimeProvider');
                             break;
                     }
 

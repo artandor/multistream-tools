@@ -31,6 +31,10 @@ class GoogleProvider implements PlatformProviderInterface
             }
 
             $responseData = $response->toArray();
+            if (count($responseData['items']) <= 0) {
+                dump('You are not currently streaming to youtube. Title update did not happen.');
+                return false;
+            }
             $streamId = $responseData['items'][0]['id'];
 
 
