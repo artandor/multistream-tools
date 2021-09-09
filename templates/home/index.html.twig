@@ -1,31 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
+    <div class="bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-2xl mx-auto py-16 sm:py-24 lg:py-32 lg:max-w-none">
+                <h2 class="text-2xl font-extrabold text-gray-900">Changer mes informations</h2>
+                <div class="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-6">
+                    <a href="{{ path('updateStreamInfos') }}">Change title</a>
+                </div>
+                <h2 class="text-2xl font-extrabold text-gray-900">Plateformes</h2>
 
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
-
-    <div class="example-wrapper">
-        <h1>Hello {{ controller_name }}! ✅</h1>
-        <ul>
-            <li>Connect with <code><a href="{{ path('connect_twitch_start') }}">twitch</a></code></li>
-            <li>Connect with <code><a href="{{ path('connect_google_start') }}">google</a></code></li>
-            <li>Connect with <code><a href="{{ path('connect_brime_start') }}">brime</a></code></li>
-        </ul>
-        <ul>
-            <li><a href="{{ path('updateStreamInfos') }}">Change title</a></li>
-        </ul>
+                <div class="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-6">
+                {% for platform in platforms %}
+                    <div class="group relative">
+                        <div class="relative w-full h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+                            <img src="{{ platform.image }}" alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug." class="w-full h-full object-center object-cover">
+                        </div>
+                        <h3 class="mt-6 text-sm text-gray-500">
+                            <a href="{{ path(platform.path) }}">
+                                <span class="absolute inset-0"></span>
+                                {% for account in app.user.accounts|filter(account => account.platformName == platform.name) %}
+                                    Vous êtes actuellement connecté avec l'adresse {{ account.email }}.
+                                {% endfor %}
+                            </a>
+                        </h3>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

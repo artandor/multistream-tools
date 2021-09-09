@@ -1,0 +1,28 @@
+{
+    "devDependencies": {
+        "@symfony/stimulus-bridge": "^2.0.0",
+        "@symfony/webpack-encore": "^1.0.0",
+        "autoprefixer": "^10.3.4",
+        "core-js": "^3.0.0",
+        "glob-all": "^3.2.1",
+        "path": "^0.12.7",
+        "postcss-loader": "^6.1.1",
+        "purgecss-webpack-plugin": "^4.0.3",
+        "regenerator-runtime": "^0.13.2",
+        "stimulus": "^2.0.0",
+        "tailwindcss": "^2.2.14",
+        "webpack-notifier": "^1.6.0",
+        "@tailwindcss/aspect-ratio": "^0.2.1"
+    },
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "resolutions": {
+        "graceful-fs": "^4.2.4"
+    }
+}

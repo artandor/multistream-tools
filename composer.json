@@ -1,10 +1,10 @@
 {
   "type": "project",
   "license": "proprietary",
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": ">=7.4",
+    "php": ">=8.0",
     "ext-ctype": "*",
     "ext-iconv": "*",
     "composer/package-versions-deprecated": "1.11.99.3",
@@ -12,6 +12,7 @@
     "doctrine/doctrine-bundle": "^2.4",
     "doctrine/doctrine-migrations-bundle": "^3.1",
     "doctrine/orm": "^2.9",
+    "easycorp/easyadmin-bundle": "^3.5",
     "knpuniversity/oauth2-client-bundle": "^2.8",
     "league/oauth2-google": "^4.0",
     "phpdocumentor/reflection-docblock": "^5.2",
@@ -41,6 +42,7 @@
     "symfony/twig-bundle": "5.3.*",
     "symfony/validator": "5.3.*",
     "symfony/web-link": "5.3.*",
+    "symfony/webpack-encore-bundle": "^1.12",
     "symfony/yaml": "5.3.*",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0",
