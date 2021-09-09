@@ -18,7 +18,7 @@ from all websites, and we have more ideas for the future.
 
 - [X] Youtube
 - [X] Twitch
-- [ ] Brime
+- [X] Brime
 - [ ] Facebook Gaming
 
 ## Design consideration
@@ -29,9 +29,9 @@ from all websites, and we have more ideas for the future.
 
 ```
 docker-compose up -d
-composer install
+symfony composer install
 symfony console d:m:m
 yarn install
-yarn encore dev
+yarn encore dev-server
 symfony serve
 ```
