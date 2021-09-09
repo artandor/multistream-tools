@@ -44,6 +44,8 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $streamInfos = $form->getData();
 
+            // TODO : Add title and category to session so that it stays even after refresh of the page :)
+
             /** @var User $user */
             $user = $this->getUser();
             foreach ($user->getAccounts() as $account) {
