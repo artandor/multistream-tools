@@ -46,7 +46,7 @@
     "symfony/yaml": "5.3.*",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0",
-    "vasilvestre/oauth2-brimetv": "@dev",
+    "vasilvestre/oauth2-brimetv": "^0.1",
     "vertisan/oauth2-twitch-helix": "^1.1"
   },
   "require-dev": {
@@ -101,14 +101,5 @@
       "allow-contrib": false,
       "require": "5.3.*"
     }
-  },
-  "repositories": [
-    {
-      "type": "path",
-      "url": "../oauth2-brimetv",
-      "options": {
-        "symlink": true
-      }
-    }
-  ]
+  }
 }
