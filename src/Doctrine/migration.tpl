@@ -16,7 +16,7 @@ class <className> extends AbstractMigration
     */
     public function up(Schema $schema): void
     {
-    <up>
+<up>
     }
 
     /**
@@ -26,6 +26,6 @@ class <className> extends AbstractMigration
     */
     public function down(Schema $schema): void
     {
-    <down>
+<down>
     }
 }

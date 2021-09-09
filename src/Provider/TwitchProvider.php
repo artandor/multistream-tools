@@ -15,7 +15,7 @@ class TwitchProvider implements PlatformProviderInterface
     public static function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
     {
         $client = HttpClient::create();
-        if (strlen($category) > 0) {
+        if ($category !== '') {
             try {
                 $response = $client->request(
                     'GET',
@@ -42,7 +42,7 @@ class TwitchProvider implements PlatformProviderInterface
         try {
             $response = $client->request(
                 'PATCH',
-                'https://api.twitch.tv/helix/channels?broadcaster_id=' . $account->getPlatformId(), [
+                'https://api.twitch.tv/helix/channels?broadcaster_id=' . $account->getExternalId(), [
                     'headers' => [
                         'Authorization' => 'Bearer ' . $account->getAccessToken(),
                         'Content-Type' => 'application/json',
