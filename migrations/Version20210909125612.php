@@ -28,8 +28,8 @@ final class Version20210909125612 extends AbstractMigration
 
     public function postUp(Schema $schema): void
     {
-        $this->addSql("INSERT INTO platform (id, name, path, image) VALUES (1, 'App\Provider\TwitchProvider', 'connect_twitch_start', 'https://images-eu.ssl-images-amazon.com/images/I/21kRx-CJsUL.png'");
-        $this->addSql("INSERT INTO platform (id, name, path, image) VALUES (2, 'App\Provider\BrimeProvider', 'connect_brime_start', 'https://external-preview.redd.it/O5CLYuTa2ISwBwnPYsKBoLo4iUUV4P4gEgRz_cX1jBs.png'");
-        $this->addSql("INSERT INTO platform (id, name, path, image) VALUES (3, 'App\Provider\GoogleProvider', 'connect_google_start', 'https://www.youtube.com/img/desktop/yt_1200.png'");
+        $this->addSql("INSERT INTO platform (id, name, path, image) VALUES (1, 'App\Provider\TwitchProvider', 'connect_twitch_start', 'https://images-eu.ssl-images-amazon.com/images/I/21kRx-CJsUL.png')");
+        $this->addSql("INSERT INTO platform (id, name, path, image) VALUES (2, 'App\Provider\BrimeProvider', 'connect_brime_start', 'https://external-preview.redd.it/O5CLYuTa2ISwBwnPYsKBoLo4iUUV4P4gEgRz_cX1jBs.png')");
+        $this->addSql("INSERT INTO platform (id, name, path, image) VALUES (3, 'App\Provider\GoogleProvider', 'connect_google_start', 'https://www.youtube.com/img/desktop/yt_1200.png')");
     }
 }
