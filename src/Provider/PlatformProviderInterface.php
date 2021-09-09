@@ -6,5 +6,5 @@ use App\Entity\Account;
 
 interface PlatformProviderInterface
 {
-    public static function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool;
+    public function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool;
 }

@@ -18,7 +18,7 @@
         <p>Note that updating youtube only works when already live.</p>
 
         {# read and display several types of flash messages #}
-        {% for label, messages in app.flashes(['titleUpdate-success']) %}
+        {% for label, messages in app.flashes(['titleUpdate-success', 'notification']) %}
             {% for message in messages %}
                 <div class="flash-message text-center py-4 lg:px-4">
                     <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"

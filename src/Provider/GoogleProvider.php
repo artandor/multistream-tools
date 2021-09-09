@@ -12,7 +12,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class GoogleProvider implements PlatformProviderInterface
 {
-    public static function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
+    public function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
     {
         $client = HttpClient::create();
         try {

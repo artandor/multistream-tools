@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "721cab6e7db6caac0afb0510eb5f689d",
-    "packages": [
-        {
-            "name": "composer/package-versions-deprecated",
-            "version": "1.11.99.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/package-versions-deprecated.git",
-                "reference": "fff576ac850c045158a250e7e27666e146e78d18"
-            },
-            "dist": {
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "156bdb284ebe31d0def30a7144a35b05",
+  "packages": [
+    {
+      "name": "composer/package-versions-deprecated",
+      "version": "1.11.99.3",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/composer/package-versions-deprecated.git",
+        "reference": "fff576ac850c045158a250e7e27666e146e78d18"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
                 "reference": "fff576ac850c045158a250e7e27666e146e78d18",
@@ -7978,86 +7978,6 @@
             "time": "2021-06-24T08:13:00+00:00"
         },
         {
-            "name": "symfony/ux-twig-component",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/ux-twig-component.git",
-                "reference": "6663ee1148bc6e8ea5db2ba3cc095fbe2151df12"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/ux-twig-component/zipball/6663ee1148bc6e8ea5db2ba3cc095fbe2151df12",
-                "reference": "6663ee1148bc6e8ea5db2ba3cc095fbe2151df12",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0",
-                "symfony/dependency-injection": "^4.4|^5.0",
-                "symfony/property-access": "^4.4|^5.0",
-                "twig/twig": "^2.0|^3.0"
-            },
-            "conflict": {
-                "symfony/dependency-injection": "<4.4.18,<5.1.10,<5.2.1"
-            },
-            "require-dev": {
-                "symfony/framework-bundle": "^4.4|^5.0",
-                "symfony/phpunit-bridge": "^5.2",
-                "symfony/twig-bundle": "^4.4|^5.0"
-            },
-            "default-branch": true,
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.4-dev"
-                },
-                "thanks": {
-                    "name": "symfony/ux",
-                    "url": "https://github.com/symfony/ux"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\UX\\TwigComponent\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Twig components for Symfony",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "components",
-                "symfony-ux",
-                "twig"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/ux-twig-component/tree/main"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-09-08T18:16:10+00:00"
-        },
-        {
             "name": "symfony/validator",
             "version": "v5.3.7",
             "source": {
@@ -8715,53 +8635,56 @@
             ],
             "time": "2021-05-16T12:14:13+00:00"
         },
+    {
+      "name": "vasilvestre/oauth2-brimetv",
+      "version": "0.1.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/vasilvestre/oauth2-brimetv.git",
+        "reference": "5ca99d419a6268c70b87c65c7533d522110a6659"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/vasilvestre/oauth2-brimetv/zipball/5ca99d419a6268c70b87c65c7533d522110a6659",
+        "reference": "5ca99d419a6268c70b87c65c7533d522110a6659",
+        "shasum": ""
+      },
+      "require": {
+        "league/oauth2-client": "^2.0",
+        "php": "^7.4 || ^8.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^9.5"
+      },
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "Vasilvestre\\Oauth2Brimetv\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
         {
-            "name": "vasilvestre/oauth2-brimetv",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "../oauth2-brimetv",
-                "reference": "18196931c3fbd68176c3045b3068d275c9d8ae0a"
-            },
-            "require": {
-                "league/oauth2-client": "^2.0",
-                "php": "^7.4 || ^8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Vasilvestre\\Oauth2Brimetv\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Vasilvestre\\Oauth2Brimetv\\Test\\": "tests/"
-                }
-            },
-            "license": [
-                "LICENSE"
-            ],
-            "authors": [
-                {
-                    "name": "vasilvestre",
-                    "email": "vsilvestre.pro@gmail.com"
-                }
-            ],
-            "description": "Brime OAuth 2.0 Client Provider",
-            "keywords": [
-                "brime",
-                "client",
-                "oauth",
-                "oauth2"
-            ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
-        },
+          "name": "vasilvestre",
+          "email": "vsilvestre.pro@gmail.com"
+        }
+      ],
+      "description": "Brime OAuth 2.0 Client Provider",
+      "keywords": [
+        "brime",
+        "client",
+        "oauth",
+        "oauth2"
+      ],
+      "support": {
+        "issues": "https://github.com/vasilvestre/oauth2-brimetv/issues",
+        "source": "https://github.com/vasilvestre/oauth2-brimetv/tree/0.1.0"
+      },
+      "time": "2021-09-09T13:10:12+00:00"
+    },
         {
             "name": "vertisan/oauth2-twitch-helix",
             "version": "1.1.1",
@@ -11086,27 +11009,24 @@
                 "source": "https://github.com/theseer/tokenizer/tree/1.2.1"
             },
             "funding": [
-                {
-                    "url": "https://github.com/theseer",
-                    "type": "github"
-                }
+              {
+                "url": "https://github.com/theseer",
+                "type": "github"
+              }
             ],
-            "time": "2021-07-28T10:34:58+00:00"
+          "time": "2021-07-28T10:34:58+00:00"
         }
     ],
-    "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "symfony/ux-twig-component": 20,
-        "vasilvestre/oauth2-brimetv": 20
-    },
-    "prefer-stable": true,
-    "prefer-lowest": false,
-    "platform": {
-        "php": ">=7.4",
-        "ext-ctype": "*",
-        "ext-iconv": "*"
-    },
-    "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+  "aliases": [],
+  "minimum-stability": "dev",
+  "stability-flags": [],
+  "prefer-stable": true,
+  "prefer-lowest": false,
+  "platform": {
+    "php": ">=8.0",
+    "ext-ctype": "*",
+    "ext-iconv": "*"
+  },
+  "platform-dev": [],
+  "plugin-api-version": "2.0.0"
 }
