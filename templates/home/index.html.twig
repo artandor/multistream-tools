@@ -19,9 +19,11 @@
                         <h3 class="mt-6 text-sm text-gray-500">
                             <a href="{{ path(platform.path) }}">
                                 <span class="absolute inset-0"></span>
-                                {% for account in app.user.accounts|filter(account => account.platformName == platform.name) %}
-                                    Vous êtes actuellement connecté avec l'adresse {{ account.email }}.
-                                {% endfor %}
+                                {% if app.user != null %}
+                                    {% for account in app.user.accounts|filter(account => account.platform == platform) %}
+                                        Vous êtes actuellement connecté avec l'adresse {{ account.email }}.
+                                    {% endfor %}
+                                {% endif %}
                             </a>
                         </h3>
                     </div>

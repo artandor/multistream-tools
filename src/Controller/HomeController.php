@@ -47,16 +47,16 @@ class HomeController extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             foreach ($user->getAccounts() as $account) {
-                if (class_exists($account->getPlatformName())) {
+                if (class_exists($account->getPlatform()->getProvider())) {
                     /** @var PlatformProviderInterface $provider */
-                    $provider = $account->getPlatformName();
+                    $provider = $account->getPlatform()->getProvider();
                     if ($provider::updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
                         // TODO : Send a success notification
-                        $notifications[] = 'Successfully updated title for ' . $account->getPlatformName();
-                        dump('Successfully updated title for ' . $account->getPlatformName());
+                        $notifications[] = 'Successfully updated title for ' . $provider;
+                        dump('Successfully updated title for ' . $provider);
                     } else {
                         // TODO : Send an error notification
-                        dump('Failure while updated title for ' . $account->getPlatformName());
+                        dump('Failure while updated title for ' . $provider);
                     }
                 } else {
                     $logger->error('This provider doesn\'t exist.');

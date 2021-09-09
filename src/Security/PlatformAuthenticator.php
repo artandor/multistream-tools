@@ -3,7 +3,10 @@
 namespace App\Security;
 
 use App\Entity\Account;
+use App\Entity\Platform;
 use App\Entity\User;
+use App\Provider\BrimeProvider;
+use App\Provider\GoogleProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
@@ -21,6 +24,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 use Vasilvestre\Oauth2Brimetv\BrimeResourceOwner;
 use Vertisan\OAuth2\Client\Provider\TwitchHelixResourceOwner;
+use App\Provider\TwitchProvider;
 
 class PlatformAuthenticator extends OAuth2Authenticator
 {
@@ -76,7 +80,7 @@ class PlatformAuthenticator extends OAuth2Authenticator
 
                 // 1) have they logged in with Twitch before? Easy!
                 /** @var Account $account */
-                $account = $this->entityManager->getRepository(Account::class)->findOneBy(['platformId' => $resourceOwner->getId()]);
+                $account = $this->entityManager->getRepository(Account::class)->findOneBy(['externalId' => $resourceOwner->getId()]);
 
                 $email = $resourceOwner->getEmail();
 
@@ -85,34 +89,35 @@ class PlatformAuthenticator extends OAuth2Authenticator
                     $account->setRefreshToken($accessToken->getRefreshToken());
                     $this->entityManager->flush();
                     return $account->getLinkedTo();
-                } else {
-                    if ($this->security->getUser() instanceof User) {
-                        $user = $this->security->getUser();
-                    } else {
-                        $user = new User();
-                        $user->setEmail($email);
-                    }
-
-                    $account = new Account();
-                    $account->setEmail($email);
-                    switch ($request->attributes->get('_route')) {
-                        case 'connect_twitch_check':
-                            $account->setPlatformName('App\Provider\TwitchProvider');
-                            break;
-                        case 'connect_google_check':
-                            $account->setPlatformName('App\Provider\GoogleProvider');
-                            break;
-                        case 'connect_brime_check':
-                            $account->setPlatformName('App\Provider\BrimeProvider');
-                            break;
-                    }
-
-                    $account->setAccessToken($accessToken);
-                    $account->setRefreshToken($accessToken->getRefreshToken());
-                    $account->setPlatformId($resourceOwner->getId());
-                    $user->addAccount($account);
-                    $user->setPassword($this->passwordEncoder->hashPassword($user, md5(random_bytes(16))));
                 }
+
+                if ($this->security->getUser() instanceof User) {
+                    $user = $this->security->getUser();
+                } else {
+                    $user = new User();
+                    $user->setEmail($email);
+                }
+
+                $account = new Account();
+                $account->setEmail($email);
+                $platformRepository = $this->entityManager->getRepository(Platform::class);
+                switch ($request->attributes->get('_route')) {
+                    case 'connect_twitch_check':
+                        $account->setPlatform($platformRepository->findOneBy(['provider' => TwitchProvider::class]));
+                        break;
+                    case 'connect_google_check':
+                        $account->setPlatform($platformRepository->findOneBy(['provider' => GoogleProvider::class]));
+                        break;
+                    case 'connect_brime_check':
+                        $account->setPlatform($platformRepository->findOneBy(['provider' => BrimeProvider::class]));
+                        break;
+                }
+
+                $account->setAccessToken($accessToken);
+                $account->setRefreshToken($accessToken->getRefreshToken());
+                $account->setExternalId($resourceOwner->getId());
+                $user->addAccount($account);
+                $user->setPassword($this->passwordEncoder->hashPassword($user, md5(random_bytes(16))));
                 $this->entityManager->persist($user);
                 $this->entityManager->persist($account);
                 $this->entityManager->flush();

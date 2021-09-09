@@ -36,18 +36,13 @@ class Account
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $platformId;
+    private $externalId;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="accounts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $linkedTo;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $platformName;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -58,6 +53,12 @@ class Account
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Platform::class, inversedBy="accounts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $platform;
 
     public function __construct()
     {
@@ -108,14 +109,14 @@ class Account
         return $this;
     }
 
-    public function getPlatformId(): ?string
+    public function getExternalId(): ?string
     {
-        return $this->platformId;
+        return $this->externalId;
     }
 
-    public function setPlatformId(string $platformId): self
+    public function setExternalId(string $externalId): self
     {
-        $this->platformId = $platformId;
+        $this->externalId = $externalId;
 
         return $this;
     }
@@ -128,18 +129,6 @@ class Account
     public function setLinkedTo(?User $linkedTo): self
     {
         $this->linkedTo = $linkedTo;
-
-        return $this;
-    }
-
-    public function getPlatformName(): ?string
-    {
-        return $this->platformName;
-    }
-
-    public function setPlatformName(string $platformName): self
-    {
-        $this->platformName = $platformName;
 
         return $this;
     }
@@ -164,6 +153,18 @@ class Account
     public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getPlatform(): ?Platform
+    {
+        return $this->platform;
+    }
+
+    public function setPlatform(?Platform $platform): self
+    {
+        $this->platform = $platform;
 
         return $this;
     }
