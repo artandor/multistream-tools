@@ -24,3 +24,14 @@ from all websites, and we have more ideas for the future.
 ## Design consideration
 
 - Each page will be designed in a way that you can integrate it into an OBS dock
+
+## Install
+
+```
+docker-compose up -d
+composer install
+symfony console d:m:m
+yarn install
+yarn encore dev
+symfony serve
+```

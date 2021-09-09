@@ -17,7 +17,8 @@ class PlatformCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
-            TextField::new('image')
+            TextField::new('image'),
+            TextField::new('path')
         ];
     }
 }

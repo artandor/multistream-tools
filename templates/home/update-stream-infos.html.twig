@@ -1,8 +1,72 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% set formTheme = {
+        row_class: 'mb-4',
+        label_class: 'block text-gray-700 text-sm font-bold mb-2',
+        error_item_class: 'text-red-500 text-xs italic',
+        widget_class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+        widget_disabled_class: 'border-dashed text-gray-200',
+        widget_errors_class: 'border-double border-red-500 bg-red-50',
+    } %}
+
     <div class="example-wrapper">
         <p>Note that updating youtube only works when already live.</p>
-        {{ form(form) }}
+
+        {# read and display several types of flash messages #}
+        {% for label, messages in app.flashes(['titleUpdate-success']) %}
+            {% for message in messages %}
+                <div class="flash-message text-center py-4 lg:px-4">
+                    <div class="p-2 bg-indigo-800 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+                         role="alert">
+                        <span class="flex rounded-full bg-indigo-500 uppercase px-2 py-1 text-xs font-bold mr-3">Updated</span>
+                        <span class="font-semibold mr-2 text-left flex-auto">{{ message }}</span>
+                    </div>
+                </div>
+
+            {% endfor %}
+        {% endfor %}
+
+        {# read and display several types of flash messages #}
+        {% for label, messages in app.flashes(['titleUpdate-failure']) %}
+            {% for message in messages %}
+                <div class="flash-message text-center py-4 lg:px-4">
+                    <div class="p-2 bg-yellow-500 items-center text-indigo-100 leading-none lg:rounded-full flex lg:inline-flex"
+                         role="alert">
+                        <span class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3">Error</span>
+                        <span class="font-semibold mr-2 text-left flex-auto">{{ message }}</span>
+                    </div>
+                </div>
+
+            {% endfor %}
+        {% endfor %}
+
+        <div class="w-full">
+            {{ form_start(form) }}
+
+            {{ form_errors(form) }}
+
+            {{ form_row(form.title, formTheme) }}
+            {{ form_row(form.category, formTheme) }}
+            {{ form_row(form.submit, {'attr': {'class': 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}}) }}
+
+            {{ form_end(form) }}
+        </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        window.addEventListener('load', function () {
+            setTimeout(function () {
+                let elements = document.getElementsByClassName('flash-message');
+                for (let i = 0; i < elements.length; i++) {
+                    elements.item(i).style.display = "none"
+                }
+            }, 3000)
+        }, false);
+    </script>
 {% endblock %}

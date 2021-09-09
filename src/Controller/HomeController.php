@@ -51,16 +51,14 @@ class HomeController extends AbstractController
                     /** @var PlatformProviderInterface $provider */
                     $provider = $account->getPlatform()->getProvider();
                     if ($provider::updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
-                        // TODO : Send a success notification
-                        $notifications[] = 'Successfully updated title for ' . $provider;
-                        dump('Successfully updated title for ' . $provider);
+                        $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
                     } else {
-                        // TODO : Send an error notification
-                        dump('Failure while updated title for ' . $provider);
+                        $this->addFlash('titleUpdate-failure', 'Failed to update title for ' . $account->getPlatform()->getName());
+
                     }
                 } else {
                     $logger->error('This provider doesn\'t exist.');
-                    // TODO : Notifier que le provider n'existe pas
+                    $this->addFlash('titleUpdate-failure', 'Update title feature does not exist yet for ' . $account->getPlatform()->getName());
                 }
             }
         }
