@@ -22,7 +22,7 @@ class Version20210909154541 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE account_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE platform_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE "user_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE account (id INT NOT NULL, linked_to_id INT NOT NULL, platform_id INT NOT NULL, email VARCHAR(255) NOT NULL, access_token TEXT NOT NULL, refresh_token TEXT DEFAULT NULL, external_id VARCHAR(255) NOT NULL, platform_name VARCHAR(255) NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE account (id INT NOT NULL, linked_to_id INT NOT NULL, platform_id INT NOT NULL, email VARCHAR(255) NOT NULL, access_token TEXT NOT NULL, refresh_token TEXT DEFAULT NULL, external_id VARCHAR(255) NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_7D3656A48031A592 ON account (linked_to_id)');
         $this->addSql('CREATE INDEX IDX_7D3656A4FFE6496F ON account (platform_id)');
         $this->addSql('COMMENT ON COLUMN account.updated_at IS \'(DC2Type:datetime_immutable)\'');
