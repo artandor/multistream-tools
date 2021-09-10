@@ -71,9 +71,6 @@ class PlatformAuthenticator extends OAuth2Authenticator
                 /** @var TwitchHelixResourceOwner|GoogleUser|Auth0ResourceOwner $resourceOwner */
                 $resourceOwner = $client->fetchUserFromToken($accessToken);
 
-                /** @var Account $account */
-                $account = $this->entityManager->getRepository(Account::class)->findOneBy(['externalId' => $resourceOwner->getId()]);
-
                 $email = $resourceOwner->getEmail();
                 $externalId = $resourceOwner->getId();
 
@@ -86,6 +83,9 @@ class PlatformAuthenticator extends OAuth2Authenticator
                     $responseData = $response->toArray();
                     $externalId = $responseData['xid'];
                 }
+
+                /** @var Account $account */
+                $account = $this->entityManager->getRepository(Account::class)->findOneBy(['externalId' => $externalId]);
 
                 if ($account) {
                     $account->setAccessToken($accessToken);
