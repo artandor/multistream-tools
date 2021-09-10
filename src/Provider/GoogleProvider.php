@@ -17,7 +17,7 @@ class GoogleProvider extends AbstractPlatformProvider
     {
     }
 
-    public function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
+    public function updateStreamTitleAndCategory(Account $account, string $title, string $category, int $retry = 1): bool
     {
         $client = HttpClient::create();
         try {
@@ -31,7 +31,16 @@ class GoogleProvider extends AbstractPlatformProvider
                     ],
                 ]
             );
-            if ($response->getStatusCode() >= 300) {
+
+            if ($response->getStatusCode() == 401) {
+                $response->cancel();
+                $account = $this->refreshToken($account);
+                if (!$account) {
+                    return false;
+                }
+                // If the token was refreshed, retry the whole function.
+                return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
+            } else if ($response->getStatusCode() >= 300) {
                 return false;
             }
 
@@ -53,7 +62,16 @@ class GoogleProvider extends AbstractPlatformProvider
                     ],
                 ]
             );
-            if ($response->getStatusCode() >= 300) {
+
+            if ($response->getStatusCode() == 401) {
+                $response->cancel();
+                $account = $this->refreshToken($account);
+                if (!$account) {
+                    return false;
+                }
+                // If the token was refreshed, retry the whole function.
+                return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
+            } else if ($response->getStatusCode() >= 300) {
                 return false;
             }
 
@@ -80,10 +98,6 @@ class GoogleProvider extends AbstractPlatformProvider
                     ]
                 ]
             );
-
-            if ($response->getStatusCode() >= 300) {
-                return false;
-            }
         } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
             dump('An error occured');
             return false;

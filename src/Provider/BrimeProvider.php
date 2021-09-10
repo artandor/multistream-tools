@@ -37,7 +37,9 @@ class BrimeProvider extends AbstractPlatformProvider
                 if ($response->getStatusCode() == 401) {
                     $response->cancel();
                     $account = $this->refreshToken($account);
-                    if (!$account) return false;
+                    if (!$account) {
+                        return false;
+                    }
                     // If the token was refreshed, retry the whole function.
                     return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
                 } else if ($response->getStatusCode() >= 300) {
@@ -67,7 +69,9 @@ class BrimeProvider extends AbstractPlatformProvider
                     if ($response->getStatusCode() == 401) {
                         $response->cancel();
                         $account = $this->refreshToken($account);
-                        if (!$account) return false;
+                        if (!$account) {
+                            return false;
+                        }
                         // If the token was refreshed, retry the whole function.
                         return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
                     } else if ($response->getStatusCode() >= 300) {
