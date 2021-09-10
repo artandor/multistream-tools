@@ -13,9 +13,8 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class TwitchProvider extends AbstractPlatformProvider
 {
-    public function __construct(private EntityManagerInterface $entityManager)
-    {
-    }
+    /** @required */
+    public EntityManagerInterface $entityManager;
 
     public function updateStreamTitleAndCategory(Account $account, string $title, string $category, int $retry = 1): bool
     {
@@ -37,15 +36,10 @@ class TwitchProvider extends AbstractPlatformProvider
                     ]
                 );
 
-                if ($response->getStatusCode() == 401) {
-                    $response->cancel();
-                    $account = $this->refreshToken($account);
-                    if (!$account) {
-                        return false;
-                    }
+                if ($this->checkResponseAndRefreshToken($response, $account) === true) {
                     // If the token was refreshed, retry the whole function.
                     return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-                } else if ($response->getStatusCode() >= 300) {
+                } else if ($this->checkResponseAndRefreshToken($response, $account) === false) {
                     return false;
                 }
 
@@ -74,15 +68,10 @@ class TwitchProvider extends AbstractPlatformProvider
                 ]
             );
 
-            if ($response->getStatusCode() == 401) {
-                $response->cancel();
-                $account = $this->refreshToken($account);
-                if (!$account) {
-                    return false;
-                }
+            if ($this->checkResponseAndRefreshToken($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($response->getStatusCode() >= 300) {
+            } else if ($this->checkResponseAndRefreshToken($response, $account) === false) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {

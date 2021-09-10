@@ -52,7 +52,7 @@ class HomeController extends AbstractController
             foreach ($user->getAccounts() as $account) {
                 if (class_exists($account->getPlatform()->getProvider())) {
                     /** @var AbstractPlatformProvider $provider */
-                    $provider = new ($account->getPlatform()->getProvider())($em, $clientRegistry);
+                    $provider = new ($account->getPlatform()->getProvider())();
                     if ($provider->updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
                         $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
                     } else {
