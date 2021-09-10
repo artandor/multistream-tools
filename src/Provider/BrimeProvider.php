@@ -10,7 +10,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class BrimeProvider implements PlatformProviderInterface
+class BrimeProvider extends AbstractPlatformProvider
 {
     public function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
     {
@@ -64,5 +64,11 @@ class BrimeProvider implements PlatformProviderInterface
 
 
         return true;
+    }
+
+    public function refreshToken(Account $account): ?Account
+    {
+        // TODO: Implement refreshToken() method.
+        return null;
     }
 }

@@ -11,14 +11,18 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class TwitchProvider implements PlatformProviderInterface
+class TwitchProvider extends AbstractPlatformProvider
 {
     public function __construct(private EntityManagerInterface $entityManager)
     {
     }
 
-    public function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
+    public function updateStreamTitleAndCategory(Account $account, string $title, string $category, int $retry = 1): bool
     {
+        if ($retry < 0) {
+            dump('Out of retries');
+            return false;
+        }
         $client = HttpClient::create();
         if ($category !== '') {
             try {
@@ -32,10 +36,13 @@ class TwitchProvider implements PlatformProviderInterface
                         ]
                     ]
                 );
+
                 if ($response->getStatusCode() == 401) {
                     $response->cancel();
-                    $account = $this->refreshTokenAndRetryRequest($account);
+                    $account = $this->refreshToken($account);
                     if (!$account) return false;
+                    // If the token was refreshed, retry the whole function.
+                    return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
                 } else if ($response->getStatusCode() >= 300) {
                     return false;
                 }
@@ -65,7 +72,13 @@ class TwitchProvider implements PlatformProviderInterface
                 ]
             );
 
-            if ($response->getStatusCode() >= 300) {
+            if ($response->getStatusCode() == 401) {
+                $response->cancel();
+                $account = $this->refreshToken($account);
+                if (!$account) return false;
+                // If the token was refreshed, retry the whole function.
+                return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
+            } else if ($response->getStatusCode() >= 300) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
@@ -77,7 +90,7 @@ class TwitchProvider implements PlatformProviderInterface
     }
 
 
-    private function refreshTokenAndRetryRequest(Account $account): ?Account
+    public function refreshToken(Account $account): ?Account
     {
         $client = HttpClient::create();
         try {
@@ -95,7 +108,7 @@ class TwitchProvider implements PlatformProviderInterface
             return null;
         }
         $this->entityManager->flush();
-        // TODO : Retry the request
+        dump('Refreshed token for ' . $account->getPlatform()->getName());
         return $account;
     }
 }

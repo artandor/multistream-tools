@@ -32,6 +32,6 @@ docker-compose up -d
 symfony composer install
 symfony console d:m:m
 yarn install
-yarn encore dev-server
+yarn watch
 symfony serve
 ```

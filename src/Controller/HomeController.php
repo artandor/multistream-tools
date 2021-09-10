@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\StreamInfoType;
-use App\Provider\PlatformProviderInterface;
+use App\Provider\AbstractPlatformProvider;
 use App\Repository\PlatformRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -50,7 +50,7 @@ class HomeController extends AbstractController
             $user = $this->getUser();
             foreach ($user->getAccounts() as $account) {
                 if (class_exists($account->getPlatform()->getProvider())) {
-                    /** @var PlatformProviderInterface $provider */
+                    /** @var AbstractPlatformProvider $provider */
                     $provider = new ($account->getPlatform()->getProvider())($em);
                     if ($provider->updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
                         $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
