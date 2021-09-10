@@ -3,7 +3,6 @@
 namespace App\Provider;
 
 use App\Entity\Account;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -13,9 +12,6 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class GoogleProvider extends AbstractPlatformProvider
 {
-    /** @required */
-    public EntityManagerInterface $entityManager;
-
     public function updateStreamTitleAndCategory(Account $account, string $title, string $category, int $retry = 1): bool
     {
         $client = HttpClient::create();
@@ -31,16 +27,16 @@ class GoogleProvider extends AbstractPlatformProvider
                 ]
             );
 
-            if ($this->checkResponseAndRefreshToken($response, $account) === true) {
+            if ($this->shouldRetryRequest($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($this->checkResponseAndRefreshToken($response, $account) === false) {
+            } else if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
 
             $responseData = $response->toArray();
             if (count($responseData['items']) <= 0) {
-                dump('You are not currently streaming to youtube. Title update did not happen.');
+                $this->logger->warning('You are not currently streaming to youtube. Title update did not happen.');
                 return false;
             }
             $streamId = $responseData['items'][0]['id'];
@@ -57,10 +53,10 @@ class GoogleProvider extends AbstractPlatformProvider
                 ]
             );
 
-            if ($this->checkResponseAndRefreshToken($response, $account) === true) {
+            if ($this->shouldRetryRequest($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($this->checkResponseAndRefreshToken($response, $account) === false) {
+            } else if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
 
@@ -88,14 +84,14 @@ class GoogleProvider extends AbstractPlatformProvider
                 ]
             );
 
-            if ($this->checkResponseAndRefreshToken($response, $account) === true) {
+            if ($this->shouldRetryRequest($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($this->checkResponseAndRefreshToken($response, $account) === false) {
+            } else if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-            dump('An error occured');
+            $this->logger->error('An error occured : ' . $e->getMessage());
             return false;
         }
         return true;
@@ -125,7 +121,7 @@ class GoogleProvider extends AbstractPlatformProvider
             return null;
         }
         $this->entityManager->flush();
-        dump('Refreshed token for ' . $account->getPlatform()->getName());
+        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
         return $account;
     }
 }

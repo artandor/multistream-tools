@@ -7,7 +7,6 @@ use App\Form\StreamInfoType;
 use App\Provider\AbstractPlatformProvider;
 use App\Repository\PlatformRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +36,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/update-stream-infos", name="updateStreamInfos")
      */
-    public function updateStreamInfos(Request $request, LoggerInterface $logger, EntityManagerInterface $em, ClientRegistry $clientRegistry): Response
+    public function updateStreamInfos(Request $request, LoggerInterface $logger, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(StreamInfoType::class);
 
@@ -52,7 +51,7 @@ class HomeController extends AbstractController
             foreach ($user->getAccounts() as $account) {
                 if (class_exists($account->getPlatform()->getProvider())) {
                     /** @var AbstractPlatformProvider $provider */
-                    $provider = new ($account->getPlatform()->getProvider())();
+                    $provider = new ($account->getPlatform()->getProvider())($em, $logger);
                     if ($provider->updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
                         $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
                     } else {

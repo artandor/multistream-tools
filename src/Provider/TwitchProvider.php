@@ -3,7 +3,6 @@
 namespace App\Provider;
 
 use App\Entity\Account;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -13,13 +12,9 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class TwitchProvider extends AbstractPlatformProvider
 {
-    /** @required */
-    public EntityManagerInterface $entityManager;
-
     public function updateStreamTitleAndCategory(Account $account, string $title, string $category, int $retry = 1): bool
     {
         if ($retry < 0) {
-            dump('Out of retries');
             return false;
         }
         $client = HttpClient::create();
@@ -36,17 +31,17 @@ class TwitchProvider extends AbstractPlatformProvider
                     ]
                 );
 
-                if ($this->checkResponseAndRefreshToken($response, $account) === true) {
+                if ($this->shouldRetryRequest($response, $account) === true) {
                     // If the token was refreshed, retry the whole function.
                     return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-                } else if ($this->checkResponseAndRefreshToken($response, $account) === false) {
+                } else if ($this->shouldRetryRequest($response, $account) === false) {
                     return false;
                 }
 
                 $responseData = $response->toArray();
                 $category = $responseData['data'][0]['id'];
             } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-                dd($e);
+                $this->logger->error('An error occured : ' . $e->getMessage());
             }
 
         }
@@ -68,14 +63,14 @@ class TwitchProvider extends AbstractPlatformProvider
                 ]
             );
 
-            if ($this->checkResponseAndRefreshToken($response, $account) === true) {
+            if ($this->shouldRetryRequest($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($this->checkResponseAndRefreshToken($response, $account) === false) {
+            } else if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-            dump($e);
+            $this->logger->error('An error occured : ' . $e->getMessage());
         }
 
 
@@ -101,7 +96,7 @@ class TwitchProvider extends AbstractPlatformProvider
             return null;
         }
         $this->entityManager->flush();
-        dump('Refreshed token for ' . $account->getPlatform()->getName());
+        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
         return $account;
     }
 }
