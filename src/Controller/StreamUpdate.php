@@ -5,38 +5,22 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\StreamInfoType;
 use App\Provider\AbstractPlatformProvider;
-use App\Repository\PlatformRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+/**
+ * @Route("/update-stream-infos", name="updateStreamInfos")
+ */
+class StreamUpdate extends AbstractController
 {
-    private PlatformRepository $platformRepository;
-
-    public function __construct(PlatformRepository $platformRepository)
+    public function __construct(private LoggerInterface $logger, private EntityManagerInterface $em)
     {
-        $this->platformRepository = $platformRepository;
     }
 
-    /**
-     * @Route("/", name="home")
-     */
-    public function index(): Response
-    {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-            'platforms' => $this->platformRepository->findAll()
-        ]);
-    }
-
-    /**
-     * @Route("/update-stream-infos", name="updateStreamInfos")
-     */
-    public function updateStreamInfos(Request $request, LoggerInterface $logger, EntityManagerInterface $em): Response
+    public function __invoke(Request $request)
     {
         $form = $this->createForm(StreamInfoType::class);
 
@@ -51,7 +35,7 @@ class HomeController extends AbstractController
             foreach ($user->getAccounts() as $account) {
                 if (class_exists($account->getPlatform()->getProvider())) {
                     /** @var AbstractPlatformProvider $provider */
-                    $provider = new ($account->getPlatform()->getProvider())($em, $logger);
+                    $provider = new ($account->getPlatform()->getProvider())($this->em, $this->logger);
                     if ($provider->updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
                         $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
                     } else {
@@ -59,7 +43,7 @@ class HomeController extends AbstractController
 
                     }
                 } else {
-                    $logger->error('This provider doesn\'t exist.');
+                    $this->logger->error('This provider doesn\'t exist.');
                     $this->addFlash('titleUpdate-failure', 'Update title feature does not exist yet for ' . $account->getPlatform()->getName());
                 }
             }
