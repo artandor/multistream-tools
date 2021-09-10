@@ -34,7 +34,9 @@ class TwitchProvider extends AbstractPlatformProvider
                 if ($this->shouldRetryRequest($response, $account) === true) {
                     // If the token was refreshed, retry the whole function.
                     return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-                } else if ($this->shouldRetryRequest($response, $account) === false) {
+                }
+
+                if ($this->shouldRetryRequest($response, $account) === false) {
                     return false;
                 }
 
@@ -66,7 +68,9 @@ class TwitchProvider extends AbstractPlatformProvider
             if ($this->shouldRetryRequest($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($this->shouldRetryRequest($response, $account) === false) {
+            }
+
+            if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {

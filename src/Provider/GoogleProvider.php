@@ -30,7 +30,9 @@ class GoogleProvider extends AbstractPlatformProvider
             if ($this->shouldRetryRequest($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($this->shouldRetryRequest($response, $account) === false) {
+            }
+
+            if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
 
@@ -56,7 +58,9 @@ class GoogleProvider extends AbstractPlatformProvider
             if ($this->shouldRetryRequest($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($this->shouldRetryRequest($response, $account) === false) {
+            }
+
+            if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
 
@@ -87,7 +91,9 @@ class GoogleProvider extends AbstractPlatformProvider
             if ($this->shouldRetryRequest($response, $account) === true) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
-            } else if ($this->shouldRetryRequest($response, $account) === false) {
+            }
+
+            if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {

@@ -31,7 +31,9 @@ abstract class AbstractPlatformProvider
             if ($response->getStatusCode() < 300) {
                 // The response is a success, you can continue your treatment.
                 return null;
-            } else if ($response->getStatusCode() === 401) {
+            }
+
+            if ($response->getStatusCode() === 401) {
                 $response->cancel();
                 $account = $this->refreshToken($account);
                 if (!$account) {
@@ -39,7 +41,9 @@ abstract class AbstractPlatformProvider
                 }
                 // The token was refreshed, you should retry the initial request
                 return true;
-            } else if ($response->getStatusCode() >= 300) {
+            }
+
+            if ($response->getStatusCode() >= 300) {
                 // An error occurred in the treatment, no point in retrying
                 return false;
             }
