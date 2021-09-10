@@ -10,10 +10,13 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class TwitchProvider implements PlatformProviderInterface
+class TwitchProvider extends AbstractPlatformProvider
 {
-    public static function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
+    public function updateStreamTitleAndCategory(Account $account, string $title, string $category, int $retry = 1): bool
     {
+        if ($retry < 0) {
+            return false;
+        }
         $client = HttpClient::create();
         if ($category !== '') {
             try {
@@ -27,14 +30,20 @@ class TwitchProvider implements PlatformProviderInterface
                         ]
                     ]
                 );
-                if ($response->getStatusCode() >= 300) {
+
+                if ($this->shouldRetryRequest($response, $account) === true) {
+                    // If the token was refreshed, retry the whole function.
+                    return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
+                }
+
+                if ($this->shouldRetryRequest($response, $account) === false) {
                     return false;
                 }
 
                 $responseData = $response->toArray();
                 $category = $responseData['data'][0]['id'];
             } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-                dd($e);
+                $this->logger->error('An error occured : ' . $e->getMessage());
             }
 
         }
@@ -56,14 +65,42 @@ class TwitchProvider implements PlatformProviderInterface
                 ]
             );
 
-            if ($response->getStatusCode() >= 300) {
+            if ($this->shouldRetryRequest($response, $account) === true) {
+                // If the token was refreshed, retry the whole function.
+                return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
+            }
+
+            if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-            dump($e);
+            $this->logger->error('An error occured : ' . $e->getMessage());
         }
 
 
         return true;
+    }
+
+
+    public function refreshToken(Account $account): ?Account
+    {
+        $client = HttpClient::create();
+        try {
+            $response = $client->request('POST', 'https://id.twitch.tv/oauth2/token?grant_type=refresh_token&refresh_token=' .
+                $account->getRefreshToken() . '&client_id=' . $_ENV['OAUTH_TWITCH_CLIENT_ID'] . '&client_secret=' . $_ENV['OAUTH_TWITCH_CLIENT_SECRET']);
+            if ($response->getStatusCode() >= 300) {
+                return null;
+            }
+        } catch (TransportExceptionInterface $e) {
+            return null;
+        }
+        try {
+            $account->setAccessToken(json_decode($response->getContent())->access_token);
+        } catch (ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface | TransportExceptionInterface $e) {
+            return null;
+        }
+        $this->entityManager->flush();
+        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
+        return $account;
     }
 }

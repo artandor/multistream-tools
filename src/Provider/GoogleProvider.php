@@ -10,9 +10,9 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
-class GoogleProvider implements PlatformProviderInterface
+class GoogleProvider extends AbstractPlatformProvider
 {
-    public static function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
+    public function updateStreamTitleAndCategory(Account $account, string $title, string $category, int $retry = 1): bool
     {
         $client = HttpClient::create();
         try {
@@ -26,13 +26,19 @@ class GoogleProvider implements PlatformProviderInterface
                     ],
                 ]
             );
-            if ($response->getStatusCode() >= 300) {
+
+            if ($this->shouldRetryRequest($response, $account) === true) {
+                // If the token was refreshed, retry the whole function.
+                return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
+            }
+
+            if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
 
             $responseData = $response->toArray();
             if (count($responseData['items']) <= 0) {
-                dump('You are not currently streaming to youtube. Title update did not happen.');
+                $this->logger->warning('You are not currently streaming to youtube. Title update did not happen.');
                 return false;
             }
             $streamId = $responseData['items'][0]['id'];
@@ -48,7 +54,13 @@ class GoogleProvider implements PlatformProviderInterface
                     ],
                 ]
             );
-            if ($response->getStatusCode() >= 300) {
+
+            if ($this->shouldRetryRequest($response, $account) === true) {
+                // If the token was refreshed, retry the whole function.
+                return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
+            }
+
+            if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
 
@@ -56,7 +68,7 @@ class GoogleProvider implements PlatformProviderInterface
 
             $categoryId = $responseData['items'][0]['snippet']['categoryId'];
             // @TODO : we should find the category if the user set one but I (Artandor) couldn't find any API route to search a category
-            dump($responseData, $categoryId);
+            // To do so, we need to study the youtube studio dashboard behaviour to do the same requests because it's not documented ...
 
             $response = $client->request(
                 'PUT',
@@ -76,13 +88,46 @@ class GoogleProvider implements PlatformProviderInterface
                 ]
             );
 
-            if ($response->getStatusCode() >= 300) {
+            if ($this->shouldRetryRequest($response, $account) === true) {
+                // If the token was refreshed, retry the whole function.
+                return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
+            }
+
+            if ($this->shouldRetryRequest($response, $account) === false) {
                 return false;
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-            dump('An error occured');
+            $this->logger->error('An error occured : ' . $e->getMessage());
             return false;
         }
         return true;
+    }
+
+    public function refreshToken(Account $account): ?Account
+    {
+        $client = HttpClient::create();
+        try {
+            $response = $client->request('POST', 'https://oauth2.googleapis.com/token', [
+                'body' => [
+                    'client_id' => $_ENV['OAUTH_GOOGLE_CLIENT_ID'],
+                    'client_secret' => $_ENV['OAUTH_GOOGLE_CLIENT_SECRET'],
+                    'refresh_token' => $account->getRefreshToken(),
+                    'grant_type' => 'refresh_token'
+                ]
+            ]);
+            if ($response->getStatusCode() >= 300) {
+                return null;
+            }
+        } catch (TransportExceptionInterface $e) {
+            return null;
+        }
+        try {
+            $account->setAccessToken(json_decode($response->getContent())->access_token);
+        } catch (ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface | TransportExceptionInterface $e) {
+            return null;
+        }
+        $this->entityManager->flush();
+        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
+        return $account;
     }
 }

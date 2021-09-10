@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\StreamInfoType;
-use App\Provider\PlatformProviderInterface;
+use App\Provider\AbstractPlatformProvider;
 use App\Repository\PlatformRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,9 +36,8 @@ class HomeController extends AbstractController
     /**
      * @Route("/update-stream-infos", name="updateStreamInfos")
      */
-    public function updateStreamInfos(Request $request, LoggerInterface $logger): Response
+    public function updateStreamInfos(Request $request, LoggerInterface $logger, EntityManagerInterface $em): Response
     {
-        $notifications = [];
         $form = $this->createForm(StreamInfoType::class);
 
         $form->handleRequest($request);
@@ -50,9 +50,9 @@ class HomeController extends AbstractController
             $user = $this->getUser();
             foreach ($user->getAccounts() as $account) {
                 if (class_exists($account->getPlatform()->getProvider())) {
-                    /** @var PlatformProviderInterface $provider */
-                    $provider = $account->getPlatform()->getProvider();
-                    if ($provider::updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
+                    /** @var AbstractPlatformProvider $provider */
+                    $provider = new ($account->getPlatform()->getProvider())($em, $logger);
+                    if ($provider->updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
                         $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
                     } else {
                         $this->addFlash('titleUpdate-failure', 'Failed to update title for ' . $account->getPlatform()->getName());
@@ -66,8 +66,7 @@ class HomeController extends AbstractController
         }
 
         return $this->render('home/update-stream-infos.html.twig', [
-            'form' => $form->createView(),
-            'notifications' => $notifications
+            'form' => $form->createView()
         ]);
     }
 }
