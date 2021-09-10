@@ -6,7 +6,6 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SecurityController extends AbstractController
@@ -75,7 +74,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('brime') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
-                'email'
+                'openid', 'email', 'offline_access'
             ], []);
     }
 

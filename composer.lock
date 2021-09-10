@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "156bdb284ebe31d0def30a7144a35b05",
+  "content-hash": "0fc8f9f19cca716c9ae946e326573c26",
   "packages": [
     {
       "name": "composer/package-versions-deprecated",
@@ -15,16 +15,16 @@
         "reference": "fff576ac850c045158a250e7e27666e146e78d18"
       },
       "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
-                "reference": "fff576ac850c045158a250e7e27666e146e78d18",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.1.0 || ^2.0",
-                "php": "^7 || ^8"
-            },
-            "replace": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
+        "reference": "fff576ac850c045158a250e7e27666e146e78d18",
+        "shasum": ""
+      },
+      "require": {
+        "composer-plugin-api": "^1.1.0 || ^2.0",
+        "php": "^7 || ^8"
+      },
+      "replace": {
                 "ocramius/package-versions": "1.11.99"
             },
             "require-dev": {
@@ -2981,24 +2981,77 @@
                     "email": "ralph.khattar@gmail.com"
                 }
             ],
-            "description": "A polyfill for getallheaders.",
-            "support": {
-                "issues": "https://github.com/ralouphie/getallheaders/issues",
-                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
-            },
-            "time": "2019-03-08T08:55:37+00:00"
+          "description": "A polyfill for getallheaders.",
+          "support": {
+            "issues": "https://github.com/ralouphie/getallheaders/issues",
+            "source": "https://github.com/ralouphie/getallheaders/tree/develop"
+          },
+          "time": "2019-03-08T08:55:37+00:00"
         },
+    {
+      "name": "riskio/oauth2-auth0",
+      "version": "v2.4.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/RiskioFr/oauth2-auth0.git",
+        "reference": "d8aaa4b0a63c60e3bfc89b2e0724ca697022e009"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/RiskioFr/oauth2-auth0/zipball/d8aaa4b0a63c60e3bfc89b2e0724ca697022e009",
+        "reference": "d8aaa4b0a63c60e3bfc89b2e0724ca697022e009",
+        "shasum": ""
+      },
+      "require": {
+        "league/oauth2-client": "^2.2.1",
+        "php": "^7.3|^8.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^9.3"
+      },
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "Riskio\\OAuth2\\Client\\Provider\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
         {
-            "name": "sensio/framework-extra-bundle",
-            "version": "v6.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-                "reference": "3f5b6490878f8a70ba702e9692007cf979b42f0e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/3f5b6490878f8a70ba702e9692007cf979b42f0e",
+          "name": "Nicolas Eeckeloo",
+          "email": "neeckeloo@gmail.com",
+          "homepage": "https://github.com/neeckeloo"
+        }
+      ],
+      "description": "Auth0 OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+      "keywords": [
+        "auth0",
+        "authorisation",
+        "authorization",
+        "client",
+        "oauth",
+        "oauth2"
+      ],
+      "support": {
+        "issues": "https://github.com/RiskioFr/oauth2-auth0/issues",
+        "source": "https://github.com/RiskioFr/oauth2-auth0/tree/v2.4.0"
+      },
+      "time": "2021-05-31T06:54:46+00:00"
+    },
+    {
+      "name": "sensio/framework-extra-bundle",
+      "version": "v6.2.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
+        "reference": "3f5b6490878f8a70ba702e9692007cf979b42f0e"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/3f5b6490878f8a70ba702e9692007cf979b42f0e",
                 "reference": "3f5b6490878f8a70ba702e9692007cf979b42f0e",
                 "shasum": ""
             },
@@ -8635,56 +8688,6 @@
             ],
             "time": "2021-05-16T12:14:13+00:00"
         },
-    {
-      "name": "vasilvestre/oauth2-brimetv",
-      "version": "0.1.0",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/vasilvestre/oauth2-brimetv.git",
-        "reference": "5ca99d419a6268c70b87c65c7533d522110a6659"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/vasilvestre/oauth2-brimetv/zipball/5ca99d419a6268c70b87c65c7533d522110a6659",
-        "reference": "5ca99d419a6268c70b87c65c7533d522110a6659",
-        "shasum": ""
-      },
-      "require": {
-        "league/oauth2-client": "^2.0",
-        "php": "^7.4 || ^8.0"
-      },
-      "require-dev": {
-        "phpunit/phpunit": "^9.5"
-      },
-      "type": "library",
-      "autoload": {
-        "psr-4": {
-          "Vasilvestre\\Oauth2Brimetv\\": "src/"
-        }
-      },
-      "notification-url": "https://packagist.org/downloads/",
-      "license": [
-        "MIT"
-      ],
-      "authors": [
-        {
-          "name": "vasilvestre",
-          "email": "vsilvestre.pro@gmail.com"
-        }
-      ],
-      "description": "Brime OAuth 2.0 Client Provider",
-      "keywords": [
-        "brime",
-        "client",
-        "oauth",
-        "oauth2"
-      ],
-      "support": {
-        "issues": "https://github.com/vasilvestre/oauth2-brimetv/issues",
-        "source": "https://github.com/vasilvestre/oauth2-brimetv/tree/0.1.0"
-      },
-      "time": "2021-09-09T13:10:12+00:00"
-    },
         {
             "name": "vertisan/oauth2-twitch-helix",
             "version": "1.1.1",
@@ -11008,12 +11011,12 @@
                 "issues": "https://github.com/theseer/tokenizer/issues",
                 "source": "https://github.com/theseer/tokenizer/tree/1.2.1"
             },
-            "funding": [
-              {
-                "url": "https://github.com/theseer",
-                "type": "github"
-              }
-            ],
+          "funding": [
+            {
+              "url": "https://github.com/theseer",
+              "type": "github"
+            }
+          ],
           "time": "2021-07-28T10:34:58+00:00"
         }
     ],

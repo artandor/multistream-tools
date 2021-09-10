@@ -7,10 +7,12 @@ use App\Entity\Platform;
 use App\Entity\User;
 use App\Provider\BrimeProvider;
 use App\Provider\GoogleProvider;
+use App\Provider\TwitchProvider;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use League\OAuth2\Client\Provider\GoogleUser;
+use Riskio\OAuth2\Client\Provider\Auth0ResourceOwner;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,25 +24,16 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
-use Vasilvestre\Oauth2Brimetv\BrimeResourceOwner;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Vertisan\OAuth2\Client\Provider\TwitchHelixResourceOwner;
-use App\Provider\TwitchProvider;
 
 class PlatformAuthenticator extends OAuth2Authenticator
 {
-    private ClientRegistry $clientRegistry;
-    private EntityManagerInterface $entityManager;
-    private RouterInterface $router;
-    private UserPasswordHasherInterface $passwordEncoder;
-    private Security $security;
 
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, UserPasswordHasherInterface $passwordEncoder, Security $security)
+    public function __construct(private ClientRegistry  $clientRegistry, private EntityManagerInterface $entityManager,
+                                private RouterInterface $router, private UserPasswordHasherInterface $passwordEncoder,
+                                private Security        $security, private HttpClientInterface $client)
     {
-        $this->clientRegistry = $clientRegistry;
-        $this->entityManager = $entityManager;
-        $this->router = $router;
-        $this->passwordEncoder = $passwordEncoder;
-        $this->security = $security;
     }
 
     public function supports(Request $request): ?bool
@@ -75,14 +68,24 @@ class PlatformAuthenticator extends OAuth2Authenticator
         return new SelfValidatingPassport(
             new UserBadge($accessToken->getToken(), function () use ($accessToken, $client, $request) {
 
-                /** @var TwitchHelixResourceOwner|GoogleUser|BrimeResourceOwner $resourceOwner */
+                /** @var TwitchHelixResourceOwner|GoogleUser|Auth0ResourceOwner $resourceOwner */
                 $resourceOwner = $client->fetchUserFromToken($accessToken);
 
-                // 1) have they logged in with Twitch before? Easy!
                 /** @var Account $account */
                 $account = $this->entityManager->getRepository(Account::class)->findOneBy(['externalId' => $resourceOwner->getId()]);
 
                 $email = $resourceOwner->getEmail();
+                $externalId = $resourceOwner->getId();
+
+                if ($request->attributes->get('_route') === 'connect_brime_check') {
+                    $response = $this->client->request('GET', 'https://api.brime.tv/v1/account/me', [
+                        'headers' => [
+                            'Authorization' => 'Bearer ' . $accessToken->getToken()
+                        ]
+                    ]);
+                    $responseData = $response->toArray();
+                    $externalId = $responseData['xid'];
+                }
 
                 if ($account) {
                     $account->setAccessToken($accessToken);
@@ -115,7 +118,7 @@ class PlatformAuthenticator extends OAuth2Authenticator
 
                 $account->setAccessToken($accessToken);
                 $account->setRefreshToken($accessToken->getRefreshToken());
-                $account->setExternalId($resourceOwner->getId());
+                $account->setExternalId($externalId);
                 $user->addAccount($account);
                 $user->setPassword($this->passwordEncoder->hashPassword($user, md5(random_bytes(16))));
                 $this->entityManager->persist($user);

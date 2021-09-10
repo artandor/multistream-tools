@@ -32,12 +32,29 @@ knpu_oauth2_client:
             # whether to check OAuth2 "state": defaults to true
             # use_state: true
 
+        #        brime:
+        #            type: generic
+        #            provider_class: Vasilvestre\Oauth2Brimetv\Brime
+        #            client_id: '%env(OAUTH_BRIME_CLIENT_ID)%'
+        #            client_secret: '%env(OAUTH_BRIME_CLIENT_SECRET)%'
+        #            # a route name you'll create
+        #            redirect_route: connect_brime_check
+        #            redirect_params: { }
+        #            use_state: false
+
         brime:
-            type: generic
-            provider_class: Vasilvestre\Oauth2Brimetv\Brime
+            # must be "auth0" - it activates that type!
+            type: auth0
+            # add and set these environment variables in your .env files
             client_id: '%env(OAUTH_BRIME_CLIENT_ID)%'
             client_secret: '%env(OAUTH_BRIME_CLIENT_SECRET)%'
-            # a route name you'll create
             redirect_route: connect_brime_check
             redirect_params: { }
-            use_state: false
+            # Your custom/definite Auth0 domain, e.g. "login.mycompany.com". Set this if you use Auth0's Custom Domain feature. The "account" and "region" parameters will be ignored in this case.
+            custom_domain: 'auth.brime.tv'
+            # Your Auth0 domain/account, e.g. "mycompany" if your domain is "mycompany.auth0.com"
+            # account: null
+            # Your Auth0 region, e.g. "eu" if your tenant is in the EU.
+            # region: null
+            # whether to check OAuth2 "state": defaults to true
+            # use_state: true

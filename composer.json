@@ -16,6 +16,7 @@
     "knpuniversity/oauth2-client-bundle": "^2.8",
     "league/oauth2-google": "^4.0",
     "phpdocumentor/reflection-docblock": "^5.2",
+    "riskio/oauth2-auth0": "^2.4",
     "sensio/framework-extra-bundle": "^6.1",
     "symfony/asset": "5.3.*",
     "symfony/console": "5.3.*",
@@ -46,7 +47,6 @@
     "symfony/yaml": "5.3.*",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0",
-    "vasilvestre/oauth2-brimetv": "^0.1.0",
     "vertisan/oauth2-twitch-helix": "^1.1"
   },
   "require-dev": {
