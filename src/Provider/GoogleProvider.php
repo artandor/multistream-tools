@@ -3,6 +3,7 @@
 namespace App\Provider;
 
 use App\Entity\Account;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -12,6 +13,10 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class GoogleProvider extends AbstractPlatformProvider
 {
+    public function __construct(private EntityManagerInterface $entityManager)
+    {
+    }
+
     public function updateStreamTitleAndCategory(Account $account, string $title, string $category): bool
     {
         $client = HttpClient::create();
@@ -56,7 +61,7 @@ class GoogleProvider extends AbstractPlatformProvider
 
             $categoryId = $responseData['items'][0]['snippet']['categoryId'];
             // @TODO : we should find the category if the user set one but I (Artandor) couldn't find any API route to search a category
-            dump($responseData, $categoryId);
+            // To do so, we need to study the youtube studio dashboard behaviour to do the same requests because it's not documented ...
 
             $response = $client->request(
                 'PUT',
@@ -88,7 +93,29 @@ class GoogleProvider extends AbstractPlatformProvider
 
     public function refreshToken(Account $account): ?Account
     {
-        // TODO: Implement refreshToken() method.
-        return null;
+        $client = HttpClient::create();
+        try {
+            $response = $client->request('POST', 'https://oauth2.googleapis.com/token', [
+                'body' => [
+                    'client_id' => $_ENV['OAUTH_GOOGLE_CLIENT_ID'],
+                    'client_secret' => $_ENV['OAUTH_GOOGLE_CLIENT_SECRET'],
+                    'refresh_token' => $account->getRefreshToken(),
+                    'grant_type' => 'refresh_token'
+                ]
+            ]);
+            if ($response->getStatusCode() >= 300) {
+                return null;
+            }
+        } catch (TransportExceptionInterface $e) {
+            return null;
+        }
+        try {
+            $account->setAccessToken(json_decode($response->getContent())->access_token);
+        } catch (ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface | TransportExceptionInterface $e) {
+            return null;
+        }
+        $this->entityManager->flush();
+        dump('Refreshed token for ' . $account->getPlatform()->getName());
+        return $account;
     }
 }
