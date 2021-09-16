@@ -10,7 +10,6 @@ services:
         SYMFONY_VERSION: ${SYMFONY_VERSION:-}
         SKELETON: ${SKELETON:-symfony/skeleton}
         STABILITY: ${STABILITY:-stable}
-    restart: unless-stopped
     volumes:
       - php_socket:/var/run/php
     healthcheck:
@@ -36,7 +35,6 @@ services:
       SERVER_NAME: ${SERVER_NAME:-localhost, caddy:80}
       MERCURE_PUBLISHER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeMe!}
       MERCURE_SUBSCRIBER_JWT_KEY: ${CADDY_MERCURE_JWT_SECRET:-!ChangeMe!}
-    restart: unless-stopped
     volumes:
       - php_socket:/var/run/php
       - caddy_data:/data
