@@ -44,9 +44,15 @@ class Platform
      */
     private $provider;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":"0"})
+     */
+    private $enabled;
+
     public function __construct()
     {
         $this->accounts = new ArrayCollection();
+        $this->enabled = true;
     }
 
     public function getId(): ?int
@@ -128,6 +134,23 @@ class Platform
     public function setProvider(string $provider): self
     {
         $this->provider = $provider;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function isEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
 
         return $this;
     }

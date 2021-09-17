@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -20,8 +21,9 @@ class StreamUpdate extends AbstractController
     {
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
         $form = $this->createForm(StreamInfoType::class);
 
         $form->handleRequest($request);
@@ -33,18 +35,20 @@ class StreamUpdate extends AbstractController
             /** @var User $user */
             $user = $this->getUser();
             foreach ($user->getAccounts() as $account) {
-                if (class_exists($account->getPlatform()->getProvider())) {
-                    /** @var AbstractPlatformProvider $provider */
-                    $provider = new ($account->getPlatform()->getProvider())($this->em, $this->logger);
-                    if ($provider->updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
-                        $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
-                    } else {
-                        $this->addFlash('titleUpdate-failure', 'Failed to update title for ' . $account->getPlatform()->getName());
+                if ($account->getPlatform()->isEnabled()) {
+                    if (class_exists($account->getPlatform()->getProvider())) {
+                        /** @var AbstractPlatformProvider $provider */
+                        $provider = new ($account->getPlatform()->getProvider())($this->em, $this->logger);
+                        if ($provider->updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
+                            $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
+                        } else {
+                            $this->addFlash('titleUpdate-failure', 'Failed to update title for ' . $account->getPlatform()->getName());
 
+                        }
+                    } else {
+                        $this->logger->error('This provider doesn\'t exist.');
+                        $this->addFlash('titleUpdate-failure', 'Update title feature does not exist yet for ' . $account->getPlatform()->getName());
                     }
-                } else {
-                    $this->logger->error('This provider doesn\'t exist.');
-                    $this->addFlash('titleUpdate-failure', 'Update title feature does not exist yet for ' . $account->getPlatform()->getName());
                 }
             }
         }

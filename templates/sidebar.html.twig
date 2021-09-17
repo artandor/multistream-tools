@@ -21,6 +21,7 @@
                     </a>
                 </li>
                 <li class="mb-6">
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <a href="{{ path('updateStreamInfos') }}">
                       <span>
                         <svg class="fill-current h-5 w-5 mx-auto text-gray-300 hover:text-green-500"
@@ -38,6 +39,7 @@
                         </svg>
                       </span>
                     </a>
+                    {% endif %}
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li class="mb-6">

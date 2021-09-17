@@ -3,6 +3,7 @@
 namespace App\Provider;
 
 use App\Entity\Account;
+use App\Exception\CategoryNotFound;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
@@ -41,11 +42,15 @@ class TwitchProvider extends AbstractPlatformProvider
                 }
 
                 $responseData = $response->toArray();
+                if (empty($responseData['data'])) {
+                    throw new CategoryNotFound();
+                }
                 $category = $responseData['data'][0]['id'];
             } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
                 $this->logger->error('An error occured : ' . $e->getMessage());
+            } catch (CategoryNotFound) {
+                return false;
             }
-
         }
 
         try {
@@ -80,7 +85,6 @@ class TwitchProvider extends AbstractPlatformProvider
 
         return true;
     }
-
 
     public function refreshToken(Account $account): ?Account
     {

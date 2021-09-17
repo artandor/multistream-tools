@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Platform;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class PlatformCrudController extends AbstractCrudController
@@ -18,7 +19,8 @@ class PlatformCrudController extends AbstractCrudController
         return [
             TextField::new('name'),
             TextField::new('image'),
-            TextField::new('path')
+            TextField::new('path'),
+            BooleanField::new('enabled')
         ];
     }
 }

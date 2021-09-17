@@ -22,7 +22,9 @@ class PlatformList extends AbstractController
     public function __invoke(): Response
     {
         return $this->render('home/index.html.twig', [
-            'platforms' => $this->platformRepository->findAll()
+            'platforms' => $this->platformRepository->findBy([
+                'enabled' => true
+            ])
         ]);
     }
 
