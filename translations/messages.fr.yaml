@@ -1,0 +1,7 @@
+platform:
+  list: Plateformes
+
+stream:
+  update: Mise à jour des informations du stream
+  youtube:
+    note: La mise à jour du titre Youtube ne fonctionne qu'en étant en live.

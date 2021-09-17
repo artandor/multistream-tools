@@ -1,0 +1,8 @@
+platform:
+  list: Platforms
+  connected_as: Vous êtes actuellement connecté avec l'adresse
+
+stream:
+  update: Update stream informations
+  youtube:
+    note: Note that updating youtube only works when already live.

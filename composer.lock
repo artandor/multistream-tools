@@ -1,30 +1,30 @@
 {
-  "_readme": [
-    "This file locks the dependencies of your project to a known state",
-    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-    "This file is @generated automatically"
-  ],
-  "content-hash": "0fc8f9f19cca716c9ae946e326573c26",
-  "packages": [
-    {
-      "name": "composer/package-versions-deprecated",
-      "version": "1.11.99.3",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/composer/package-versions-deprecated.git",
-        "reference": "fff576ac850c045158a250e7e27666e146e78d18"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
-        "reference": "fff576ac850c045158a250e7e27666e146e78d18",
-        "shasum": ""
-      },
-      "require": {
-        "composer-plugin-api": "^1.1.0 || ^2.0",
-        "php": "^7 || ^8"
-      },
-      "replace": {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "16072db4fc503068c5c121fd84015c50",
+    "packages": [
+        {
+            "name": "composer/package-versions-deprecated",
+            "version": "1.11.99.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/package-versions-deprecated.git",
+                "reference": "fff576ac850c045158a250e7e27666e146e78d18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
+                "reference": "fff576ac850c045158a250e7e27666e146e78d18",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1.0 || ^2.0",
+                "php": "^7 || ^8"
+            },
+            "replace": {
                 "ocramius/package-versions": "1.11.99"
             },
             "require-dev": {
@@ -2981,77 +2981,77 @@
                     "email": "ralph.khattar@gmail.com"
                 }
             ],
-          "description": "A polyfill for getallheaders.",
-          "support": {
-            "issues": "https://github.com/ralouphie/getallheaders/issues",
-            "source": "https://github.com/ralouphie/getallheaders/tree/develop"
-          },
-          "time": "2019-03-08T08:55:37+00:00"
+            "description": "A polyfill for getallheaders.",
+            "support": {
+                "issues": "https://github.com/ralouphie/getallheaders/issues",
+                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
+            },
+            "time": "2019-03-08T08:55:37+00:00"
         },
-    {
-      "name": "riskio/oauth2-auth0",
-      "version": "v2.4.0",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/RiskioFr/oauth2-auth0.git",
-        "reference": "d8aaa4b0a63c60e3bfc89b2e0724ca697022e009"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/RiskioFr/oauth2-auth0/zipball/d8aaa4b0a63c60e3bfc89b2e0724ca697022e009",
-        "reference": "d8aaa4b0a63c60e3bfc89b2e0724ca697022e009",
-        "shasum": ""
-      },
-      "require": {
-        "league/oauth2-client": "^2.2.1",
-        "php": "^7.3|^8.0"
-      },
-      "require-dev": {
-        "phpunit/phpunit": "^9.3"
-      },
-      "type": "library",
-      "autoload": {
-        "psr-4": {
-          "Riskio\\OAuth2\\Client\\Provider\\": "src/"
-        }
-      },
-      "notification-url": "https://packagist.org/downloads/",
-      "license": [
-        "MIT"
-      ],
-      "authors": [
         {
-          "name": "Nicolas Eeckeloo",
-          "email": "neeckeloo@gmail.com",
-          "homepage": "https://github.com/neeckeloo"
-        }
-      ],
-      "description": "Auth0 OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
-      "keywords": [
-        "auth0",
-        "authorisation",
-        "authorization",
-        "client",
-        "oauth",
-        "oauth2"
-      ],
-      "support": {
-        "issues": "https://github.com/RiskioFr/oauth2-auth0/issues",
-        "source": "https://github.com/RiskioFr/oauth2-auth0/tree/v2.4.0"
-      },
-      "time": "2021-05-31T06:54:46+00:00"
-    },
-    {
-      "name": "sensio/framework-extra-bundle",
-      "version": "v6.2.0",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
-        "reference": "3f5b6490878f8a70ba702e9692007cf979b42f0e"
-      },
-      "dist": {
-        "type": "zip",
-        "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/3f5b6490878f8a70ba702e9692007cf979b42f0e",
+            "name": "riskio/oauth2-auth0",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RiskioFr/oauth2-auth0.git",
+                "reference": "d8aaa4b0a63c60e3bfc89b2e0724ca697022e009"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RiskioFr/oauth2-auth0/zipball/d8aaa4b0a63c60e3bfc89b2e0724ca697022e009",
+                "reference": "d8aaa4b0a63c60e3bfc89b2e0724ca697022e009",
+                "shasum": ""
+            },
+            "require": {
+                "league/oauth2-client": "^2.2.1",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Riskio\\OAuth2\\Client\\Provider\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Eeckeloo",
+                    "email": "neeckeloo@gmail.com",
+                    "homepage": "https://github.com/neeckeloo"
+                }
+            ],
+            "description": "Auth0 OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+            "keywords": [
+                "auth0",
+                "authorisation",
+                "authorization",
+                "client",
+                "oauth",
+                "oauth2"
+            ],
+            "support": {
+                "issues": "https://github.com/RiskioFr/oauth2-auth0/issues",
+                "source": "https://github.com/RiskioFr/oauth2-auth0/tree/v2.4.0"
+            },
+            "time": "2021-05-31T06:54:46+00:00"
+        },
+        {
+            "name": "sensio/framework-extra-bundle",
+            "version": "v6.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/SensioFrameworkExtraBundle.git",
+                "reference": "3f5b6490878f8a70ba702e9692007cf979b42f0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/SensioFrameworkExtraBundle/zipball/3f5b6490878f8a70ba702e9692007cf979b42f0e",
                 "reference": "3f5b6490878f8a70ba702e9692007cf979b42f0e",
                 "shasum": ""
             },
@@ -11011,25 +11011,25 @@
                 "issues": "https://github.com/theseer/tokenizer/issues",
                 "source": "https://github.com/theseer/tokenizer/tree/1.2.1"
             },
-          "funding": [
-            {
-              "url": "https://github.com/theseer",
-              "type": "github"
-            }
-          ],
-          "time": "2021-07-28T10:34:58+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/theseer",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-07-28T10:34:58+00:00"
         }
     ],
-  "aliases": [],
-  "minimum-stability": "dev",
-  "stability-flags": [],
-  "prefer-stable": true,
-  "prefer-lowest": false,
-  "platform": {
-    "php": ">=8.0",
-    "ext-ctype": "*",
-    "ext-iconv": "*"
-  },
-  "platform-dev": [],
-  "plugin-api-version": "2.0.0"
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=8.0",
+        "ext-ctype": "*",
+        "ext-iconv": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }

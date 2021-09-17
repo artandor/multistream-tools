@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h2 class="text-2xl font-extrabold text-gray-900">Plateformes</h2>
+    <h2 class="text-2xl font-extrabold text-gray-900">{% trans %}platform.list{% endtrans %}</h2>
 
     <div class="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-6">
         {% for platform in platforms %}
@@ -14,7 +14,7 @@
                         <span class="absolute inset-0"></span>
                         {% if app.user != null %}
                             {% for account in app.user.accounts|filter(account => account.platform == platform) %}
-                                Vous êtes actuellement connecté avec l'adresse {{ account.email }}.
+                                {% trans %}platform.connected_as{% endtrans %} {{ account.email }}.
                             {% endfor %}
                         {% endif %}
                     </a>
