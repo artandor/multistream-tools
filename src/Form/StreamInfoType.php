@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\TitleHistory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,7 +21,7 @@ class StreamInfoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => TitleHistory::class,
         ]);
     }
 }

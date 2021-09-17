@@ -43,9 +43,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $accounts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TitleHistory::class, mappedBy="creator", orphanRemoval=true)
+     */
+    private $titleHistory;
+
     public function __construct()
     {
         $this->accounts = new ArrayCollection();
+        $this->titleHistory = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +167,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($account->getLinkedTo() === $this) {
                 $account->setLinkedTo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TitleHistory[]
+     */
+    public function getTitleHistory(): Collection
+    {
+        return $this->titleHistory;
+    }
+
+    public function addTitleHistory(TitleHistory $titleHistory): self
+    {
+        if (!$this->titleHistory->contains($titleHistory)) {
+            $this->titleHistory[] = $titleHistory;
+            $titleHistory->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTitleHistory(TitleHistory $titleHistory): self
+    {
+        if ($this->titleHistory->removeElement($titleHistory)) {
+            // set the owning side to null (unless already changed)
+            if ($titleHistory->getCreator() === $this) {
+                $titleHistory->setCreator(null);
             }
         }
 

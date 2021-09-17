@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\TitleHistory;
 use App\Entity\User;
 use App\Form\StreamInfoType;
 use App\Provider\AbstractPlatformProvider;
@@ -24,22 +25,22 @@ class StreamUpdate extends AbstractController
     public function __invoke(Request $request): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
-        $form = $this->createForm(StreamInfoType::class);
+
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $streamTitle = new TitleHistory();
+        $form = $this->createForm(StreamInfoType::class, $streamTitle);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $streamInfos = $form->getData();
-
-            // TODO : Add title and category to session so that it stays even after refresh of the page :)
-
-            /** @var User $user */
-            $user = $this->getUser();
+            $streamTitle->setCreator($user);
             foreach ($user->getAccounts() as $account) {
                 if ($account->getPlatform()->isEnabled()) {
                     if (class_exists($account->getPlatform()->getProvider())) {
                         /** @var AbstractPlatformProvider $provider */
                         $provider = new ($account->getPlatform()->getProvider())($this->em, $this->logger);
-                        if ($provider->updateStreamTitleAndCategory($account, $streamInfos['title'], $streamInfos['category'])) {
+                        if ($provider->updateStreamTitleAndCategory($account, $streamTitle->getTitle(), $streamTitle->getCategory())) {
                             $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
                         } else {
                             $this->addFlash('titleUpdate-failure', 'Failed to update title for ' . $account->getPlatform()->getName());
@@ -51,10 +52,19 @@ class StreamUpdate extends AbstractController
                     }
                 }
             }
+
+            $this->em->persist($streamTitle);
+            if (count($user->getTitleHistory()) > 10) {
+                for ($i = 0; $i <= count($user->getTitleHistory()) - 10; $i++) {
+                    $user->getTitleHistory()->remove($i);
+                }
+            }
+            $this->em->flush();
         }
 
         return $this->render('home/update-stream-infos.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'title_history' => $user->getTitleHistory()
         ]);
     }
 }

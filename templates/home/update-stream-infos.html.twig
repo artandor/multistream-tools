@@ -45,8 +45,18 @@
             {% endfor %}
         {% endfor %}
 
+        {% if title_history.count %}
+            <label for="titleHistory">Last 10 titles</label>
+            <select id="titleHistory"
+                    class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                {% for title in title_history %}
+                    <option data-title="{{ title.title }}" data-category="{{ title.category }}">{{ title }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+
         <div class="w-full">
-            {{ form_start(form) }}
+            {{ form_start(form, {'attr': {'id': 'streamInfosForm'}}) }}
 
             {{ form_errors(form) }}
 
@@ -70,6 +80,13 @@
                     elements.item(i).style.display = "none"
                 }
             }, 3000)
+
+            document.getElementById('titleHistory').addEventListener('change', (event) => {
+                const selectedOption = event.target.options[event.target.selectedIndex];
+                const form = document.getElementById('streamInfosForm');
+                form.elements['stream_info[title]'].value = selectedOption.getAttribute('data-title');
+                form.elements['stream_info[category]'].value = selectedOption.getAttribute('data-category');
+            })
         }, false);
     </script>
 {% endblock %}
