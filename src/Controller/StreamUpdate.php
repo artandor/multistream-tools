@@ -25,7 +25,7 @@ class StreamUpdate extends AbstractController
     public function __invoke(Request $request): Response
     {
         if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirect('home');
+            return $this->redirectToRoute('home');
         }
         $form = $this->createForm(StreamInfoType::class);
 
