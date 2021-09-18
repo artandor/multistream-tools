@@ -1,8 +1,10 @@
 platform:
-  list: Platforms
-  connected_as: You are currently connected with address
-
+    list: Platforms
+    connected_as: 'You are currently connected with address'
 stream:
-  update: Update stream informations
-  youtube:
-    note: Note that updating youtube only works when already live.
+    update: 'Update stream informations'
+    youtube:
+        note: 'Note that updating youtube only works when already live.'
+    lastTitles: 'Last 10 titles'
+    title: 'Title'
+    category: 'Category'

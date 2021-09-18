@@ -1,8 +1,10 @@
 platform:
   list: Plateformes
-  connected_as: Vous êtes actuellement connecté avec l'adresse
-
+  connected_as: 'Vous êtes actuellement connecté avec l''adresse'
 stream:
-  update: Mise à jour des informations du stream
+  update: 'Mise à jour des informations du stream'
   youtube:
-    note: La mise à jour du titre Youtube ne fonctionne qu'en étant en live.
+    note: 'La mise à jour du titre Youtube ne fonctionne qu''en étant en live.'
+  lastTitles: '10 dernier titres'
+  title: 'Titre'
+  category: 'Categorie'

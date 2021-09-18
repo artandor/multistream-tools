@@ -2,8 +2,8 @@
 <html lang="{{ app.request.locale }}">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}OpenMultiStream{% endblock %}
-    </title>
+    <title>{% block title %}Multistream Tools{% endblock %}</title>
+    <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
@@ -12,14 +12,16 @@
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    <script async defer data-domain="multistream-tools.live" src="https://analytics.nicolasmylle.fr/js/plausible.js"></script>
+    <script async defer data-domain="multistream-tools.live"
+            src="https://analytics.nicolasmylle.fr/js/plausible.js"></script>
 </head>
-<body class="h-full w-full bg-white relative flex bg-gray-100">
+<body class="h-full w-full bg-white relative flex flex-col min-h-screen bg-gray-100">
 {% include "sidebar.html.twig" %}
-<div class="pl-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="pl-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-auto">
     <div class="max-w-2xl mx-auto py-16 sm:py-24 lg:py-32 lg:max-w-none">
         {% block body %}{% endblock %}
     </div>
 </div>
+{% include "footer.html.twig" %}
 </body>
 </html>

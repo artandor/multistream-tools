@@ -22,7 +22,7 @@
                 </li>
                 <li class="mb-6">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <a href="{{ path('updateStreamInfos') }}">
+                        <a href="{{ path('updateStreamInfos') }}">
                       <span>
                         <svg class="fill-current h-5 w-5 mx-auto text-gray-300 hover:text-green-500"
                              viewBox="0 0 24 24">
@@ -38,7 +38,7 @@
                             />
                         </svg>
                       </span>
-                    </a>
+                        </a>
                     {% endif %}
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
@@ -73,12 +73,22 @@
                                 />
                             </svg>
                         </button>
-                        <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
+                        <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="transform opacity-0 scale-95"
+                             x-transition:enter-end="transform opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="transform opacity-100 scale-100"
+                             x-transition:leave-end="transform opacity-0 scale-95"
+                             class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
                             <div class="px-2 py-2 rounded-md shadow">
-                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold" href="{{ path(app.request.attributes.get('_route'), {_locale: 'en'}) }}">English</a>
-                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold" href="{{ path(app.request.attributes.get('_route'), {_locale: 'fr'}) }}">Français</a>
-                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold" href="{{ path(app.request.attributes.get('_route'), {_locale: 'ru'}) }}">русский</a>
-                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold" href="{{ path(app.request.attributes.get('_route'), {_locale: 'pl'}) }}">Polskie</a>
+                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold"
+                                   href="{{ path(app.request.attributes.get('_route'), {_locale: 'en'}) }}">English</a>
+                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold"
+                                   href="{{ path(app.request.attributes.get('_route'), {_locale: 'fr'}) }}">Français</a>
+                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold"
+                                   href="{{ path(app.request.attributes.get('_route'), {_locale: 'ru'}) }}">русский</a>
+                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold"
+                                   href="{{ path(app.request.attributes.get('_route'), {_locale: 'pl'}) }}">Polskie</a>
                             </div>
                         </div>
                     </div>

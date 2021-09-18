@@ -1,20 +1,20 @@
 {
-    "_readme": [
-        "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-        "This file is @generated automatically"
-    ],
-    "content-hash": "16072db4fc503068c5c121fd84015c50",
-    "packages": [
-        {
-            "name": "composer/package-versions-deprecated",
-            "version": "1.11.99.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/package-versions-deprecated.git",
-                "reference": "fff576ac850c045158a250e7e27666e146e78d18"
-            },
-            "dist": {
+  "_readme": [
+    "This file locks the dependencies of your project to a known state",
+    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+    "This file is @generated automatically"
+  ],
+  "content-hash": "c126486b611a4eea8b739ea508a47173",
+  "packages": [
+    {
+      "name": "composer/package-versions-deprecated",
+      "version": "1.11.99.3",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/composer/package-versions-deprecated.git",
+        "reference": "fff576ac850c045158a250e7e27666e146e78d18"
+      },
+      "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
                 "reference": "fff576ac850c045158a250e7e27666e146e78d18",
@@ -11031,5 +11031,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+  "plugin-api-version": "2.0.0"
 }
