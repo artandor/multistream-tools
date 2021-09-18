@@ -1,6 +1,6 @@
 platform:
   list: Platforms
-  connected_as: Vous êtes actuellement connecté avec l'adresse
+  connected_as: You are currently connected with address
 
 stream:
   update: Update stream informations

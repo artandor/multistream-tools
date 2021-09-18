@@ -1,5 +1,6 @@
 platform:
   list: Plateformes
+  connected_as: Vous êtes actuellement connecté avec l'adresse
 
 stream:
   update: Mise à jour des informations du stream

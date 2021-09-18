@@ -46,13 +46,16 @@
         {% endfor %}
 
         {% if title_history.count %}
-            <label for="titleHistory">Last 10 titles</label>
-            <select id="titleHistory"
-                    class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                {% for title in title_history %}
-                    <option data-title="{{ title.title }}" data-category="{{ title.category }}">{{ title }}</option>
-                {% endfor %}
-            </select>
+            <div class="my-4">
+                <label for="titleHistory">Last 10 titles</label>
+                <select id="titleHistory"
+                        class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <option></option>
+                    {% for title in title_history %}
+                        <option data-title="{{ title.title }}" data-category="{{ title.category }}">{{ title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
         {% endif %}
 
         <div class="w-full">
