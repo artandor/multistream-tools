@@ -1,4 +1,8 @@
 platform:
-  list: Plateformes
+  list: Платформы
+  connected_as: Вы соединены с адресом
 
-
+stream:
+  update: Параметры трансляции
+  youtube:
+    note: Внимание, обновление YouTube работает только тогда, когда трансляция запущена.
