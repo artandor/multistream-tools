@@ -1,0 +1,8 @@
+platform:
+  list: Platformy
+  connected_as: Podłączono jako
+
+stream:
+  update: Edytuj informacje o transmisji
+  youtube:
+    note: Pamiętaj, edycja informacji na YouTube jest dostępny tylko, gdy jesteś na żywo.
