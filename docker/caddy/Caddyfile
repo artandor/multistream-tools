@@ -32,7 +32,8 @@ route {
     vulcain
     push
     php_fastcgi unix//var/run/php/php-fpm.sock
-    header ?Cache-Control "max-age=2592000"
+    header ?Cache-Control "max-age=3600"
+    header /build/* Cache-Control "max-age=2592000"
     encode zstd gzip
     file_server
 }
