@@ -4,6 +4,7 @@
         "@symfony/webpack-encore": "^1.0.0",
         "@tailwindcss/aspect-ratio": "^0.2.1",
         "@tailwindcss/forms": "^0.3.1",
+        "alpinejs": "^3.3.4",
         "autoprefixer": "^10.3.4",
         "core-js": "^3.0.0",
         "glob-all": "^3.2.1",
@@ -13,8 +14,7 @@
         "regenerator-runtime": "^0.13.2",
         "stimulus": "^2.0.0",
         "tailwindcss": "^2.2.14",
-        "webpack-notifier": "^1.6.0",
-        "alpinejs": "^3.3.4"
+        "webpack-notifier": "^1.6.0"
     },
     "license": "MIT",
     "private": true,
