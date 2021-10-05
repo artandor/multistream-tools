@@ -8,3 +8,5 @@ stream:
   lastTitles: 'Ostatnie 10 tytułów'
   title: 'Tytuł'
   category: 'Kategoria'
+dock:
+  createUrl: 'Utwórz stację dokującą OBS, kopiując ten adres URL '
