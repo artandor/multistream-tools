@@ -1,8 +1,8 @@
-<nav class="bg-gray-900 w-20 h-screen fixed overflow-hidden justify-between flex flex-col ">
-    <div class="mt-10 mb-10">
-        <div class="mt-10">
-            <ul>
-                <li class="mb-6">
+<nav class="{% if app.request.get('overlay') %}bg-gray-800 w-full mx-auto px-2 sm:px-6 lg:px-8{% else %}bg-gray-900 w-20 h-screen fixed overflow-hidden justify-between flex flex-col{% endif %} ">
+    <div class="{% if not app.request.get('overlay') %}mt-10 mb-10{% endif %}">
+        <div class="{% if app.request.get('overlay') %}mt-2{% else %}mt-10{% endif %}">
+            <ul class="{% if app.request.get('overlay') %}inline-flex{% endif %}">
+                <li class="{% if app.request.get('overlay') %}mx-2{% else %}mb-6{% endif %}">
                     <a href="{{ path('home') }}">
                       <span>
                           <svg class="fill-current h-5 w-5 text-gray-300 mx-auto hover:text-green-500 "
@@ -20,7 +20,7 @@
                       </span>
                     </a>
                 </li>
-                <li class="mb-6">
+                <li class="{% if app.request.get('overlay') %}mx-2{% else %}mb-6{% endif %}">
                     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                         <a href="{{ path('updateStreamInfos') }}">
                       <span>
@@ -42,7 +42,7 @@
                     {% endif %}
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <li class="mb-6">
+                    <li class="{% if app.request.get('overlay') %}mx-2{% else %}mb-6{% endif %}">
                         <a href="{{ path('admin') }}">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="fill-current h-5 w-5 mx-auto text-gray-300 hover:text-green-500"
@@ -79,15 +79,15 @@
                              x-transition:leave="transition ease-in duration-75"
                              x-transition:leave-start="transform opacity-100 scale-100"
                              x-transition:leave-end="transform opacity-0 scale-95"
-                             class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
-                            <div class="px-2 py-2 rounded-md shadow">
-                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold"
+                             class="{% if not app.request.get('overlay') %}absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg{% endif %}">
+                            <div class="px-2 py-2 rounded-md shadow {% if app.request.get('overlay') %}inline-flex{% endif %}">
+                                <a class="{% if not app.request.get('overlay') %}block {% endif %}px-2 py-2 mt-2 text-white text-sm font-semibold"
                                    href="{{ path(app.request.attributes.get('_route'), {_locale: 'en'}) }}">English</a>
-                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold"
+                                <a class="{% if not app.request.get('overlay') %}block {% endif %}px-2 py-2 mt-2 text-white text-sm font-semibold"
                                    href="{{ path(app.request.attributes.get('_route'), {_locale: 'fr'}) }}">Français</a>
-                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold"
+                                <a class="{% if not app.request.get('overlay') %}block {% endif %}px-2 py-2 mt-2 text-white text-sm font-semibold"
                                    href="{{ path(app.request.attributes.get('_route'), {_locale: 'ru'}) }}">русский</a>
-                                <a class="block px-2 py-2 mt-2 text-white text-sm font-semibold"
+                                <a class="{% if not app.request.get('overlay') %}block {% endif %}px-2 py-2 mt-2 text-white text-sm font-semibold"
                                    href="{{ path(app.request.attributes.get('_route'), {_locale: 'pl'}) }}">Polskie</a>
                             </div>
                         </div>

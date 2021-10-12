@@ -12,10 +12,14 @@
         widget_errors_class: 'border-double border-red-500 bg-red-50',
     } %}
 
-    <h2 class="text-2xl font-extrabold text-gray-900">{% trans %}stream.update{% endtrans %}</h2>
+    {% if not app.request.get('overlay') %}
+        <h2 class="text-2xl font-extrabold text-gray-900">{% trans %}stream.update{% endtrans %}</h2>
+    {% endif %}
 
-    <div class="example-wrapper">
-        <p>{% trans %}stream.youtube.note{% endtrans %}</p>
+    <div class="w-full">
+        {% if not app.request.get('overlay') %}
+            <p>{% trans %}stream.youtube.note{% endtrans %}</p>
+        {% endif %}
 
         {# read and display several types of flash messages #}
         {% for label, messages in app.flashes(['titleUpdate-success', 'notification']) %}
@@ -68,6 +72,16 @@
             {{ form_row(form.submit, {'attr': {'class': 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}}) }}
 
             {{ form_end(form) }}
+
+            {% if not app.request.get('overlay') %}
+                <div class="mt-3">
+                    <p>{% trans %}dock.createUrl{% endtrans %}
+                        <a href="{{ url('updateStreamInfos', {'overlay': 'true'}) }}">
+                            {{ url('updateStreamInfos', {'overlay': 'true'}) }}
+                        </a>
+                    </p>
+                </div>
+            {% endif %}
         </div>
     </div>
 

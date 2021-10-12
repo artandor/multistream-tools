@@ -8,3 +8,5 @@ stream:
   lastTitles: '10 dernier titres'
   title: 'Titre'
   category: 'Categorie'
+dock:
+  createUrl: 'Crée un dock OBS en copiant cet URL '

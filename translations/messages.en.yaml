@@ -6,5 +6,7 @@ stream:
     youtube:
         note: 'Note that updating youtube only works when already live.'
     lastTitles: 'Last 10 titles'
-    title: 'Title'
-    category: 'Category'
+    title: Title
+    category: Category
+dock:
+    createUrl: 'Create an OBS dock by copying this url '
