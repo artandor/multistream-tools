@@ -18,12 +18,15 @@ class TrovoProvider extends AbstractPlatformProvider
         if (strlen($category) > 0) {
             try {
                 $response = $client->request(
-                    'GET',
-                    'https://api.brime.tv/v1/categories/search/' . rawurlencode(strtolower($category)), [
+                    'POST',
+                    'https://open-api.trovo.live/openplatform/searchcategory', [
                         'headers' => [
-                            'Authorization' => 'Bearer ' . $account->getAccessToken(),
                             'Content-Type' => 'application/json',
-                            'Client-Id' => $_ENV['OAUTH_TWITCH_CLIENT_ID']
+                            'Client-Id' => $_ENV['OAUTH_TROVO_CLIENT_ID']
+                        ],
+                        'json' => [
+                            'query' => $category,
+                            'limit' => 1
                         ]
                     ]
                 );
@@ -38,21 +41,24 @@ class TrovoProvider extends AbstractPlatformProvider
                 }
 
                 $responseData = $response->toArray();
-                if (isset($responseData[0])) {
-                    $categoryId = $responseData[0]['xid'];
+                if (isset($responseData['category_info'])) {
+                    $categoryId = $responseData['category_info'][0]['id'];
                 }
 
                 try {
                     $response = $client->request(
                         'POST',
-                        'https://api.brime.tv/v1/channels/stream', [
+                        'https://open-api.trovo.live/openplatform/channels/update', [
                             'headers' => [
-                                'Authorization' => 'Bearer ' . $account->getAccessToken(),
+                                'Authorization' => 'OAuth ' . $account->getAccessToken(),
                                 'Content-Type' => 'application/json',
+                                'Accept' => 'application/json',
+                                'Client-Id' => $_ENV['OAUTH_TROVO_CLIENT_ID'],
                             ],
                             'json' => [
-                                'title' => $title,
-                                'category' => $categoryId ?? 0,
+                                'channel_id' => $account->getExternalId(),
+                                'live_title' => $title,
+                                'category_id' => $categoryId ?? null,
                             ]
                         ]
                     );
@@ -73,7 +79,6 @@ class TrovoProvider extends AbstractPlatformProvider
             }
         }
 
-
         return true;
     }
 
@@ -81,10 +86,12 @@ class TrovoProvider extends AbstractPlatformProvider
     {
         $client = HttpClient::create();
         try {
-            $response = $client->request('POST', 'https://auth.brime.tv/oauth/token', [
+            $response = $client->request('POST', 'https://open-api.trovo.live/openplatform/refreshtoken', [
+                'headers' => [
+                    'client_id' => $_ENV['OAUTH_TROVO_CLIENT_ID'],
+                ],
                 'body' => [
-                    'client_id' => $_ENV['OAUTH_BRIME_CLIENT_ID'],
-                    'client_secret' => $_ENV['OAUTH_BRIME_CLIENT_SECRET'],
+                    'client_secret' => $_ENV['OAUTH_TROVO_CLIENT_SECRET'],
                     'refresh_token' => $account->getRefreshToken(),
                     'grant_type' => 'refresh_token'
                 ]

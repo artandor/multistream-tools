@@ -67,4 +67,3 @@ knpu_oauth2_client:
             # a route name you'll create
             redirect_route: connect_trovo_check
             redirect_params: { }
-#            use_state: false

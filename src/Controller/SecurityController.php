@@ -96,6 +96,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('trovo') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
+                'user_details_self', 'channel_update_self'
             ], []);
     }
 
