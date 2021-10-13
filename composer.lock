@@ -4,8 +4,59 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "c126486b611a4eea8b739ea508a47173",
+  "content-hash": "a30bd2f6f47bb56fd5c46dfe5da66478",
   "packages": [
+    {
+      "name": "artandor/oauth2-trovo",
+      "version": "dev-main",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/artandor/oauth2-trovo.git",
+        "reference": "1b3544be2c5267c6ccc8ef3cc334b9336f5c9590"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/artandor/oauth2-trovo/zipball/1b3544be2c5267c6ccc8ef3cc334b9336f5c9590",
+        "reference": "1b3544be2c5267c6ccc8ef3cc334b9336f5c9590",
+        "shasum": ""
+      },
+      "require": {
+        "league/oauth2-client": "^2.0",
+        "php": "^7.4 || ^8.0"
+      },
+      "require-dev": {
+        "phpunit/phpunit": "^9.5"
+      },
+      "default-branch": true,
+      "type": "library",
+      "autoload": {
+        "psr-4": {
+          "Artandor\\Oauth2Trovo\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "artandor",
+          "email": "nicolas.mylle.pro@gmail.com"
+        }
+      ],
+      "description": "Trovo OAuth 2.0 Client Provider",
+      "keywords": [
+        "client",
+        "oauth",
+        "oauth2",
+        "trovo"
+      ],
+      "support": {
+        "issues": "https://github.com/artandor/oauth2-trovo/issues",
+        "source": "https://github.com/artandor/oauth2-trovo/tree/main"
+      },
+      "time": "2021-10-13T10:19:05+00:00"
+    },
     {
       "name": "composer/package-versions-deprecated",
       "version": "1.11.99.3",
@@ -15,16 +66,16 @@
         "reference": "fff576ac850c045158a250e7e27666e146e78d18"
       },
       "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
-                "reference": "fff576ac850c045158a250e7e27666e146e78d18",
-                "shasum": ""
-            },
-            "require": {
-                "composer-plugin-api": "^1.1.0 || ^2.0",
-                "php": "^7 || ^8"
-            },
-            "replace": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
+        "reference": "fff576ac850c045158a250e7e27666e146e78d18",
+        "shasum": ""
+      },
+      "require": {
+        "composer-plugin-api": "^1.1.0 || ^2.0",
+        "php": "^7 || ^8"
+      },
+      "replace": {
                 "ocramius/package-versions": "1.11.99"
             },
             "require-dev": {
@@ -11012,24 +11063,26 @@
                 "source": "https://github.com/theseer/tokenizer/tree/1.2.1"
             },
             "funding": [
-                {
-                    "url": "https://github.com/theseer",
-                    "type": "github"
-                }
+              {
+                "url": "https://github.com/theseer",
+                "type": "github"
+              }
             ],
-            "time": "2021-07-28T10:34:58+00:00"
+          "time": "2021-07-28T10:34:58+00:00"
         }
     ],
-    "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": [],
-    "prefer-stable": true,
-    "prefer-lowest": false,
-    "platform": {
-        "php": ">=8.0",
-        "ext-ctype": "*",
-        "ext-iconv": "*"
-    },
-    "platform-dev": [],
+  "aliases": [],
+  "minimum-stability": "dev",
+  "stability-flags": {
+    "artandor/oauth2-trovo": 20
+  },
+  "prefer-stable": true,
+  "prefer-lowest": false,
+  "platform": {
+    "php": ">=8.0",
+    "ext-ctype": "*",
+    "ext-iconv": "*"
+  },
+  "platform-dev": [],
   "plugin-api-version": "2.0.0"
 }

@@ -7,7 +7,9 @@ use App\Entity\Platform;
 use App\Entity\User;
 use App\Provider\BrimeProvider;
 use App\Provider\GoogleProvider;
+use App\Provider\TrovoProvider;
 use App\Provider\TwitchProvider;
+use Artandor\Oauth2Trovo\TrovoResourceOwner;
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
@@ -43,6 +45,7 @@ class PlatformAuthenticator extends OAuth2Authenticator
             $request->attributes->get('_route') === 'connect_twitch_check'
             || $request->attributes->get('_route') === 'connect_google_check'
             || $request->attributes->get('_route') === 'connect_brime_check'
+            || $request->attributes->get('_route') === 'connect_trovo_check'
         );
     }
 
@@ -59,6 +62,9 @@ class PlatformAuthenticator extends OAuth2Authenticator
             case 'connect_brime_check':
                 $client = $this->clientRegistry->getClient('brime');
                 break;
+            case 'connect_trovo_check':
+                $client = $this->clientRegistry->getClient('trovo');
+                break;
             default:
                 dump('This provider is not supported');
                 break;
@@ -68,7 +74,7 @@ class PlatformAuthenticator extends OAuth2Authenticator
         return new SelfValidatingPassport(
             new UserBadge($accessToken->getToken(), function () use ($accessToken, $client, $request) {
 
-                /** @var TwitchHelixResourceOwner|GoogleUser|Auth0ResourceOwner $resourceOwner */
+                /** @var TwitchHelixResourceOwner|GoogleUser|Auth0ResourceOwner|TrovoResourceOwner $resourceOwner */
                 $resourceOwner = $client->fetchUserFromToken($accessToken);
 
                 $email = $resourceOwner->getEmail();
@@ -113,6 +119,9 @@ class PlatformAuthenticator extends OAuth2Authenticator
                         break;
                     case 'connect_brime_check':
                         $account->setPlatform($platformRepository->findOneBy(['provider' => BrimeProvider::class]));
+                        break;
+                    case 'connect_trovo_check':
+                        $account->setPlatform($platformRepository->findOneBy(['provider' => TrovoProvider::class]));
                         break;
                 }
 

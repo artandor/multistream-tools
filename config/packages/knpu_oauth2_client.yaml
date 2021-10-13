@@ -58,3 +58,13 @@ knpu_oauth2_client:
             # region: null
             # whether to check OAuth2 "state": defaults to true
             # use_state: true
+
+        trovo:
+            type: generic
+            provider_class: Artandor\Oauth2Trovo\Trovo
+            client_id: '%env(OAUTH_TROVO_CLIENT_ID)%'
+            client_secret: '%env(OAUTH_TROVO_CLIENT_SECRET)%'
+            # a route name you'll create
+            redirect_route: connect_trovo_check
+            redirect_params: { }
+#            use_state: false
