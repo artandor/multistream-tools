@@ -19,6 +19,7 @@ from all websites, and we have more ideas for the future.
 - [X] Youtube
 - [X] Twitch
 - [X] Brime
+- [X] Trovo
 - [ ] Facebook Gaming
 
 ## Design consideration
