@@ -48,7 +48,8 @@
     "symfony/yaml": "5.3.*",
     "twig/extra-bundle": "^2.12|^3.0",
     "twig/twig": "^2.12|^3.0",
-    "vertisan/oauth2-twitch-helix": "^1.1"
+    "vertisan/oauth2-twitch-helix": "^1.1",
+    "artandor/oauth2-trovo": "^1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5",

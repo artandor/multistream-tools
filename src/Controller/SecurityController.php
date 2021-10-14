@@ -84,4 +84,26 @@ class SecurityController extends AbstractController
     public function brimeConnectCheck(Request $request, ClientRegistry $clientRegistry)
     {
     }
+
+    /**
+     * Link to this controller to start the "connect" process
+     *
+     * @Route("/connect/trovo", name="connect_trovo_start")
+     */
+    public function trovoConnect(ClientRegistry $clientRegistry): RedirectResponse
+    {
+        // will redirect to Brime !
+        return $clientRegistry
+            ->getClient('trovo') // key used in config/packages/knpu_oauth2_client.yaml
+            ->redirect([
+                'user_details_self', 'channel_update_self'
+            ], []);
+    }
+
+    /**
+     * @Route("/connect/trovo/check", name="connect_trovo_check")
+     */
+    public function trovoConnectCheck(Request $request, ClientRegistry $clientRegistry)
+    {
+    }
 }

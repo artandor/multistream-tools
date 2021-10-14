@@ -1,20 +1,70 @@
 {
-  "_readme": [
-    "This file locks the dependencies of your project to a known state",
-    "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
-    "This file is @generated automatically"
-  ],
-  "content-hash": "c126486b611a4eea8b739ea508a47173",
-  "packages": [
-    {
-      "name": "composer/package-versions-deprecated",
-      "version": "1.11.99.3",
-      "source": {
-        "type": "git",
-        "url": "https://github.com/composer/package-versions-deprecated.git",
-        "reference": "fff576ac850c045158a250e7e27666e146e78d18"
-      },
-      "dist": {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "10a7b29f5e7f2d590cc36150e1d29af9",
+    "packages": [
+        {
+            "name": "artandor/oauth2-trovo",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/artandor/oauth2-trovo.git",
+                "reference": "9d5163d95eb879ac8d19f65cc6e4aed3537a6f1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/artandor/oauth2-trovo/zipball/9d5163d95eb879ac8d19f65cc6e4aed3537a6f1a",
+                "reference": "9d5163d95eb879ac8d19f65cc6e4aed3537a6f1a",
+                "shasum": ""
+            },
+            "require": {
+                "league/oauth2-client": "^2.0",
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Artandor\\Oauth2Trovo\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "artandor",
+                    "email": "nicolas.mylle.pro@gmail.com"
+                }
+            ],
+            "description": "Trovo OAuth 2.0 Client Provider",
+            "keywords": [
+                "client",
+                "oauth",
+                "oauth2",
+                "trovo"
+            ],
+            "support": {
+                "issues": "https://github.com/artandor/oauth2-trovo/issues",
+                "source": "https://github.com/artandor/oauth2-trovo/tree/v1.0.1"
+            },
+            "time": "2021-10-13T20:20:44+00:00"
+        },
+        {
+            "name": "composer/package-versions-deprecated",
+            "version": "1.11.99.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/package-versions-deprecated.git",
+                "reference": "fff576ac850c045158a250e7e27666e146e78d18"
+            },
+            "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/composer/package-versions-deprecated/zipball/fff576ac850c045158a250e7e27666e146e78d18",
                 "reference": "fff576ac850c045158a250e7e27666e146e78d18",
@@ -11031,5 +11081,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-  "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.0.0"
 }
