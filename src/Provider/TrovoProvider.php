@@ -69,13 +69,16 @@ class TrovoProvider extends AbstractPlatformProvider
                     }
 
                     if ($this->shouldRetryRequest($response, $account) === false) {
+                        $this->logger->error('Could\'nt refresh token. The user have to login again');
                         return false;
                     }
                 } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
                     $this->logger->error('An error occured : ' . $e->getMessage());
+                    return false;
                 }
             } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
                 $this->logger->error('An error occured : ' . $e->getMessage());
+                return false;
             }
         }
 
@@ -88,9 +91,12 @@ class TrovoProvider extends AbstractPlatformProvider
         try {
             $response = $client->request('POST', 'https://open-api.trovo.live/openplatform/refreshtoken', [
                 'headers' => [
-                    'client_id' => $_ENV['OAUTH_TROVO_CLIENT_ID'],
+                    'Authorization' => '',
+                    'Accept' => 'application/json',
+                    'Client-Id' => $_ENV['OAUTH_TROVO_CLIENT_ID'],
+                    'Content-Type' => 'application/json',
                 ],
-                'body' => [
+                'json' => [
                     'client_secret' => $_ENV['OAUTH_TROVO_CLIENT_SECRET'],
                     'refresh_token' => $account->getRefreshToken(),
                     'grant_type' => 'refresh_token'

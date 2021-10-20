@@ -46,8 +46,7 @@ class StreamUpdate extends AbstractController
                         if ($provider->updateStreamTitleAndCategory($account, $streamTitle->getTitle(), $streamTitle->getCategory())) {
                             $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
                         } else {
-                            $this->addFlash('titleUpdate-failure', 'Failed to update title for ' . $account->getPlatform()->getName());
-
+                            $this->addFlash('titleUpdate-failure', 'Failed to update title for ' . $account->getPlatform()->getName() . '. Try to authenticate again.');
                         }
                     } else {
                         $this->logger->error('This provider doesn\'t exist.');

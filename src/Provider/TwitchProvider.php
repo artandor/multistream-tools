@@ -80,8 +80,8 @@ class TwitchProvider extends AbstractPlatformProvider
             }
         } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
             $this->logger->error('An error occured : ' . $e->getMessage());
+            return false;
         }
-
 
         return true;
     }

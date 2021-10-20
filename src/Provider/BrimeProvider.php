@@ -67,9 +67,11 @@ class BrimeProvider extends AbstractPlatformProvider
                     }
                 } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
                     $this->logger->error('An error occured : ' . $e->getMessage());
+                    return false;
                 }
             } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
                 $this->logger->error('An error occured : ' . $e->getMessage());
+                return false;
             }
         }
 
