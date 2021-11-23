@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block description %}{{ "home.slogan"|trans }} {{ "home.valueProposition.title"|trans }}{% endblock %}
+
 {% block body %}
     <section class="relative block">
         <div class="container mx-auto px-4">
@@ -8,10 +10,9 @@
                     <img src="{{ asset('favicon.svg') }}" class="m-auto" width="150" height="150"
                          alt="Logo of multistream tools"/>
                     <h1 class="text-4xl font-semibold">Multistream Tools</h1>
-                    <h2 class="text-2xl">Let's make multi-streaming a pleasure</h2>
+                    <h2 class="text-2xl">{{ "home.slogan"|trans }}</h2>
                     <p class="text-lg leading-relaxed mt-4 mb-4">
-                        We help you remove all the redundancy that comes with
-                        streaming to multiple platforms.
+                        {{ "home.valueProposition.title"|trans }}
                     </p>
                 </div>
             </div>
@@ -23,11 +24,10 @@
                         </svg>
                     </div>
                     <h6 class="text-xl mt-5 font-semibold">
-                        Update all your platforms at once
+                        {{ "home.valueProposition.manage.title"|trans }}
                     </h6>
                     <p class="mt-2 mb-4">
-                        Some quick example text to build on the card title and make up
-                        the bulk of the card's content.
+                        {{ "home.valueProposition.manage.detail"|trans }}
                     </p>
                 </div>
                 <div class="w-full lg:w-3/12 px-4 text-center">
@@ -39,11 +39,12 @@
                         </svg>
                     </div>
                     <h5 class="text-xl mt-5 font-semibold">
-                        Safe to use
+                        {{ "home.valueProposition.safe.title"|trans }}
                     </h5>
                     <p class="mt-2 mb-4">
-                        We use the well known <a href="https://oauth.net/2/" target="_blank" rel="noopener"><strong>OAuth</strong></a>
-                        authentification method, which mean you don't need to give us any password.
+                        {{ "home.valueProposition.safe.detail1"|trans }}
+                        <a href="https://oauth.net/2/" target="_blank" rel="noopener"><strong>OAuth</strong></a>
+                        {{ "home.valueProposition.safe.detail2"|trans }}
                     </p>
                 </div>
                 <div class="w-full lg:w-3/12 px-4 text-center">
@@ -54,11 +55,10 @@
                                   clip-rule="evenodd"/>
                         </svg>
                     </div>
-                    <h5 class="text-xl mt-5 font-semibold">Made for you</h5>
+                    <h5 class="text-xl mt-5 font-semibold">{{ "home.valueProposition.dock.title"|trans }}</h5>
                     <p class="mt-2 mb-4">
-                        This site is made by streamers for streamers. You can add your favorite pages to an <strong>OBS
-                            dock</strong>
-                        with ease.
+                        {{ "home.valueProposition.dock.detail1"|trans }} <strong>OBS
+                            dock</strong> {{ "home.valueProposition.dock.detail2"|trans }}
                     </p>
                 </div>
             </div>
@@ -66,7 +66,8 @@
             <div class="flex flex-wrap text-center justify-center">
                 <div class="w-full lg:w-6/12 px-4">
                     <p class="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
-                        An idea to help us improve ? Post it here <a
+                        {{ "home.improve"|trans }}
+                        <a
                                 href="https://github.com/artandor/multistream-tools/issues" target="_blank"
                                 rel="noopener">
                             <svg xmlns="http://www.w3.org/2000/svg" class="inline" width="24" height="24"
@@ -84,7 +85,7 @@
 
     <div class="w-full lg:px-32">
         <h2 class="text-2xl font-extrabold text-gray-900">{% trans %}platform.list{% endtrans %}</h2>
-        <p class="mt-2">Login with your platforms and start using our tools.</p>
+        <p class="mt-2">{{ 'platform.help'|trans }}</p>
         <div class="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-x-6">
             {% for platform in platforms %}
                 <div class="group relative">
