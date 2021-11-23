@@ -10,3 +10,4 @@ stream:
   category: 'Categorie'
 dock:
   createUrl: 'Crée un dock OBS en copiant cet URL '
+privacyPolicy: 'Politique de confidentialité'
