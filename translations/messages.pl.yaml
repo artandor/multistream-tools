@@ -10,3 +10,4 @@ stream:
   category: 'Kategoria'
 dock:
   createUrl: 'Utwórz stację dokującą OBS, kopiując ten adres URL '
+privacyPolicy: 'Polityka prywatności'

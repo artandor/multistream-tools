@@ -33,9 +33,9 @@ class Version20210909154541 extends AbstractMigration
         $this->addSql('ALTER TABLE account ADD CONSTRAINT FK_7D3656A48031A592 FOREIGN KEY (linked_to_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE account ADD CONSTRAINT FK_7D3656A4FFE6496F FOREIGN KEY (platform_id) REFERENCES platform (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
 
-        $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (1, 'Twitch', '".TwitchProvider::class."', 'connect_twitch_start', 'https://images-eu.ssl-images-amazon.com/images/I/21kRx-CJsUL.png')");
-        $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (2, 'Brime', '".BrimeProvider::class."', 'connect_brime_start', 'https://pbs.twimg.com/profile_images/1377892219554775047/XgvkhoAI.jpg')");
-        $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (3, 'Youtube', '".GoogleProvider::class."', 'connect_google_start', 'https://www.youtube.com/img/desktop/yt_1200.png')");
+        $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (1, 'Twitch', '" . TwitchProvider::class . "', 'connect_twitch_start', 'https://images-eu.ssl-images-amazon.com/images/I/21kRx-CJsUL.png')");
+        $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (2, 'Brime', '" . BrimeProvider::class . "', 'connect_brime_start', 'https://assets.brimecdn.com/brime/Brime_Logo_Gradient.png')");
+        $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (3, 'Youtube', '" . GoogleProvider::class . "', 'connect_google_start', 'https://www.youtube.com/img/desktop/yt_1200.png')");
     }
 
     /**

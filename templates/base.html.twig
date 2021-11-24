@@ -2,7 +2,9 @@
 <html lang="{{ app.request.locale }}">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Multistream Tools{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}"/>
     <link rel="icon" href="/favicon.svg" sizes="any" type="image/svg+xml">
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}

@@ -1,16 +1,18 @@
-<footer class="items-center p-4 footer bg-neutral text-neutral-content flex fixed bottom-0 justify-between w-10/12 self-center">
+<footer class="items-center p-4 footer bg-neutral text-neutral-content flex fixed bottom-0 justify-between w-10/12 self-center bg-gray-100">
     <div class="flex items-center">
         <img src="{{ asset('favicon.svg') }}" width="24" height="24"/>
         <p class="ml-2">Copyright © 2021 - All right reserved</p>
     </div>
-    <div><a href="{{ path('privacy') }}" target="_blank" rel="noopener">Privacy policy</a></div>
+    <div><a href="{{ path('privacy') }}" target="_blank" rel="noopener"
+            aria-label="Privacy policy">{{ "privacyPolicy"|trans }}</a></div>
     <div class="grid-flow-col gap-4 md:place-self-center md:justify-self-end inline-flex">
-        <a href="https://github.com/artandor/multistream-tools" target="_blank" rel="noopener">
+        <a href="https://github.com/artandor/multistream-tools" target="_blank" rel="noopener" aria-label="Github">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
         </a>
-        <a href="https://github.com/artandor/multistream-tools/issues" target="_blank" rel="noopener">
+        <a href="https://github.com/artandor/multistream-tools/issues" target="_blank" rel="noopener"
+           aria-label="Make a proposal">
             <svg id="Layer_1" height="24" viewBox="0 0 512 512" width="24" xmlns="http://www.w3.org/2000/svg"
                  data-name="Layer 1">
                 <path d="m337.533 34.477-48.9 31.581a5.982 5.982 0 0 0 -1.781 1.779l-21.081 32.551a6 6 0 1 0 10.073 6.522l20.381-31.47 47.817-30.883a6 6 0 1 0 -6.51-10.08z"/>
@@ -28,7 +30,8 @@
                 <path d="m124.559 98.892a6 6 0 0 0 -4.531-3.179l-30.562-4.075a6 6 0 0 0 -1.586 11.895l27.471 3.662 25.048 48.17a6 6 0 0 0 4.816 3.211l29.226 2.483c.173.014.344.022.515.022a6 6 0 0 0 .5-11.979l-25.936-2.2z"/>
             </svg>
         </a>
-        <a href="https://www.buymeacoffee.com/multistreamtool" target="_blank" rel="noopener" alt="Buy me a coffee">
+        <a href="https://www.buymeacoffee.com/multistreamtool" target="_blank" class="inline" rel="noopener"
+           aria-label="Buy me a coffee">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" width="24" height="24"
                  fill="currentColor">
                 <path fill-rule="evenodd"

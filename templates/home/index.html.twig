@@ -1,25 +1,110 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h2 class="text-2xl font-extrabold text-gray-900">{% trans %}platform.list{% endtrans %}</h2>
+{% block description %}{{ "home.slogan"|trans }} {{ "home.valueProposition.title"|trans }}{% endblock %}
 
-    <div class="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-6">
-        {% for platform in platforms %}
-            <div class="group relative">
-                <div class="relative w-full h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-                    <img src="{{ platform.image }}" class="w-full h-full object-center object-cover" alt="{{ platform.name }}'s logo">
+{% block body %}
+    <section class="relative block">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap text-center justify-center">
+                <div class="w-full lg:w-6/12 px-4">
+                    <img src="{{ asset('favicon.svg') }}" class="m-auto" width="150" height="150"
+                         alt="Logo of multistream tools"/>
+                    <h1 class="text-4xl font-semibold">Multistream Tools</h1>
+                    <h2 class="text-2xl">{{ "home.slogan"|trans }}</h2>
+                    <p class="text-lg leading-relaxed mt-4 mb-4">
+                        {{ "home.valueProposition.title"|trans }}
+                    </p>
                 </div>
-                <h3 class="mt-2 mb-6 text-sm text-gray-500">
-                    <a href="{{ path(platform.path) }}">
-                        <span class="absolute inset-0"></span>
-                        {% if app.user != null %}
-                            {% for account in app.user.accounts|filter(account => account.platform == platform) %}
-                                {% trans %}platform.connected_as{% endtrans %} {{ account.email }}
-                            {% endfor %}
-                        {% endif %}
-                    </a>
-                </h3>
             </div>
-        {% endfor %}
+            <div class="flex flex-wrap mt-12 justify-center">
+                <div class="w-full lg:w-3/12 px-4 text-center">
+                    <div class="p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"/>
+                        </svg>
+                    </div>
+                    <h6 class="text-xl mt-5 font-semibold">
+                        {{ "home.valueProposition.manage.title"|trans }}
+                    </h6>
+                    <p class="mt-2 mb-4">
+                        {{ "home.valueProposition.manage.detail"|trans }}
+                    </p>
+                </div>
+                <div class="w-full lg:w-3/12 px-4 text-center">
+                    <div class="p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h5 class="text-xl mt-5 font-semibold">
+                        {{ "home.valueProposition.safe.title"|trans }}
+                    </h5>
+                    <p class="mt-2 mb-4">
+                        {{ "home.valueProposition.safe.detail1"|trans }}
+                        <a href="https://oauth.net/2/" target="_blank" rel="noopener"><strong>OAuth</strong></a>
+                        {{ "home.valueProposition.safe.detail2"|trans }}
+                    </p>
+                </div>
+                <div class="w-full lg:w-3/12 px-4 text-center">
+                    <div class="text-blueGray-800 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h5 class="text-xl mt-5 font-semibold">{{ "home.valueProposition.dock.title"|trans }}</h5>
+                    <p class="mt-2 mb-4">
+                        {{ "home.valueProposition.dock.detail1"|trans }} <strong>OBS
+                            dock</strong> {{ "home.valueProposition.dock.detail2"|trans }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap text-center justify-center">
+                <div class="w-full lg:w-6/12 px-4">
+                    <p class="text-lg leading-relaxed mt-4 mb-4 text-blueGray-400">
+                        {{ "home.improve"|trans }}
+                        <a
+                                href="https://github.com/artandor/multistream-tools/issues" target="_blank"
+                                rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline" width="24" height="24"
+                                 viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <div class="w-full lg:px-32">
+        <h2 class="text-2xl font-extrabold text-gray-900">{% trans %}platform.list{% endtrans %}</h2>
+        <p class="mt-2">{{ 'platform.help'|trans }}</p>
+        <div class="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-x-6">
+            {% for platform in platforms %}
+                <div class="group relative">
+                    <div class="relative w-full h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
+                        <img src="{{ platform.image }}" class="w-full h-full object-center object-cover"
+                             alt="{{ platform.name }}'s logo">
+                    </div>
+                    <h3 class="mt-2 mb-6 text-sm text-gray-600">
+                        <a href="{{ path(platform.path) }}" title="">
+                            <span class="absolute inset-0"></span>
+                            {% if app.user != null %}
+                                {% for account in app.user.accounts|filter(account => account.platform == platform) %}
+                                    {% trans %}platform.connected_as{% endtrans %} {{ account.email }}
+                                {% endfor %}
+                            {% endif %}
+                        </a>
+                    </h3>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

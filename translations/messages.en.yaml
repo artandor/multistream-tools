@@ -1,5 +1,6 @@
 platform:
     list: Platforms
+    help: 'Login with your platforms and start using our tools.'
     connected_as: 'You are currently connected with address'
 stream:
     update: 'Update stream informations'
@@ -10,3 +11,20 @@ stream:
     category: Category
 dock:
     createUrl: 'Create an OBS dock by copying this url '
+privacyPolicy: 'Privacy policy'
+home:
+    slogan: "Let's make multi-streaming a pleasure."
+    valueProposition:
+        title: 'We help you remove all the redundancy that comes with streaming to multiple platforms.'
+        manage:
+            title: 'Manage all your platforms at once'
+            detail: "Change your title and categories everywhere in a single click, and more to come."
+        safe:
+            title: 'Safe to use'
+            detail1: 'We use the well known'
+            detail2: "authentification method, which mean you don't need to give us any password."
+        dock:
+            title: 'Made for you'
+            detail1: 'This site is made by streamers for streamers. You can add your favorite pages to an'
+            detail2: 'with ease.'
+    improve: 'An idea to help us improve ? Post it here'
