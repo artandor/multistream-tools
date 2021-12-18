@@ -19,7 +19,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * Link to this controller to start the "connect" process
+     * Link to this controller to start the "connect" process.
      *
      * @Route("/connect/twitch", name="connect_twitch_start")
      */
@@ -29,7 +29,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('twitch') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
-                'user:read:email', 'channel:manage:broadcast'
+                'user:read:email', 'channel:manage:broadcast',
             ], []);
     }
 
@@ -40,9 +40,8 @@ class SecurityController extends AbstractController
     {
     }
 
-
     /**
-     * Link to this controller to start the "connect" process
+     * Link to this controller to start the "connect" process.
      *
      * @Route("/connect/google", name="connect_google_start")
      */
@@ -52,7 +51,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('google') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
-                'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.force-ssl'
+                'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.force-ssl',
             ], []);
     }
 
@@ -64,7 +63,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * Link to this controller to start the "connect" process
+     * Link to this controller to start the "connect" process.
      *
      * @Route("/connect/brime", name="connect_brime_start")
      */
@@ -74,7 +73,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('brime') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
-                'openid', 'email', 'offline_access'
+                'openid', 'email', 'offline_access',
             ], []);
     }
 
@@ -86,7 +85,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * Link to this controller to start the "connect" process
+     * Link to this controller to start the "connect" process.
      *
      * @Route("/connect/trovo", name="connect_trovo_start")
      */
@@ -96,7 +95,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('trovo') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
-                'user_details_self', 'channel_update_self'
+                'user_details_self', 'channel_update_self',
             ], []);
     }
 

@@ -44,20 +44,20 @@ class StreamUpdate extends AbstractController
                         /** @var AbstractPlatformProvider $provider */
                         $provider = new ($account->getPlatform()->getProvider())($this->em, $this->logger);
                         if ($provider->updateStreamTitleAndCategory($account, $streamTitle->getTitle(), $streamTitle->getCategory())) {
-                            $this->addFlash('titleUpdate-success', 'Successfully updated title for ' . $account->getPlatform()->getName());
+                            $this->addFlash('titleUpdate-success', 'Successfully updated title for '.$account->getPlatform()->getName());
                         } else {
-                            $this->addFlash('titleUpdate-failure', 'Failed to update title for ' . $account->getPlatform()->getName() . '. Try to authenticate again.');
+                            $this->addFlash('titleUpdate-failure', 'Failed to update title for '.$account->getPlatform()->getName().'. Try to authenticate again.');
                         }
                     } else {
                         $this->logger->error('This provider doesn\'t exist.');
-                        $this->addFlash('titleUpdate-failure', 'Update title feature does not exist yet for ' . $account->getPlatform()->getName());
+                        $this->addFlash('titleUpdate-failure', 'Update title feature does not exist yet for '.$account->getPlatform()->getName());
                     }
                 }
             }
 
             $this->em->persist($streamTitle);
             if (count($user->getTitleHistory()) > 10) {
-                for ($i = 0; $i <= count($user->getTitleHistory()) - 10; $i++) {
+                for ($i = 0; $i <= count($user->getTitleHistory()) - 10; ++$i) {
                     $user->getTitleHistory()->remove($i);
                 }
             }
@@ -66,7 +66,7 @@ class StreamUpdate extends AbstractController
 
         return $this->render('home/update-stream-infos.html.twig', [
             'form' => $form->createView(),
-            'title_history' => $user->getTitleHistory()
+            'title_history' => $user->getTitleHistory(),
         ]);
     }
 }

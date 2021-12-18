@@ -52,6 +52,8 @@
     "artandor/oauth2-trovo": "^1.0"
   },
   "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "phpro/grumphp-shim": "^1.6",
     "phpunit/phpunit": "^9.5",
     "symfony/browser-kit": "5.3.*",
     "symfony/css-selector": "5.3.*",

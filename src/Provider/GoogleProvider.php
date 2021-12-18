@@ -18,49 +18,49 @@ class GoogleProvider extends AbstractPlatformProvider
         try {
             $response = $client->request(
                 'GET',
-                'https://youtube.googleapis.com/youtube/v3/liveBroadcasts?part=snippet&broadcastStatus=active&maxResults=1&key=' . $_ENV['OAUTH_GOOGLE_API_SECRET'], [
+                'https://youtube.googleapis.com/youtube/v3/liveBroadcasts?part=snippet&broadcastStatus=active&maxResults=1&key='.$_ENV['OAUTH_GOOGLE_API_SECRET'], [
                     'headers' => [
-                        'Authorization' => 'Bearer ' . $account->getAccessToken(),
+                        'Authorization' => 'Bearer '.$account->getAccessToken(),
                         'Content-Type' => 'application/json',
-                        'Accept' => 'application/json'
+                        'Accept' => 'application/json',
                     ],
                 ]
             );
 
-            if ($this->shouldRetryRequest($response, $account) === true) {
+            if (true === $this->shouldRetryRequest($response, $account)) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
             }
 
-            if ($this->shouldRetryRequest($response, $account) === false) {
+            if (false === $this->shouldRetryRequest($response, $account)) {
                 return false;
             }
 
             $responseData = $response->toArray();
             if (count($responseData['items']) <= 0) {
                 $this->logger->warning('You are not currently streaming to youtube. Title update did not happen.');
+
                 return false;
             }
             $streamId = $responseData['items'][0]['id'];
 
-
             $response = $client->request(
                 'GET',
-                'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' . $streamId . '&key=' . $_ENV['OAUTH_GOOGLE_API_SECRET'], [
+                'https://www.googleapis.com/youtube/v3/videos?part=snippet&id='.$streamId.'&key='.$_ENV['OAUTH_GOOGLE_API_SECRET'], [
                     'headers' => [
-                        'Authorization' => 'Bearer ' . $account->getAccessToken(),
+                        'Authorization' => 'Bearer '.$account->getAccessToken(),
                         'Content-Type' => 'application/json',
-                        'Accept' => 'application/json'
+                        'Accept' => 'application/json',
                     ],
                 ]
             );
 
-            if ($this->shouldRetryRequest($response, $account) === true) {
+            if (true === $this->shouldRetryRequest($response, $account)) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
             }
 
-            if ($this->shouldRetryRequest($response, $account) === false) {
+            if (false === $this->shouldRetryRequest($response, $account)) {
                 return false;
             }
 
@@ -72,34 +72,36 @@ class GoogleProvider extends AbstractPlatformProvider
 
             $response = $client->request(
                 'PUT',
-                'https://www.googleapis.com/youtube/v3/videos?part=snippet&id=' . $streamId . '&key=' . $_ENV['OAUTH_GOOGLE_API_SECRET'], [
+                'https://www.googleapis.com/youtube/v3/videos?part=snippet&id='.$streamId.'&key='.$_ENV['OAUTH_GOOGLE_API_SECRET'], [
                     'headers' => [
-                        'Authorization' => 'Bearer ' . $account->getAccessToken(),
+                        'Authorization' => 'Bearer '.$account->getAccessToken(),
                         'Content-Type' => 'application/json',
-                        'Accept' => 'application/json'
+                        'Accept' => 'application/json',
                     ],
                     'json' => [
                         'id' => $streamId,
                         'snippet' => [
                             'title' => $title,
-                            'categoryId' => $categoryId
-                        ]
-                    ]
+                            'categoryId' => $categoryId,
+                        ],
+                    ],
                 ]
             );
 
-            if ($this->shouldRetryRequest($response, $account) === true) {
+            if (true === $this->shouldRetryRequest($response, $account)) {
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
             }
 
-            if ($this->shouldRetryRequest($response, $account) === false) {
+            if (false === $this->shouldRetryRequest($response, $account)) {
                 return false;
             }
-        } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-            $this->logger->error('An error occured : ' . $e->getMessage());
+        } catch (TransportExceptionInterface|ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
+            $this->logger->error('An error occured : '.$e->getMessage());
+
             return false;
         }
+
         return true;
     }
 
@@ -112,8 +114,8 @@ class GoogleProvider extends AbstractPlatformProvider
                     'client_id' => $_ENV['OAUTH_GOOGLE_CLIENT_ID'],
                     'client_secret' => $_ENV['OAUTH_GOOGLE_CLIENT_SECRET'],
                     'refresh_token' => $account->getRefreshToken(),
-                    'grant_type' => 'refresh_token'
-                ]
+                    'grant_type' => 'refresh_token',
+                ],
             ]);
             if ($response->getStatusCode() >= 300) {
                 return null;
@@ -123,11 +125,12 @@ class GoogleProvider extends AbstractPlatformProvider
         }
         try {
             $account->setAccessToken(json_decode($response->getContent())->access_token);
-        } catch (ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface | TransportExceptionInterface $e) {
+        } catch (ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
             return null;
         }
         $this->entityManager->flush();
-        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
+        $this->logger->info('Refreshed token for '.$account->getPlatform()->getName());
+
         return $account;
     }
 }
