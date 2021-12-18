@@ -8,6 +8,7 @@ on:
 
 jobs:
   symfony-tests:
+    name: Symfony build
     runs-on: ubuntu-latest
     strategy:
       matrix:
