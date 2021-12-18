@@ -64,8 +64,7 @@ class TwitchProvider extends AbstractPlatformProvider
                     ],
                     'json' => [
                         'game_id' => $category,
-                        'title' => $title,
-                        'broadcaster_language' => 'fr'
+                        'title' => $title
                     ]
                 ]
             );
