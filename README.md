@@ -1,5 +1,8 @@
 # Multistream Tools
 
+[![Composer build](https://github.com/artandor/multistream-tools/actions/workflows/symfony.yml/badge.svg)](https://github.com/artandor/multistream-tools/actions/workflows/symfony.yml)
+[![Docker build](https://github.com/artandor/multistream-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/artandor/multistream-tools/actions/workflows/ci.yml)
+
 ## Description
 
 This project aim to make multi-streaming easier for streamers. We made it because it was painfull to update all titles
