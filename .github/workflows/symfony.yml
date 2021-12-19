@@ -26,7 +26,7 @@ jobs:
     - name: Copy .env.test.local
       run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
     - name: Check style
-      run: php-cs-fixer fix --dry-run --format=xml # | cs2pr we should enable this when false positive issue is fixed https://github.com/staabm/annotate-pull-request-from-checkstyle/issues/85
+      run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
