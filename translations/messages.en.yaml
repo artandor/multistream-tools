@@ -9,6 +9,7 @@ stream:
     lastTitles: 'Last 10 titles'
     title: Title
     category: Category
+    logout: Logout
 dock:
     createUrl: 'Create an OBS dock by copying this url '
 privacyPolicy: 'Privacy policy'

@@ -1,13 +1,14 @@
 platform:
-  list: Platformy
-  connected_as: 'Podłączono jako'
+    list: Platformy
+    connected_as: 'Podłączono jako'
 stream:
-  update: 'Edytuj informacje o transmisji'
-  youtube:
-    note: 'Pamiętaj, edycja informacji na YouTube jest dostępny tylko, gdy jesteś na żywo.'
-  lastTitles: 'Ostatnie 10 tytułów'
-  title: 'Tytuł'
-  category: 'Kategoria'
+    update: 'Edytuj informacje o transmisji'
+    youtube:
+        note: 'Pamiętaj, edycja informacji na YouTube jest dostępny tylko, gdy jesteś na żywo.'
+    lastTitles: 'Ostatnie 10 tytułów'
+    title: 'Tytuł'
+    category: 'Kategoria'
+    logout: Wyloguj się
 dock:
-  createUrl: 'Utwórz stację dokującą OBS, kopiując ten adres URL '
+    createUrl: 'Utwórz stację dokującą OBS, kopiując ten adres URL '
 privacyPolicy: 'Polityka prywatności'

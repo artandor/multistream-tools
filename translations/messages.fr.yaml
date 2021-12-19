@@ -1,30 +1,31 @@
 platform:
-  list: Plateformes
-  help: 'Connectez vous avec vos plateformes et commencez à utiliser nos outils.'
-  connected_as: 'Vous êtes actuellement connecté avec l''adresse'
+    list: Plateformes
+    help: 'Connectez vous avec vos plateformes et commencez à utiliser nos outils.'
+    connected_as: 'Vous êtes actuellement connecté avec l''adresse'
 stream:
-  update: 'Mise à jour des informations du stream'
-  youtube:
-    note: 'La mise à jour du titre Youtube ne fonctionne qu''en étant en live.'
-  lastTitles: '10 dernier titres'
-  title: 'Titre'
-  category: 'Categorie'
+    update: 'Mise à jour des informations du stream'
+    youtube:
+        note: 'La mise à jour du titre Youtube ne fonctionne qu''en étant en live.'
+    lastTitles: '10 dernier titres'
+    title: 'Titre'
+    category: 'Categorie'
+    logout: Déconnexion
 dock:
-  createUrl: 'Crée un dock OBS en copiant cet URL '
+    createUrl: 'Crée un dock OBS en copiant cet URL '
 privacyPolicy: 'Politique de confidentialité'
 home:
-  slogan: "Faisons du multi-streaming un plaisir."
-  valueProposition:
-    title: 'Nous vous aidons à supprimer toute la redondance liée au streaming sur plusieurs plateformes.'
-    manage:
-      title: 'Gérez toutes vos plateformes à la fois'
-      detail: "Modifiez votre titre et vos catégories partout en un seul clic, et plus à venir."
-    safe:
-      title: 'Sécurisé'
-      detail1: "Nous utilisons la méthode bien connue d'authentification"
-      detail2: ", ce qui signifie que vous n'avez pas besoin de nous donner de mot de passe."
-    dock:
-      title: 'Fait pour vous'
-      detail1: 'Ce site est fait par des streamers pour des streamers. Vous pouvez ajouter vos pages préférées à un'
-      detail2: 'avec facilité.'
-  improve: 'Une idée pour nous aider à nous améliorer ? Postez-la ici'
+    slogan: "Faisons du multi-streaming un plaisir."
+    valueProposition:
+        title: 'Nous vous aidons à supprimer toute la redondance liée au streaming sur plusieurs plateformes.'
+        manage:
+            title: 'Gérez toutes vos plateformes à la fois'
+            detail: "Modifiez votre titre et vos catégories partout en un seul clic, et plus à venir."
+        safe:
+            title: 'Sécurisé'
+            detail1: "Nous utilisons la méthode bien connue d'authentification"
+            detail2: ", ce qui signifie que vous n'avez pas besoin de nous donner de mot de passe."
+        dock:
+            title: 'Fait pour vous'
+            detail1: 'Ce site est fait par des streamers pour des streamers. Vous pouvez ajouter vos pages préférées à un'
+            detail2: 'avec facilité.'
+    improve: 'Une idée pour nous aider à nous améliorer ? Postez-la ici'
