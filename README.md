@@ -28,6 +28,7 @@ from all websites, and we have more ideas for the future.
 ## Design consideration
 
 - Each page will be designed in a way that you can integrate it into an OBS dock
+- Icons are mostly from css.gg
 
 ## Install
 
