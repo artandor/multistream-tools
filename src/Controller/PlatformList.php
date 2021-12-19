@@ -23,9 +23,8 @@ class PlatformList extends AbstractController
     {
         return $this->render('home/index.html.twig', [
             'platforms' => $this->platformRepository->findBy([
-                'enabled' => true
-            ])
+                'enabled' => true,
+            ]),
         ]);
     }
-
 }

@@ -21,9 +21,6 @@ abstract class AbstractPlatformProvider
     /**
      * Check the status of a request and determine if it should be retried or not based on status code
      * If the function returns null, this means that no error was found.
-     * @param ResponseInterface $response
-     * @param Account $account
-     * @return bool|null
      */
     protected function shouldRetryRequest(ResponseInterface $response, Account $account): ?bool
     {
@@ -33,7 +30,7 @@ abstract class AbstractPlatformProvider
                 return null;
             }
 
-            if ($response->getStatusCode() === 401) {
+            if (401 === $response->getStatusCode()) {
                 $response->cancel();
                 $account = $this->refreshToken($account);
                 if (!$account) {
@@ -50,6 +47,7 @@ abstract class AbstractPlatformProvider
         } catch (TransportExceptionInterface $e) {
             $this->logger->error($e->getMessage());
         }
+
         return false;
     }
 }

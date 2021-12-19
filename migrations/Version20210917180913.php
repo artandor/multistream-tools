@@ -9,11 +9,6 @@ use Doctrine\Migrations\AbstractMigration;
 
 class Version20210917180913 extends AbstractMigration
 {
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     *
-     * @return void
-     */
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE SEQUENCE title_history_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -23,11 +18,6 @@ class Version20210917180913 extends AbstractMigration
         $this->addSql('ALTER TABLE title_history ADD CONSTRAINT FK_65C6493261220EA6 FOREIGN KEY (creator_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     *
-     * @return void
-     */
     public function down(Schema $schema): void
     {
         $this->addSql('DROP SEQUENCE title_history_id_seq CASCADE');

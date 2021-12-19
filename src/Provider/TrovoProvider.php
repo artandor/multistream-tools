@@ -22,21 +22,21 @@ class TrovoProvider extends AbstractPlatformProvider
                     'https://open-api.trovo.live/openplatform/searchcategory', [
                         'headers' => [
                             'Content-Type' => 'application/json',
-                            'Client-Id' => $_ENV['OAUTH_TROVO_CLIENT_ID']
+                            'Client-Id' => $_ENV['OAUTH_TROVO_CLIENT_ID'],
                         ],
                         'json' => [
                             'query' => $category,
-                            'limit' => 1
-                        ]
+                            'limit' => 1,
+                        ],
                     ]
                 );
 
-                if ($this->shouldRetryRequest($response, $account) === true) {
+                if (true === $this->shouldRetryRequest($response, $account)) {
                     // If the token was refreshed, retry the whole function.
                     return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
                 }
 
-                if ($this->shouldRetryRequest($response, $account) === false) {
+                if (false === $this->shouldRetryRequest($response, $account)) {
                     return false;
                 }
 
@@ -50,7 +50,7 @@ class TrovoProvider extends AbstractPlatformProvider
                         'POST',
                         'https://open-api.trovo.live/openplatform/channels/update', [
                             'headers' => [
-                                'Authorization' => 'OAuth ' . $account->getAccessToken(),
+                                'Authorization' => 'OAuth '.$account->getAccessToken(),
                                 'Content-Type' => 'application/json',
                                 'Accept' => 'application/json',
                                 'Client-Id' => $_ENV['OAUTH_TROVO_CLIENT_ID'],
@@ -59,25 +59,28 @@ class TrovoProvider extends AbstractPlatformProvider
                                 'channel_id' => $account->getExternalId(),
                                 'live_title' => $title,
                                 'category_id' => $categoryId ?? null,
-                            ]
+                            ],
                         ]
                     );
 
-                    if ($this->shouldRetryRequest($response, $account) === true) {
+                    if (true === $this->shouldRetryRequest($response, $account)) {
                         // If the token was refreshed, retry the whole function.
                         return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
                     }
 
-                    if ($this->shouldRetryRequest($response, $account) === false) {
+                    if (false === $this->shouldRetryRequest($response, $account)) {
                         $this->logger->error('Could\'nt refresh token. The user have to login again');
+
                         return false;
                     }
-                } catch (TransportExceptionInterface | ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-                    $this->logger->error('An error occured : ' . $e->getMessage());
+                } catch (TransportExceptionInterface|ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
+                    $this->logger->error('An error occured : '.$e->getMessage());
+
                     return false;
                 }
-            } catch (TransportExceptionInterface | ClientExceptionInterface | DecodingExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface $e) {
-                $this->logger->error('An error occured : ' . $e->getMessage());
+            } catch (TransportExceptionInterface|ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
+                $this->logger->error('An error occured : '.$e->getMessage());
+
                 return false;
             }
         }
@@ -99,8 +102,8 @@ class TrovoProvider extends AbstractPlatformProvider
                 'json' => [
                     'client_secret' => $_ENV['OAUTH_TROVO_CLIENT_SECRET'],
                     'refresh_token' => $account->getRefreshToken(),
-                    'grant_type' => 'refresh_token'
-                ]
+                    'grant_type' => 'refresh_token',
+                ],
             ]);
             if ($response->getStatusCode() >= 300) {
                 return null;
@@ -110,11 +113,12 @@ class TrovoProvider extends AbstractPlatformProvider
         }
         try {
             $account->setAccessToken(json_decode($response->getContent())->access_token);
-        } catch (ClientExceptionInterface | RedirectionExceptionInterface | ServerExceptionInterface | TransportExceptionInterface $e) {
+        } catch (ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
             return null;
         }
         $this->entityManager->flush();
-        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
+        $this->logger->info('Refreshed token for '.$account->getPlatform()->getName());
+
         return $account;
     }
 }

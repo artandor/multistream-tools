@@ -20,7 +20,7 @@ class PlatformCrudController extends AbstractCrudController
             TextField::new('name'),
             TextField::new('image'),
             TextField::new('path'),
-            BooleanField::new('enabled')
+            BooleanField::new('enabled'),
         ];
     }
 }

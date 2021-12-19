@@ -16,7 +16,7 @@ class StreamInfoType extends AbstractType
         $builder
             ->add('title', TextType::class, ['label' => 'stream.title'])
             ->add('category', TextType::class, ['label' => 'stream.category'])
-            ->add('submit', SubmitType::class);//TODO Translate that
+            ->add('submit', SubmitType::class); //TODO Translate that
     }
 
     public function configureOptions(OptionsResolver $resolver)

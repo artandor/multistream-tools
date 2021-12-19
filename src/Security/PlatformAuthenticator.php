@@ -31,22 +31,21 @@ use Vertisan\OAuth2\Client\Provider\TwitchHelixResourceOwner;
 
 class PlatformAuthenticator extends OAuth2Authenticator
 {
-
-    public function __construct(private ClientRegistry  $clientRegistry, private EntityManagerInterface $entityManager,
+    public function __construct(private ClientRegistry $clientRegistry, private EntityManagerInterface $entityManager,
                                 private RouterInterface $router, private UserPasswordHasherInterface $passwordEncoder,
-                                private Security        $security, private HttpClientInterface $client)
+                                private Security $security, private HttpClientInterface $client)
     {
     }
 
     public function supports(Request $request): ?bool
     {
         // continue ONLY if the current ROUTE matches the check ROUTE
-        return (
-            $request->attributes->get('_route') === 'connect_twitch_check'
-            || $request->attributes->get('_route') === 'connect_google_check'
-            || $request->attributes->get('_route') === 'connect_brime_check'
-            || $request->attributes->get('_route') === 'connect_trovo_check'
-        );
+        return
+            'connect_twitch_check' === $request->attributes->get('_route')
+            || 'connect_google_check' === $request->attributes->get('_route')
+            || 'connect_brime_check' === $request->attributes->get('_route')
+            || 'connect_trovo_check' === $request->attributes->get('_route')
+        ;
     }
 
     public function authenticate(Request $request): PassportInterface
@@ -73,18 +72,17 @@ class PlatformAuthenticator extends OAuth2Authenticator
 
         return new SelfValidatingPassport(
             new UserBadge($accessToken->getToken(), function () use ($accessToken, $client, $request) {
-
                 /** @var TwitchHelixResourceOwner|GoogleUser|Auth0ResourceOwner|TrovoResourceOwner $resourceOwner */
                 $resourceOwner = $client->fetchUserFromToken($accessToken);
 
                 $email = $resourceOwner->getEmail();
                 $externalId = $resourceOwner->getId();
 
-                if ($request->attributes->get('_route') === 'connect_brime_check') {
+                if ('connect_brime_check' === $request->attributes->get('_route')) {
                     $response = $this->client->request('GET', 'https://api.brime.tv/v1/account/me', [
                         'headers' => [
-                            'Authorization' => 'Bearer ' . $accessToken->getToken()
-                        ]
+                            'Authorization' => 'Bearer '.$accessToken->getToken(),
+                        ],
                     ]);
                     $responseData = $response->toArray();
                     $externalId = $responseData['xid'];
@@ -97,6 +95,7 @@ class PlatformAuthenticator extends OAuth2Authenticator
                     $account->setAccessToken($accessToken);
                     $account->setRefreshToken($accessToken->getRefreshToken());
                     $this->entityManager->flush();
+
                     return $account->getLinkedTo();
                 }
 
