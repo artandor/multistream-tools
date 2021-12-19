@@ -27,7 +27,6 @@ class StreamUpdate extends AbstractController
         if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('home');
         }
-        $form = $this->createForm(StreamInfoType::class);
 
         /** @var User $user */
         $user = $this->getUser();
@@ -62,11 +61,12 @@ class StreamUpdate extends AbstractController
                 }
             }
             $this->em->flush();
+            $this->em->refresh($user); // Refresh title history
         }
 
         return $this->render('home/update-stream-infos.html.twig', [
             'form' => $form->createView(),
-            'title_history' => $user->getTitleHistory(),
+            'title_history' => $user->getLastTitles(),
         ]);
     }
 }
