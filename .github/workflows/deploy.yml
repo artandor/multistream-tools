@@ -1,0 +1,29 @@
+name: Deployment
+
+on:
+  push:
+    tags:
+      - v?.?.?
+
+jobs:
+  symfony-deploy-prod:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set env
+      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: Deploy to production
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVKEY }}
+        port: ${{ secrets.PORT }}
+        script_stop: true
+        script: |
+          cd multistream-tools
+          git fetch
+          git checkout tags/${{ env.RELEASE_VERSION }}
+          git pull
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
