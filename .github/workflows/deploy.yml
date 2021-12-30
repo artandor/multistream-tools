@@ -2,7 +2,8 @@ name: Deployment
 
 on:
   push:
-    branches: feature/continuous_deployment
+    tags:
+      - v?.?.?
 
 jobs:
   symfony-deploy-prod:
@@ -19,9 +20,10 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PRIVKEY }}
         port: ${{ secrets.PORT }}
+        script_stop: true
         script: |
-          echo $RELEASE_VERSION
-          echo ${{ env.RELEASE_VERSION }}
           cd multistream-tools
+          git fetch
+          git checkout tags/${{ env.RELEASE_VERSION }}
           git pull
           docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
