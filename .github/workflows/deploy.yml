@@ -9,7 +9,6 @@ jobs:
     name: Deploy to production
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
     - name: Deploy to production
       uses: appleboy/ssh-action@master
       with:
@@ -18,5 +17,7 @@ jobs:
         key: ${{ secrets.PRIVKEY }}
         port: ${{ secrets.PORT }}
         script: |
-          whoami
+          cd multistream-tools
+          git pull
           ls -al
+          docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
