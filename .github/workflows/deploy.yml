@@ -1,6 +1,9 @@
 name: Deployment
 
 on:
+  release:
+    types: [published]
+  workflow_dispatch:
   push:
     tags:
       - v?.?.?
@@ -20,9 +23,9 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PRIVKEY }}
         port: ${{ secrets.PORT }}
-        script_stop: true
         script: |
           cd multistream-tools
+          echo ${{ env.RELEASE_VERSION }}
           git fetch
           git checkout tags/${{ env.RELEASE_VERSION }}
           git pull
