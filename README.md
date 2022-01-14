@@ -2,6 +2,7 @@
 
 [![Composer build](https://github.com/artandor/multistream-tools/actions/workflows/symfony.yml/badge.svg)](https://github.com/artandor/multistream-tools/actions/workflows/symfony.yml)
 [![Docker build](https://github.com/artandor/multistream-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/artandor/multistream-tools/actions/workflows/ci.yml)
+[![Translation status](https://hosted.weblate.org/widgets/multistream-tools/-/glossary/svg-badge.svg)](https://hosted.weblate.org/engage/multistream-tools/)
 
 ## Description
 
