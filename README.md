@@ -26,8 +26,8 @@ from all websites, and we have more ideas for the future.
 - [X] Trovo
 - [ ] Facebook Gaming
 
-## Supported languages
-[![Translation status](https://hosted.weblate.org/widgets/multistream-tools/-/glossary/287x66-white.png)](https://hosted.weblate.org/engage/multistream-tools/)
+## Translation contribution
+[![Translation contribution tool](https://hosted.weblate.org/widgets/multistream-tools/-/glossary/287x66-white.png)](https://hosted.weblate.org/engage/multistream-tools/)
 
 ## Design consideration
 
