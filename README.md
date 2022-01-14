@@ -26,6 +26,9 @@ from all websites, and we have more ideas for the future.
 - [X] Trovo
 - [ ] Facebook Gaming
 
+## Supported languages
+[![Translation status](https://hosted.weblate.org/widgets/multistream-tools/-/glossary/287x66-white.png)](https://hosted.weblate.org/engage/multistream-tools/)
+
 ## Design consideration
 
 - Each page will be designed in a way that you can integrate it into an OBS dock
