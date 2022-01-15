@@ -1,6 +1,7 @@
 platform:
     list: Platformy
     connected_as: 'Podłączono jako'
+    help: Zaloguj się, używając swojej platformy i zacznij korzystać z naszych usług.
 stream:
     update: 'Edytuj informacje o transmisji'
     youtube:
@@ -12,3 +13,19 @@ stream:
 dock:
     createUrl: 'Utwórz stację dokującą OBS, kopiując ten adres URL '
 privacyPolicy: 'Polityka prywatności'
+home:
+    slogan: Niech multi-streaming stanie się przyjemnością.
+    valueProposition:
+        title: Pomagamy Ci pozbyć się dodatkowej pracy związanej ze streamingiem na wiele platformach.
+        safe:
+            detail2: Systemu uwierzytelniania, dzięki któremu nie musisz podawać nam swojego hasła.
+            detail1: Używamy dobrze znanego
+            title: Bezpieczeństwo użytkowania
+        dock:
+            detail1: Strona stworzona dla streamerów przez streamerów. Zawsze możesz dodać swoje ulubione strony do
+            title: Stworzone dla Ciebie
+            detail2: z łatwością.
+        manage:
+            detail: Zmieniaj tytuł i kategorie jednym przyciskiem myszki.
+            title: Zarządzaj wszystkimi platformami jednocześnie
+    improve: Masz pomysł który możemy wykorzystać? Przedstaw go nam!
