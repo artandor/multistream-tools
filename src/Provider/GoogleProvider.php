@@ -28,6 +28,7 @@ class GoogleProvider extends AbstractPlatformProvider
             );
 
             if (true === $this->shouldRetryRequest($response, $account)) {
+                $this->logger->warning('Retrying for platform youtube after failed broadcast lookup.');
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
             }
@@ -56,6 +57,7 @@ class GoogleProvider extends AbstractPlatformProvider
             );
 
             if (true === $this->shouldRetryRequest($response, $account)) {
+                $this->logger->warning('Retrying for platform youtube after failed stream Id lookup.');
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
             }
@@ -89,6 +91,7 @@ class GoogleProvider extends AbstractPlatformProvider
             );
 
             if (true === $this->shouldRetryRequest($response, $account)) {
+                $this->logger->warning('Retrying for platform youtube after failed update tile.');
                 // If the token was refreshed, retry the whole function.
                 return $this->updateStreamTitleAndCategory($account, $title, $category, --$retry);
             }
