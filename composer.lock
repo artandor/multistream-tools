@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "621cd60299e3acfd9a5f28033a667856",
+    "content-hash": "a8309a4168d855f64af2ce4898856c2a",
     "packages": [
         {
             "name": "artandor/oauth2-trovo",
@@ -11502,7 +11502,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
