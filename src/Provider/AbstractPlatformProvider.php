@@ -43,7 +43,8 @@ abstract class AbstractPlatformProvider
             if ($response->getStatusCode() >= 300) {
                 // An error occurred in the treatment, no point in retrying
                 $this->logger->warning('A fatal error occured while requesting. No retry will occur. 
-                Status : ' . $response->getStatusCode() . ' URL : ' . $response->getInfo()['url']);
+                Status : '.$response->getStatusCode().' URL : '.$response->getInfo()['url']);
+
                 return false;
             }
         } catch (TransportExceptionInterface $e) {

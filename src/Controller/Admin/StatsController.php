@@ -26,7 +26,6 @@ class StatsController extends AbstractController
         $thirtyDaysAgo = (new DateTime())->sub(DateInterval::createFromDateString('30 days'));
         $usersByDay = $this->userRepository->findNewUsersSinceDate($thirtyDaysAgo);
 
-
         $cleanedData = [];
         foreach ($usersByDay as $day) {
             $cleanedData[$day['dateCreated']] = $day[1];
@@ -34,12 +33,14 @@ class StatsController extends AbstractController
 
         $labels = [];
         $data = [];
-        for ($i = 30; $i >= 0; $i--) {
-            $date = date("Y-m-d", strtotime('-' . $i . ' days'));
+        for ($i = 30; $i >= 0; --$i) {
+            $date = date('Y-m-d', strtotime('-'.$i.' days'));
             $labels[] = $date;
             if (array_key_exists($date, $cleanedData)) {
                 $data[] = $cleanedData[$date];
-            } else $data[] = 0;
+            } else {
+                $data[] = 0;
+            }
         }
 
         $chart = $chartBuilder->createChart(Chart::TYPE_BAR);
@@ -62,7 +63,7 @@ class StatsController extends AbstractController
                     'suggestedMin' => 0,
                     'ticks' => [
                         'stepSize' => 1,
-                    ]
+                    ],
                 ],
             ],
         ]);
@@ -70,7 +71,7 @@ class StatsController extends AbstractController
         return $this->render('admin/stats.html.twig', [
             'chart' => $chart,
             'total_users' => $this->userRepository->count([]),
-            'stat_title' => 'Users'
+            'stat_title' => 'Users',
         ]);
     }
 }
