@@ -631,6 +631,9 @@
     "symfony/uid": {
         "version": "v5.3.3"
     },
+    "symfony/ux-chartjs": {
+        "version": "v2.0.1"
+    },
     "symfony/validator": {
         "version": "4.3",
         "recipe": {
@@ -673,7 +676,7 @@
             "repo": "github.com/symfony/recipes",
             "branch": "master",
             "version": "1.9",
-            "ref": "404714014dd6ff7de9aa0f9582d592147359e617"
+            "ref": "d2d1e09675fff3fa4193aa9950a7c39934524a25"
         },
         "files": [
             "assets/app.js",

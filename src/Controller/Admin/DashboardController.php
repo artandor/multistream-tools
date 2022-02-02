@@ -13,9 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
-    /**
-     * @Route("/admin", name="admin")
-     */
+    #[Route(path: '/admin', name: 'admin')]
     public function index(): Response
     {
         $routeBuilder = $this->get(AdminUrlGenerator::class);
@@ -35,5 +33,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-globe', 'home');
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Platforms', 'fa fa-bars', Platform::class);
+        yield MenuItem::linktoRoute('Stats', 'fa fa-chart-bar', 'admin_user_stats');
     }
 }
