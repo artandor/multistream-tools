@@ -30,5 +30,7 @@ jobs:
           git fetch
           git pull
           echo $?
+          env
+          source .env .env.prod.local
           git checkout tags/${{ env.RELEASE_VERSION }}
           docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
