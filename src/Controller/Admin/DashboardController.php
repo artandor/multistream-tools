@@ -33,6 +33,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoRoute('Back to the website', 'fas fa-globe', 'home');
         yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Platforms', 'fa fa-bars', Platform::class);
-        yield MenuItem::linktoRoute('Stats', 'fa fa-chart-bar', 'admin_user_stats');
+        yield MenuItem::linktoRoute('Users Stats', 'fa fa-chart-bar', 'admin_user_stats');
     }
 }
