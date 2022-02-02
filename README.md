@@ -3,6 +3,7 @@
 [![Composer build](https://github.com/artandor/multistream-tools/actions/workflows/symfony.yml/badge.svg)](https://github.com/artandor/multistream-tools/actions/workflows/symfony.yml)
 [![Docker build](https://github.com/artandor/multistream-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/artandor/multistream-tools/actions/workflows/ci.yml)
 [![Translation status](https://hosted.weblate.org/widgets/multistream-tools/-/glossary/svg-badge.svg)](https://hosted.weblate.org/engage/multistream-tools/)
+[![Wallaby.js](https://img.shields.io/badge/wallaby.js-powered-blue.svg?style=flat&logo=github)](https://wallabyjs.com/oss/)
 
 ## Description
 
@@ -34,13 +35,21 @@ from all websites, and we have more ideas for the future.
 - Each page will be designed in a way that you can integrate it into an OBS dock
 - Icons are mostly from css.gg
 
-## Install
+## Install without docker
 
 ```
-docker-compose up -d
+docker-compose up -d database # Optionnal, u can use your local database
 symfony composer install
 symfony console d:m:m
 yarn install
 yarn watch
 symfony serve
 ```
+
+## Wallaby.js
+
+[![Wallaby.js](https://img.shields.io/badge/wallaby.js-powered-blue.svg?style=for-the-badge&logo=github)](https://wallabyjs.com/oss/)
+
+This repository contributors are welcome to use
+[Wallaby.js OSS License](https://wallabyjs.com/oss/) to get test results immediately as you type, and see the results in
+your editor right next to your code.

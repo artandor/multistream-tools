@@ -1,0 +1,13 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}{{ stat_title }} statistics{% endblock %}
+
+{% block main %}
+    {{ encore_entry_link_tags('app') }}
+
+    <p class="inline-block rounded-full text-white bg-blue-500 px-2 py-1 text-xs font-bold mr-3">Total users
+        : {{ total_users }}</p>
+    {{ render_chart(chart) }}
+
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}

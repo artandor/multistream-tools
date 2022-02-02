@@ -10,19 +10,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SecurityController extends AbstractController
 {
-    /**
-     * @Route("/logout", name="app_logout")
-     */
+    #[Route(path: '/logout', name: 'app_logout')]
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
-    /**
-     * Link to this controller to start the "connect" process.
-     *
-     * @Route("/connect/twitch", name="connect_twitch_start")
-     */
+    #[Route(path: '/connect/twitch', name: 'connect_twitch_start')]
     public function twitchConnect(ClientRegistry $clientRegistry): RedirectResponse
     {
         // will redirect to Twitch !
@@ -33,18 +27,12 @@ class SecurityController extends AbstractController
             ], []);
     }
 
-    /**
-     * @Route("/connect/twitch/check", name="connect_twitch_check")
-     */
+    #[Route(path: '/connect/twitch/check', name: 'connect_twitch_check')]
     public function twitchConnectCheck(Request $request, ClientRegistry $clientRegistry)
     {
     }
 
-    /**
-     * Link to this controller to start the "connect" process.
-     *
-     * @Route("/connect/google", name="connect_google_start")
-     */
+    #[Route(path: '/connect/google', name: 'connect_google_start')]
     public function googleConnect(ClientRegistry $clientRegistry): RedirectResponse
     {
         // will redirect to Google !
@@ -55,18 +43,12 @@ class SecurityController extends AbstractController
             ], []);
     }
 
-    /**
-     * @Route("/connect/google/check", name="connect_google_check")
-     */
+    #[Route(path: '/connect/google/check', name: 'connect_google_check')]
     public function googleConnectCheck(Request $request, ClientRegistry $clientRegistry)
     {
     }
 
-    /**
-     * Link to this controller to start the "connect" process.
-     *
-     * @Route("/connect/brime", name="connect_brime_start")
-     */
+    #[Route(path: '/connect/brime', name: 'connect_brime_start')]
     public function brimeConnect(ClientRegistry $clientRegistry): RedirectResponse
     {
         // will redirect to Brime !
@@ -77,18 +59,12 @@ class SecurityController extends AbstractController
             ], []);
     }
 
-    /**
-     * @Route("/connect/brime/check", name="connect_brime_check")
-     */
+    #[Route(path: '/connect/brime/check', name: 'connect_brime_check')]
     public function brimeConnectCheck(Request $request, ClientRegistry $clientRegistry)
     {
     }
 
-    /**
-     * Link to this controller to start the "connect" process.
-     *
-     * @Route("/connect/trovo", name="connect_trovo_start")
-     */
+    #[Route(path: '/connect/trovo', name: 'connect_trovo_start')]
     public function trovoConnect(ClientRegistry $clientRegistry): RedirectResponse
     {
         // will redirect to Brime !
@@ -99,9 +75,7 @@ class SecurityController extends AbstractController
             ], []);
     }
 
-    /**
-     * @Route("/connect/trovo/check", name="connect_trovo_check")
-     */
+    #[Route(path: '/connect/trovo/check', name: 'connect_trovo_check')]
     public function trovoConnectCheck(Request $request, ClientRegistry $clientRegistry)
     {
     }

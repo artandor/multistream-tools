@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/update-stream-infos", name="updateStreamInfos")
- */
+#[Route(path: '/update-stream-infos', name: 'updateStreamInfos')]
 class StreamUpdate extends AbstractController
 {
     public function __construct(private LoggerInterface $logger, private EntityManagerInterface $em)

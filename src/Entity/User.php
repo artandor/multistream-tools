@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
@@ -26,12 +27,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
@@ -49,10 +50,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $titleHistory;
 
+    /**
+     * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->accounts = new ArrayCollection();
         $this->titleHistory = new ArrayCollection();
+        if (!$this->id) {
+            $this->createdAt = new DateTimeImmutable('now');
+        }
+        $this->updatedAt = new DateTimeImmutable('now');
     }
 
     public function getId(): ?int
@@ -211,5 +226,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             ->setMaxResults(10);
 
         return $this->titleHistory->matching($criteria);
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

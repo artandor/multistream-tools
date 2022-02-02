@@ -1,11 +1,14 @@
 {
     "devDependencies": {
-        "@symfony/stimulus-bridge": "^2.0.0",
-        "@symfony/webpack-encore": "^1.0.0",
+        "@hotwired/stimulus": "^3.0.0",
+        "@symfony/stimulus-bridge": "^3.0.0",
+        "@symfony/ux-chartjs": "file:vendor/symfony/ux-chartjs/Resources/assets",
+        "@symfony/webpack-encore": "^1.8.1",
         "@tailwindcss/aspect-ratio": "^0.2.1",
         "@tailwindcss/forms": "^0.3.1",
         "alpinejs": "^3.3.4",
         "autoprefixer": "^10.4.0",
+        "chart.js": "^3.4.1",
         "core-js": "^3.0.0",
         "glob-all": "^3.2.1",
         "path": "^0.12.7",

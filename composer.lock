@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ca1590a32b74de3120ba7d2e08883359",
+    "content-hash": "2cb1346bc79ee080c7d659ef9ff94287",
     "packages": [
         {
             "name": "artandor/oauth2-trovo",
@@ -55,6 +55,63 @@
                 "source": "https://github.com/artandor/oauth2-trovo/tree/v1.0.1"
             },
             "time": "2021-10-13T20:20:44+00:00"
+        },
+        {
+            "name": "beberlei/doctrineextensions",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/DoctrineExtensions.git",
+                "reference": "008f162f191584a6c37c03a803f718802ba9dd9a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/008f162f191584a6c37c03a803f718802ba9dd9a",
+                "reference": "008f162f191584a6c37c03a803f718802ba9dd9a",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/orm": "^2.7",
+                "php": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.14",
+                "nesbot/carbon": "*",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
+                "symfony/yaml": "^4.2 || ^5.0",
+                "zf1/zend-date": "^1.12",
+                "zf1/zend-registry": "^1.12"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DoctrineExtensions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Steve Lacey",
+                    "email": "steve@steve.ly"
+                }
+            ],
+            "description": "A set of extensions to Doctrine 2 that add support for additional query functions available in MySQL, Oracle, PostgreSQL and SQLite.",
+            "keywords": [
+                "database",
+                "doctrine",
+                "orm"
+            ],
+            "support": {
+                "source": "https://github.com/beberlei/DoctrineExtensions/tree/v1.3.0"
+            },
+            "time": "2020-11-29T07:37:23+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
@@ -8081,6 +8138,90 @@
             "time": "2021-06-24T08:13:00+00:00"
         },
         {
+            "name": "symfony/ux-chartjs",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/ux-chartjs.git",
+                "reference": "1bcbef6069ce9e8aee089d769fb00d72aa8e23d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/ux-chartjs/zipball/1bcbef6069ce9e8aee089d769fb00d72aa8e23d4",
+                "reference": "1bcbef6069ce9e8aee089d769fb00d72aa8e23d4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.5",
+                "symfony/config": "^4.4.17|^5.0|^6.0",
+                "symfony/dependency-injection": "^4.4.17|^5.0|^6.0",
+                "symfony/http-kernel": "^4.4.17|^5.0|^6.0"
+            },
+            "conflict": {
+                "symfony/flex": "<1.13",
+                "symfony/webpack-encore-bundle": "<1.11"
+            },
+            "require-dev": {
+                "symfony/framework-bundle": "^4.4.17|^5.0|^6.0",
+                "symfony/phpunit-bridge": "^5.2|^6.0",
+                "symfony/twig-bundle": "^4.4.17|^5.0|^6.0",
+                "symfony/var-dumper": "^4.4.17|^5.0|^6.0",
+                "symfony/webpack-encore-bundle": "^1.11"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "thanks": {
+                    "name": "symfony/ux",
+                    "url": "https://github.com/symfony/ux"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\UX\\Chartjs\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Titouan Galopin",
+                    "email": "galopintitouan@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Chart.js integration for Symfony",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "symfony-ux"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/ux-chartjs/tree/v2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2021-12-09T16:09:32+00:00"
+        },
+        {
             "name": "symfony/validator",
             "version": "v5.3.7",
             "source": {
@@ -8440,31 +8581,31 @@
         },
         {
             "name": "symfony/webpack-encore-bundle",
-            "version": "v1.12.0",
+            "version": "v1.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/webpack-encore-bundle.git",
-                "reference": "9943a59f8551b7a8181e19a2b4efa60e5907c667"
+                "reference": "509cad50878e838c879743225e0e921b3b64a3f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/9943a59f8551b7a8181e19a2b4efa60e5907c667",
-                "reference": "9943a59f8551b7a8181e19a2b4efa60e5907c667",
+                "url": "https://api.github.com/repos/symfony/webpack-encore-bundle/zipball/509cad50878e838c879743225e0e921b3b64a3f2",
+                "reference": "509cad50878e838c879743225e0e921b3b64a3f2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
-                "symfony/asset": "^4.4 || ^5.0",
-                "symfony/config": "^4.4 || ^5.0",
-                "symfony/dependency-injection": "^4.4 || ^5.0",
-                "symfony/http-kernel": "^4.4 || ^5.0",
-                "symfony/service-contracts": "^1.0 || ^2.0"
+                "symfony/asset": "^4.4 || ^5.0 || ^6.0",
+                "symfony/config": "^4.4 || ^5.0 || ^6.0",
+                "symfony/dependency-injection": "^4.4 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
+                "symfony/service-contracts": "^1.0 || ^2.0 || ^3.0"
             },
             "require-dev": {
-                "symfony/framework-bundle": "^4.4 || ^5.0",
-                "symfony/phpunit-bridge": "^4.4 || ^5.0",
-                "symfony/twig-bundle": "^4.4 || ^5.0",
-                "symfony/web-link": "^4.4 || ^5.0"
+                "symfony/framework-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/phpunit-bridge": "^5.3 || ^6.0",
+                "symfony/twig-bundle": "^4.4 || ^5.0 || ^6.0",
+                "symfony/web-link": "^4.4 || ^5.0 || ^6.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -8491,7 +8632,7 @@
             "description": "Integration with your Symfony app & Webpack Encore!",
             "support": {
                 "issues": "https://github.com/symfony/webpack-encore-bundle/issues",
-                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.12.0"
+                "source": "https://github.com/symfony/webpack-encore-bundle/tree/v1.13.2"
             },
             "funding": [
                 {
@@ -8507,7 +8648,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-18T19:13:11+00:00"
+            "time": "2021-12-02T19:45:55+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -11500,5 +11641,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }
