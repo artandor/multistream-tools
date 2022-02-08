@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountManagementController!{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Hello {{ controller_name }}! ✅</h1>
+
+        {{ form(moderatorForm) }}
+
+        <h2>Your moderators</h2>
+        <ul>
+            {% for moderator in app.user.moderators %}
+                <li>{{ moderator }}<a
+                            href="{{ path('account_moderator_delete', {'moderator': moderator.id}) }}">Delete</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
