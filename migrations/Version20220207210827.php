@@ -9,11 +9,6 @@ use Doctrine\Migrations\AbstractMigration;
 
 class Version20220207210827 extends AbstractMigration
 {
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     *
-     * @return void
-     */
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE TABLE moderators (admin_id INT NOT NULL, moderator_id INT NOT NULL, PRIMARY KEY(admin_id, moderator_id))');
@@ -23,11 +18,6 @@ class Version20220207210827 extends AbstractMigration
         $this->addSql('ALTER TABLE moderators ADD CONSTRAINT FK_580D16D3D0AFA354 FOREIGN KEY (moderator_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
     }
 
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     *
-     * @return void
-     */
     public function down(Schema $schema): void
     {
         $this->addSql('DROP TABLE moderators');

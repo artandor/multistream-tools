@@ -41,7 +41,7 @@
                         </a>
                     {% endif %}
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <li class="{% if app.request.get('overlay') %}mx-2{% else %}mb-6{% endif %}">
                         <a href="{{ path('account') }}">
                             <svg class="fill-current h-5 w-5 mx-auto text-gray-300 hover:text-green-500"
