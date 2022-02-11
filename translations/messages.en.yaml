@@ -1,5 +1,5 @@
 platform:
-    list: Platforms
+    list: 'Connected Platforms'
     help: 'Login with your platforms and start using our tools.'
     connected_as: 'You are currently connected with address'
 stream:
@@ -25,3 +25,15 @@ home:
 form:
     email: Email
     submit: Submit
+account:
+    manage: 'Manage your account'
+actions:
+    label: 'Actions'
+moderator:
+    title: 'Moderators'
+    list: 'Your moderators'
+    form:
+        add: 'Add a moderator'
+        helper: 'Moderators are able to modify your titles for you.'
+flash:
+    updated: 'Updated'

@@ -41,6 +41,7 @@ class StreamUpdate extends AbstractController
                     if (class_exists($account->getPlatform()->getProvider())) {
                         /** @var AbstractPlatformProvider $provider */
                         $provider = new ($account->getPlatform()->getProvider())($this->em, $this->logger);
+                        // TODO : Translate those messages
                         if ($provider->updateStreamTitleAndCategory($account, $streamTitle->getTitle(), $streamTitle->getCategory())) {
                             $this->addFlash('titleUpdate-success', 'Successfully updated title for '.$account->getPlatform()->getName());
                         } else {

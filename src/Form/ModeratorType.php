@@ -12,11 +12,11 @@ class ModeratorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('moderator', EmailType::class, [
-                'label' => 'form.email'
+            ->add('moderatorEmail', EmailType::class, [
+                'label' => 'form.email',
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'form.submit'
+                'label' => 'form.submit',
             ]);
     }
 }

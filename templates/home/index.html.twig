@@ -83,28 +83,5 @@
     </section>
 
 
-    <div class="w-full lg:px-32">
-        <h2 class="text-2xl font-extrabold text-gray-900">{% trans %}platform.list{% endtrans %}</h2>
-        <p class="mt-2">{{ 'platform.help'|trans }}</p>
-        <div class="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-x-6">
-            {% for platform in platforms %}
-                <div class="group relative">
-                    <div class="relative w-full h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
-                        <img src="{{ platform.image }}" class="w-full h-full object-center object-cover"
-                             alt="{{ platform.name }}'s logo">
-                    </div>
-                    <h3 class="mt-2 mb-6 text-sm text-gray-600">
-                        <a href="{{ path(platform.path) }}" title="">
-                            <span class="absolute inset-0"></span>
-                            {% if app.user != null %}
-                                {% for account in app.user.accounts|filter(account => account.platform == platform) %}
-                                    {% trans %}platform.connected_as{% endtrans %} {{ account.email }}
-                                {% endfor %}
-                            {% endif %}
-                        </a>
-                    </h3>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    {{ include('fragments/_platforms.html.twig', {platforms: platforms}) }}
 {% endblock %}

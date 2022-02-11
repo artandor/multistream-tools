@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ModeratorType;
+use App\Repository\PlatformRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,28 +19,36 @@ class AccountManagementController extends AbstractController
     }
 
     #[Route('/account', name: 'account')]
-    public function index(Request $request): Response
+    public function account(Request $request, PlatformRepository $platformRepository): Response
     {
+        if (!$this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('home');
+        }
         $moderatorForm = $this->createForm(ModeratorType::class);
 
         $moderatorForm->handleRequest($request);
         if ($moderatorForm->isSubmitted() && $moderatorForm->isValid()) {
             $data = $moderatorForm->getData();
 
-            if ($data['moderator']) {
-                $newModerator = $this->userRepository->findOneBy(['email' => $data['moderator']]);
+            if ($data['moderatorEmail']) {
+                $newModerator = $this->userRepository->findOneBy(['email' => $data['moderatorEmail']]);
 
                 if ($newModerator) {
                     /** @var User $me */
                     $me = $this->getUser();
                     $me->addModerator($newModerator);
                     $this->em->flush();
+                    $this->addFlash('notice', 'User successfully added to your moderators.');
+                } else {
+                    $this->addFlash('warning', 'Could not find user.');
                 }
             }
         }
 
         return $this->render('account_management/index.html.twig', [
-            'controller_name' => 'AccountManagementController',
+            'platforms' => $platformRepository->findBy([
+                'enabled' => true,
+            ]),
             'moderatorForm' => $moderatorForm->createView(),
         ]);
     }
@@ -51,6 +60,7 @@ class AccountManagementController extends AbstractController
         $me = $this->getUser();
         $me->removeModerator($moderator);
         $this->em->flush();
+
         return $this->redirectToRoute('account');
     }
 }
