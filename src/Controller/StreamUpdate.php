@@ -34,12 +34,14 @@ class StreamUpdate extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->get('account')->getData();
             $streamTitle->setCreator($user);
             foreach ($user->getAccounts() as $account) {
                 if ($account->getPlatform()->isEnabled()) {
                     if (class_exists($account->getPlatform()->getProvider())) {
                         /** @var AbstractPlatformProvider $provider */
                         $provider = new ($account->getPlatform()->getProvider())($this->em, $this->logger);
+                        // TODO : Translate those messages
                         if ($provider->updateStreamTitleAndCategory($account, $streamTitle->getTitle(), $streamTitle->getCategory())) {
                             $this->addFlash('titleUpdate-success', 'Successfully updated title for '.$account->getPlatform()->getName());
                         } else {

@@ -60,6 +60,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="moderatorOf")
+     * @ORM\JoinTable(name="moderators",
+     *      joinColumns={@ORM\JoinColumn(name="admin_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="moderator_id", referencedColumnName="id")}
+     *      )
+     */
+    private $moderators;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="moderators")
+     */
+    private $moderatorOf;
+
+    public function __toString(): string
+    {
+        return $this->getUserIdentifier();
+    }
+
     public function __construct()
     {
         $this->accounts = new ArrayCollection();
@@ -68,6 +87,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->createdAt = new DateTimeImmutable('now');
         }
         $this->updatedAt = new DateTimeImmutable('now');
+        $this->moderators = new ArrayCollection();
+        $this->moderatorOf = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,6 +269,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getModerators(): Collection
+    {
+        return $this->moderators;
+    }
+
+    public function addModerator(self $moderator): self
+    {
+        if (!$this->moderators->contains($moderator)) {
+            $this->moderators[] = $moderator;
+        }
+
+        return $this;
+    }
+
+    public function removeModerator(self $moderator): self
+    {
+        $this->moderators->removeElement($moderator);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getModeratorOf(): Collection
+    {
+        return $this->moderatorOf;
+    }
+
+    public function addModeratorOf(self $moderatorOf): self
+    {
+        if (!$this->moderatorOf->contains($moderatorOf)) {
+            $this->moderatorOf[] = $moderatorOf;
+            $moderatorOf->addModerator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModeratorOf(self $moderatorOf): self
+    {
+        if ($this->moderatorOf->removeElement($moderatorOf)) {
+            $moderatorOf->removeModerator($this);
+        }
 
         return $this;
     }

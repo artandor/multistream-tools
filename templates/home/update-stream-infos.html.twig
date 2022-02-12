@@ -67,6 +67,9 @@
 
             {{ form_errors(form) }}
 
+            {% if form.account is defined %}
+                {{ form_row(form.account, formTheme) }}
+            {% endif %}
             {{ form_row(form.title, formTheme) }}
             {{ form_row(form.category, formTheme) }}
             {{ form_row(form.submit, {'attr': {'class': 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'}}) }}
