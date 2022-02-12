@@ -29,4 +29,6 @@ jobs:
           echo ${{ env.RELEASE_VERSION }}
           git fetch
           git checkout tags/${{ env.RELEASE_VERSION }}
+          yarn install
+          yarn build
           docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
