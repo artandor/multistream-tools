@@ -34,7 +34,7 @@ class StreamInfoType extends AbstractType
                     'label' => 'stream.account',
                     'class' => User::class,
                     'choices' => $moderableAccounts,
-                    'mapped' => false
+                    'mapped' => false,
                 ]);
         }
     }

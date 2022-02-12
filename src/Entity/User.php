@@ -79,7 +79,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getUserIdentifier();
     }
 
-
     public function __construct()
     {
         $this->accounts = new ArrayCollection();
