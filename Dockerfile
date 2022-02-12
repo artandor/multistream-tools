@@ -6,6 +6,16 @@
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.1
 ARG CADDY_VERSION=2
+ARG NODE_VERSION=17
+
+FROM node:${NODE_VERSION}-alpine AS symfony_node
+WORKDIR /srv/app
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install
+
+COPY . .
+RUN yarn build
 
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS symfony_php
@@ -116,6 +126,8 @@ RUN set -eux; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync
 VOLUME /srv/app/var
+
+COPY --from=symfony_node /srv/app/public/build public/build
 
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
