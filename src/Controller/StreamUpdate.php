@@ -34,7 +34,9 @@ class StreamUpdate extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->get('account')->getData();
+            if ($form->has('account')) {
+                $user = $form->get('account')->getData();
+            }
             $streamTitle->setCreator($user);
             foreach ($user->getAccounts() as $account) {
                 if ($account->getPlatform()->isEnabled()) {
