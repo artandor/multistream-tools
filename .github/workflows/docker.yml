@@ -15,8 +15,10 @@ jobs:
       - name: Pull images
         run: docker-compose pull
       - name: Start services
+        env:
+          DOCKER_BUILDKIT: 1
         run: |
-          docker-compose build --parallel
+          docker-compose build
           docker-compose up -d
       - name: Wait for services
         run: |
