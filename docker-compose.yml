@@ -12,6 +12,7 @@ services:
         STABILITY: ${STABILITY:-stable}
     volumes:
       - php_socket:/var/run/php
+      - ./config/custom.php.ini:/etc/php5/apache2/conf.d/custom.php.ini
     healthcheck:
       interval: 10s
       timeout: 3s
