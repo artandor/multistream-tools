@@ -43,7 +43,11 @@ jobs:
        touch data/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+        DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
       run: vendor/bin/phpunit --coverage-clover=clover.xml
     - name: phpunit-coverage-badge
       uses: timkrase/phpunit-coverage-badge@v1.2.0
+      with:
+        coverage_badge_path: 'badge-coverage.svg'
+        push_badge: true
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
