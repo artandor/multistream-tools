@@ -51,7 +51,7 @@ jobs:
         coverage_badge_path: 'badge-coverage.svg'
         push_badge: true
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Download artifacts
+    - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-          name: coverage.html
+          path: coverage.html
