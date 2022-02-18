@@ -23,10 +23,13 @@
         </testsuite>
     </testsuites>
 
-    <coverage processUncoveredFiles="true">
+    <coverage cacheDirectory=".phpunit.cache/code-coverage" processUncoveredFiles="true">
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <report>
+            <clover outputFile="clover.xml" />
+        </report>
     </coverage>
 
     <listeners>
