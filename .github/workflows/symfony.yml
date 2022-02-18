@@ -44,7 +44,7 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-      run: vendor/bin/phpunit --coverage-html=coverage.html --path-coverage
+      run: vendor/bin/phpunit --coverage-html=coverage --path-coverage
     - name: phpunit-coverage-badge
       uses: timkrase/phpunit-coverage-badge@v1.2.0
       with:
@@ -54,4 +54,10 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-          path: coverage.html
+          path: coverage
+    - name: Publish
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: coverage
