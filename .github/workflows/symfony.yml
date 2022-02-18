@@ -44,6 +44,6 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
          DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-      run: vendor/bin/phpunit --coverage-clover=coverage.xml
+      run: vendor/bin/phpunit --coverage-clover=clover.xml
     - name: phpunit-coverage-badge
       uses: timkrase/phpunit-coverage-badge@v1.2.0
