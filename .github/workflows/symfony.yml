@@ -52,6 +52,6 @@ jobs:
         push_badge: true
         repo_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Download artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/upload-artifact@v2
       with:
           name: coverage.html
