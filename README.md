@@ -4,7 +4,7 @@
 [![Docker build](https://github.com/artandor/multistream-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/artandor/multistream-tools/actions/workflows/ci.yml)
 [![Translation status](https://hosted.weblate.org/widgets/multistream-tools/-/glossary/svg-badge.svg)](https://hosted.weblate.org/engage/multistream-tools/)
 [![Wallaby.js](https://img.shields.io/badge/wallaby.js-powered-blue.svg?style=flat&logo=github)](https://wallabyjs.com/oss/)
-[![Test Coverage](https://raw.githubusercontent.com/artandor/multistream-tools/main/badge-coverage.svg)](https://github.com/artandor/multistream-tools/)
+[![codecov](https://codecov.io/gh/artandor/multistream-tools/branch/main/graph/badge.svg?token=VJTVKRZ3DM)](https://codecov.io/gh/artandor/multistream-tools)
 
 ## Description
 
