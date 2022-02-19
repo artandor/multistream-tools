@@ -44,20 +44,8 @@ jobs:
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-      run: vendor/bin/phpunit --coverage-html=coverage --path-coverage
-    - name: Publish to Github pages
-      uses: JamesIves/github-pages-deploy-action@releases/v3
+      run: vendor/bin/phpunit --coverage-clover
+    - name: Upload to codecov
+      uses: codecov/codecov-action@v2
       with:
-          ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: coverage
-    - name: Create php unit coverage
-      uses: timkrase/phpunit-coverage-badge@v1.2.0
-      with:
-        coverage_badge_path: 'badge-coverage.svg'
-        push_badge: true
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Upload coverage to artefact
-      uses: actions/upload-artifact@v2
-      with:
-          path: coverage
+        files: ./clover.xml
