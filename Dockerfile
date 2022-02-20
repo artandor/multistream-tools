@@ -4,8 +4,9 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG PHP_VERSION=8.0
+ARG PHP_VERSION=8.1
 ARG CADDY_VERSION=2
+ARG NODE_VERSION=17
 
 # "php" stage
 FROM php:${PHP_VERSION}-fpm-alpine AS symfony_php
@@ -24,7 +25,7 @@ RUN apk add --no-cache \
 # see https://github.com/docker-library/php/issues/240#issuecomment-763112749
 ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
-ARG APCU_VERSION=5.1.20
+ARG APCU_VERSION=5.1.21
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
@@ -120,6 +121,18 @@ VOLUME /srv/app/var
 ENTRYPOINT ["docker-entrypoint"]
 CMD ["php-fpm"]
 
+FROM node:${NODE_VERSION}-alpine AS symfony_node
+
+WORKDIR /srv/app
+
+COPY --from=symfony_php /srv/app/vendor/ vendor
+COPY package.json ./
+COPY yarn.lock ./
+
+RUN yarn install
+COPY . .
+RUN yarn build
+
 FROM caddy:${CADDY_VERSION}-builder-alpine AS symfony_caddy_builder
 
 RUN xcaddy build \
@@ -135,4 +148,5 @@ WORKDIR /srv/app
 COPY --from=dunglas/mercure:v0.11 /srv/public /srv/mercure-assets/
 COPY --from=symfony_caddy_builder /usr/bin/caddy /usr/bin/caddy
 COPY --from=symfony_php /srv/app/public public/
+COPY --from=symfony_node /srv/app/public/build public/build
 COPY docker/caddy/Caddyfile /etc/caddy/Caddyfile
