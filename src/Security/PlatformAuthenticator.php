@@ -146,7 +146,6 @@ class PlatformAuthenticator extends OAuth2Authenticator
         return new RedirectResponse($targetUrl);
 
         // or, on success, let the request continue to be handled by the controller
-        //return null;
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
