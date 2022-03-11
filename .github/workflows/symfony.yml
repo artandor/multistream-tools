@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+
 jobs:
   symfony-tests:
     name: Symfony build
@@ -41,17 +44,11 @@ jobs:
         run: |
           mkdir -p data
           touch data/database.sqlite
-      - name: Run migrations
-        run: bin/console doctrine:migration:migrate -n
-        env:
-          DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+      - name: Update database schema
+        run: bin/console doctrine:schema:update -f
       - name: Create Fixtures
         run: bin/console doctrine:fixtures:load -n
-        env:
-          DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
       - name: Execute tests (Unit and Feature tests) via PHPUnit
-        env:
-          DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
         run: vendor/bin/phpunit --coverage-clover coverage.xml
       - name: Upload to codecov
         uses: codecov/codecov-action@v2
