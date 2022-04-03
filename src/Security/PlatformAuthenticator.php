@@ -140,12 +140,9 @@ class PlatformAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // change "app_homepage" to some route in your app
         $targetUrl = $this->router->generate('home');
 
         return new RedirectResponse($targetUrl);
-
-        // or, on success, let the request continue to be handled by the controller
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
