@@ -6,44 +6,59 @@ on:
   pull_request:
     branches: [ main ]
 
+env:
+  DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
+
 jobs:
   symfony-tests:
     name: Symfony build
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: ['8.0']
-        phpunit-versions: ['latest']
+        php-versions: [ '8.0' ]
+        phpunit-versions: [ 'latest' ]
     steps:
-    - uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extensions: mbstring, intl
-        ini-values: post_max_size=256M, max_execution_time=180
-        coverage: xdebug
-        tools: phpunit:${{ matrix.phpunit-versions }}, php-cs-fixer, cs2pr
-    - uses: actions/checkout@v2
-    - name: Copy .env.test.local
-      run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
-    - name: Check style
-      run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-${{ matrix.php-versions }}-
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Create Database
-      run: |
-       mkdir -p data
-       touch data/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
-      env:
-        DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
-      run: vendor/bin/phpunit --coverage-clover coverage.xml
-    - name: Upload to codecov
-      uses: codecov/codecov-action@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, intl
+          ini-values: post_max_size=256M, max_execution_time=180
+          coverage: xdebug
+          tools: phpunit:${{ matrix.phpunit-versions }}, php-cs-fixer, cs2pr
+      - uses: actions/checkout@v2
+      - name: Copy .env.test.local
+        run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
+      - name: Check style
+        run: php-cs-fixer fix --dry-run --format=checkstyle | cs2pr
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ matrix.php-versions }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-versions }}-
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+      - uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+      - uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: build
+      - name: Create Database
+        run: |
+          mkdir -p data
+          touch data/database.sqlite
+      - name: Update database schema
+        run: bin/console doctrine:schema:update -f
+      - name: Create Fixtures
+        run: bin/console doctrine:fixtures:load -n
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: vendor/bin/phpunit --coverage-clover coverage.xml
+      - name: Upload to codecov
+        uses: codecov/codecov-action@v2

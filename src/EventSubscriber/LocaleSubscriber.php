@@ -26,10 +26,10 @@ class LocaleSubscriber implements EventSubscriberInterface
     }
 
     #[ArrayShape([KernelEvents::REQUEST => 'array[]'])]
- public static function getSubscribedEvents(): array
- {
-     return [
+    public static function getSubscribedEvents(): array
+    {
+        return [
             KernelEvents::REQUEST => [['onKernelRequest', 20]],
         ];
- }
+    }
 }
