@@ -124,6 +124,15 @@
     "egulias/email-validator": {
         "version": "3.1.1"
     },
+    "elasticsearch/elasticsearch": {
+        "version": "v7.17.0"
+    },
+    "ezimuel/guzzlestreams": {
+        "version": "3.0.1"
+    },
+    "ezimuel/ringphp": {
+        "version": "1.2.0"
+    },
     "friendsofphp/php-cs-fixer": {
         "version": "3.0",
         "recipe": {
@@ -177,6 +186,9 @@
     },
     "nikic/php-parser": {
         "version": "v4.12.0"
+    },
+    "nyholm/dsn": {
+        "version": "2.0.1"
     },
     "paragonie/random_compat": {
         "version": "v9.99.100"
@@ -261,8 +273,14 @@
     "ralouphie/getallheaders": {
         "version": "3.0.3"
     },
+    "react/promise": {
+        "version": "v2.9.0"
+    },
     "riskio/oauth2-auth0": {
         "version": "v2.4.0"
+    },
+    "ruflin/elastica": {
+        "version": "7.1.5"
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -537,6 +555,9 @@
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.23.1"
+    },
+    "symfony/polyfill-php73": {
+        "version": "v1.25.0"
     },
     "symfony/polyfill-php80": {
         "version": "v1.23.1"

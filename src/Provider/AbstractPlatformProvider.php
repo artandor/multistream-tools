@@ -18,6 +18,8 @@ abstract class AbstractPlatformProvider
 
     abstract public function refreshToken(Account $account): ?Account;
 
+    abstract public function getFollowerCount(Account $account): ?int;
+
     /**
      * Check the status of a request and determine if it should be retried or not based on status code
      * If the function returns null, this means that no error was found.
