@@ -19,9 +19,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class GetUsersStatsCommand extends Command
 {
-    public function __construct(private UserRepository         $userRepository,
+    public function __construct(private UserRepository $userRepository,
                                 private EntityManagerInterface $em,
-                                private LoggerInterface        $logstashLogger)
+                                private LoggerInterface $logstashLogger)
     {
         parent::__construct();
     }

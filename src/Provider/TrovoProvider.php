@@ -117,7 +117,7 @@ class TrovoProvider extends AbstractPlatformProvider
             return null;
         }
         $this->entityManager->flush();
-        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
+        $this->logger->info('Refreshed token for '.$account->getPlatform()->getName());
 
         return $account;
     }

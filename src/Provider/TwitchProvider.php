@@ -104,7 +104,7 @@ class TwitchProvider extends AbstractPlatformProvider
             return null;
         }
         $this->entityManager->flush();
-        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
+        $this->logger->info('Refreshed token for '.$account->getPlatform()->getName());
 
         return $account;
     }
@@ -116,9 +116,9 @@ class TwitchProvider extends AbstractPlatformProvider
         try {
             $response = $client->request(
                 'GET',
-                'https://api.twitch.tv/helix/users/follows?to_id=' . $account->getExternalId() . '&first=1', [
+                'https://api.twitch.tv/helix/users/follows?to_id='.$account->getExternalId().'&first=1', [
                     'headers' => [
-                        'Authorization' => 'Bearer ' . $account->getAccessToken(),
+                        'Authorization' => 'Bearer '.$account->getAccessToken(),
                         'Content-Type' => 'application/json',
                         'Client-Id' => $_ENV['OAUTH_TWITCH_CLIENT_ID'],
                     ],
@@ -136,7 +136,7 @@ class TwitchProvider extends AbstractPlatformProvider
 
             $followerCount = json_decode($response->getContent(), true)['total'];
         } catch (TransportExceptionInterface|ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
-            $this->logger->error('An error occured : ' . $e->getMessage());
+            $this->logger->error('An error occured : '.$e->getMessage());
 
             return null;
         }

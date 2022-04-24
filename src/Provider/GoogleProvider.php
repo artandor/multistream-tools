@@ -132,7 +132,7 @@ class GoogleProvider extends AbstractPlatformProvider
             return null;
         }
         $this->entityManager->flush();
-        $this->logger->info('Refreshed token for ' . $account->getPlatform()->getName());
+        $this->logger->info('Refreshed token for '.$account->getPlatform()->getName());
 
         return $account;
     }
@@ -143,9 +143,9 @@ class GoogleProvider extends AbstractPlatformProvider
         try {
             $response = $client->request(
                 'GET',
-                'https://www.googleapis.com/youtube/v3/channels?part=statistics&mine=true&key=' . $_ENV['OAUTH_GOOGLE_API_SECRET'], [
+                'https://www.googleapis.com/youtube/v3/channels?part=statistics&mine=true&key='.$_ENV['OAUTH_GOOGLE_API_SECRET'], [
                     'headers' => [
-                        'Authorization' => 'Bearer ' . $account->getAccessToken(),
+                        'Authorization' => 'Bearer '.$account->getAccessToken(),
                         'Content-Type' => 'application/json',
                         'Accept' => 'application/json',
                     ],
@@ -164,7 +164,7 @@ class GoogleProvider extends AbstractPlatformProvider
 
             $followerCount = $response->toArray()['items'][0]['statistics']['subscriberCount'];
         } catch (TransportExceptionInterface|ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
-            $this->logger->error('An error occured : ' . $e->getMessage());
+            $this->logger->error('An error occured : '.$e->getMessage());
 
             return false;
         }
