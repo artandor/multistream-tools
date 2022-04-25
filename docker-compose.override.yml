@@ -30,6 +30,7 @@ services:
     ports: [ 1025, 1080 ]
   ###< symfony/mailer ###
 
+  ## WARNING : Execute this if it doesn't load  sudo sysctl -w vm.max_map_count=262144
   elasticsearch:
     image: sebp/elk
     volumes:
