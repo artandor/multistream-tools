@@ -28,4 +28,20 @@ services:
   mailer:
     image: schickling/mailcatcher
     ports: [ 1025, 1080 ]
-###< symfony/mailer ###
+  ###< symfony/mailer ###
+
+  elasticsearch:
+    image: sebp/elk
+    volumes:
+      - ./docker/logstash/:/etc/logstash/conf.d/
+      - logs:/var/log/app
+    ports:
+      - target: 5601
+        published: 5601
+        protocol: tcp
+      - target: 9200
+        published: 9200
+        protocol: tcp
+      - target: 5044
+        published: 5044
+        protocol: tcp

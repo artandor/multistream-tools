@@ -68,22 +68,6 @@ services:
       # - ./docker/db/data:/var/lib/postgresql/data:rw
   ###< doctrine/doctrine-bundle ###
 
-  elasticsearch:
-    image: sebp/elk
-    volumes:
-      - ./docker/logstash/:/etc/logstash/conf.d/
-      - logs:/var/log/app
-    ports:
-      - target: 5601
-        published: 5601
-        protocol: tcp
-      - target: 9200
-        published: 9200
-        protocol: tcp
-      - target: 5044
-        published: 5044
-        protocol: tcp
-
 volumes:
   php_socket:
   caddy_data:
