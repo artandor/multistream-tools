@@ -25,7 +25,7 @@ class AccountFixtures extends Fixture implements DependentFixtureInterface
             ->setEmail('admin@example.com')
             ->setAccessToken('abcde123')
             ->setLinkedTo($user)
-            ->setExternalId("123598")
+            ->setExternalId('123598')
             ->setPlatform($platform);
         $manager->persist($account);
 

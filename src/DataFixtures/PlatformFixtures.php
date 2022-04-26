@@ -25,6 +25,5 @@ class PlatformFixtures extends Fixture
         $manager->persist($platform);
 
         $manager->flush();
-
     }
 }
