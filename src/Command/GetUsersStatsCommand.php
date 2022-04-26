@@ -45,7 +45,7 @@ class GetUsersStatsCommand extends Command
                 $provider = new ($platform->getProvider())($this->em, $this->logstashLogger);
 
                 $followerCount = $provider->getFollowerCount($account);
-                $io->title($followerCount);
+                $io->info('Follower Count for User ' . $user->getEmail() . ' : ' . $followerCount);
 
                 $resultData[$platform->getName()] = [
                     'followerCount' => $followerCount,

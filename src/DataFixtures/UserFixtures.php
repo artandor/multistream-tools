@@ -8,19 +8,22 @@ use Doctrine\Persistence\ObjectManager;
 
 class UserFixtures extends Fixture
 {
+    public const REGULAR_USER_REFERENCE = 'regular-user';
+
     public function load(ObjectManager $manager): void
     {
-        $user = new User();
-        $user
+        $userAdmin = new User();
+        $userAdmin
             ->setEmail('admin@example.com')
             ->setPassword('seCrEt')
             ->setRoles(['ROLE_ADMIN']);
-        $manager->persist($user);
+        $manager->persist($userAdmin);
 
         $user = new User();
         $user
             ->setEmail('user@example.com')
             ->setPassword('seCrEt');
+        $this->addReference(self::REGULAR_USER_REFERENCE, $user);
         $manager->persist($user);
 
         $manager->flush();
