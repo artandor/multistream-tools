@@ -23,7 +23,6 @@ class BrimeProvider extends AbstractPlatformProvider
                         'headers' => [
                             'Authorization' => 'Bearer '.$account->getAccessToken(),
                             'Content-Type' => 'application/json',
-                            'Client-Id' => $_ENV['OAUTH_TWITCH_CLIENT_ID'],
                         ],
                     ]
                 );
@@ -107,5 +106,55 @@ class BrimeProvider extends AbstractPlatformProvider
         $this->logger->info('Refreshed token for '.$account->getPlatform()->getName());
 
         return $account;
+    }
+
+    public function getFollowerCount(Account $account, int $retry = 1): ?int
+    {
+        $client = HttpClient::create();
+
+        try {
+            // Retrieve the username to use it in the channel request
+            $response = $client->request(
+                'GET',
+                'https://api.brime.tv/v1/account/me', [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.$account->getAccessToken(),
+                        'Content-Type' => 'application/json',
+                    ],
+                ]
+            );
+
+            if (true === $this->shouldRetryRequest($response, $account)) {
+                // If the token was refreshed, retry the whole function.
+                return $this->getFollowerCount($account, --$retry);
+            }
+
+            if (false === $this->shouldRetryRequest($response, $account)) {
+                return false;
+            }
+            $responseData = $response->toArray();
+
+            $response = $client->request(
+                'GET',
+                'https://api.brime.tv/v1/channels/slug/'.$responseData['username']
+            );
+
+            if (true === $this->shouldRetryRequest($response, $account)) {
+                // If the token was refreshed, retry the whole function.
+                return $this->getFollowerCount($account, --$retry);
+            }
+
+            if (false === $this->shouldRetryRequest($response, $account)) {
+                return false;
+            }
+
+            $followerCount = json_decode($response->getContent(), true)['channel']['follower_count'];
+        } catch (TransportExceptionInterface|ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
+            $this->logger->error('An error occured : '.$e->getMessage());
+
+            return null;
+        }
+
+        return $followerCount;
     }
 }

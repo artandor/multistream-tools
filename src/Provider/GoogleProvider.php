@@ -136,4 +136,39 @@ class GoogleProvider extends AbstractPlatformProvider
 
         return $account;
     }
+
+    public function getFollowerCount(Account $account, int $retry = 1): ?int
+    {
+        $client = HttpClient::create();
+        try {
+            $response = $client->request(
+                'GET',
+                'https://www.googleapis.com/youtube/v3/channels?part=statistics&mine=true&key='.$_ENV['OAUTH_GOOGLE_API_SECRET'], [
+                    'headers' => [
+                        'Authorization' => 'Bearer '.$account->getAccessToken(),
+                        'Content-Type' => 'application/json',
+                        'Accept' => 'application/json',
+                    ],
+                ]
+            );
+
+            if (true === $this->shouldRetryRequest($response, $account)) {
+                $this->logger->warning('Retrying for platform youtube after failed follower retrieve.');
+                // If the token was refreshed, retry the whole function.
+                return $this->getFollowerCount($account, --$retry);
+            }
+
+            if (false === $this->shouldRetryRequest($response, $account)) {
+                return false;
+            }
+
+            $followerCount = $response->toArray()['items'][0]['statistics']['subscriberCount'];
+        } catch (TransportExceptionInterface|ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
+            $this->logger->error('An error occured : '.$e->getMessage());
+
+            return false;
+        }
+
+        return $followerCount;
+    }
 }
