@@ -12,7 +12,6 @@ services:
         STABILITY: ${STABILITY:-stable}
     volumes:
       - php_socket:/var/run/php
-      - logs:/srv/app/var/log
     healthcheck:
       interval: 10s
       timeout: 3s
@@ -72,7 +71,6 @@ volumes:
   php_socket:
   caddy_data:
   caddy_config:
-  logs:
-  ###> doctrine/doctrine-bundle ###
+###> doctrine/doctrine-bundle ###
   db-data:
 ###< doctrine/doctrine-bundle ###
