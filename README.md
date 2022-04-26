@@ -14,6 +14,7 @@ from all websites, and we have more ideas for the future.
 ## Features
 
 - [X] Update title and categories from all platforms
+- [X] Aggregate stats fromm all platforms
 - [ ] Receive alerts from all platforms
 - [ ] Have labels from all platforms (Latest follower, latest sub, ...)
 - [ ] Receive alerts from donations & have labels for it
