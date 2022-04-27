@@ -19,9 +19,11 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class GetUsersStatsCommand extends Command
 {
-    public function __construct(private UserRepository $userRepository,
+    public function __construct(private UserRepository         $userRepository,
                                 private EntityManagerInterface $em,
-                                private LoggerInterface $logstashLogger)
+                                private LoggerInterface        $logstashLogger,
+                                private LoggerInterface        $logger,
+    )
     {
         parent::__construct();
     }
@@ -42,7 +44,7 @@ class GetUsersStatsCommand extends Command
                 $platform = $account->getPlatform();
 
                 /** @var AbstractPlatformProvider $provider */
-                $provider = new ($platform->getProvider())($this->em, $this->logstashLogger);
+                $provider = new ($platform->getProvider())($this->em, $this->logger);
 
                 $followerCount = $provider->getFollowerCount($account);
                 $io->info('Follower Count for User '.$user->getEmail().' : '.$followerCount);
