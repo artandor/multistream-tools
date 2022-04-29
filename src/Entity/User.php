@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -52,11 +53,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="datetime_immutable", options={"default": "CURRENT_TIMESTAMP"})
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -83,10 +86,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->accounts = new ArrayCollection();
         $this->titleHistory = new ArrayCollection();
-        if (!$this->id) {
-            $this->createdAt = new DateTimeImmutable('now');
-        }
-        $this->updatedAt = new DateTimeImmutable('now');
         $this->moderators = new ArrayCollection();
         $this->moderatorOf = new ArrayCollection();
     }

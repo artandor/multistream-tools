@@ -130,7 +130,7 @@ class BrimeProvider extends AbstractPlatformProvider
             }
 
             if (false === $this->shouldRetryRequest($response, $account)) {
-                return false;
+                return null;
             }
             $responseData = $response->toArray();
 
@@ -145,7 +145,7 @@ class BrimeProvider extends AbstractPlatformProvider
             }
 
             if (false === $this->shouldRetryRequest($response, $account)) {
-                return false;
+                return null;
             }
 
             $followerCount = json_decode($response->getContent(), true)['channel']['follower_count'];

@@ -113,6 +113,7 @@ class TrovoProvider extends AbstractPlatformProvider
         }
         try {
             $account->setAccessToken(json_decode($response->getContent())->access_token);
+            $account->setRefreshToken(json_decode($response->getContent())->refresh_token);
         } catch (ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
             return null;
         }
@@ -146,7 +147,7 @@ class TrovoProvider extends AbstractPlatformProvider
             }
 
             if (false === $this->shouldRetryRequest($response, $account)) {
-                return false;
+                return null;
             }
 
             $followerCount = $response->toArray()['followers'];

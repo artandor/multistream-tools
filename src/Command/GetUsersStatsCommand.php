@@ -46,14 +46,18 @@ class GetUsersStatsCommand extends Command
                 $provider = new ($platform->getProvider())($this->em, $this->logger);
 
                 $followerCount = $provider->getFollowerCount($account);
-                $io->info('Follower Count for User '.$user->getEmail().' : '.$followerCount);
 
+                // If the platform returned no data or 0, do not send stats.
+                if (!$followerCount || $followerCount <= 0) {
+                    continue;
+                }
                 $resultData[$platform->getName()] = [
                     'followerCount' => $followerCount,
                 ];
                 $resultData['total'] = $resultData['total'] + $followerCount;
             }
             $this->logstashLogger->log(LogLevel::INFO, json_encode($resultData));
+            $io->info('Follower Count for User '.$user->getEmail().' : '.$resultData['total']);
         }
 
         return Command::SUCCESS;
