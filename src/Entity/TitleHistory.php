@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TitleHistoryRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 /**
  * @ORM\Entity(repositoryClass=TitleHistoryRepository::class)
@@ -37,20 +38,14 @@ class TitleHistory
     /**
      * @ORM\Column(type="datetime_immutable")
      */
+    #[Timestampable(on: 'create')]
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime")
      */
+    #[Timestampable(on: 'update')]
     private $updatedAt;
-
-    public function __construct()
-    {
-        if (!$this->id) {
-            $this->createdAt = new DateTimeImmutable('now');
-        }
-        $this->updatedAt = new DateTimeImmutable('now');
-    }
 
     public function __toString(): string
     {

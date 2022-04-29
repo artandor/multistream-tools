@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AccountRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 /**
  * @ORM\Entity(repositoryClass=AccountRepository::class)
@@ -47,11 +48,13 @@ class Account
     /**
      * @ORM\Column(type="datetime_immutable")
      */
+    #[Timestampable(on: 'update')]
     private $updatedAt;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
+    #[Timestampable(on: 'create')]
     private $createdAt;
 
     /**
@@ -59,14 +62,6 @@ class Account
      * @ORM\JoinColumn(nullable=false)
      */
     private $platform;
-
-    public function __construct()
-    {
-        if (!$this->id) {
-            $this->createdAt = new DateTimeImmutable('now');
-        }
-        $this->updatedAt = new DateTimeImmutable('now');
-    }
 
     public function getId(): ?int
     {
