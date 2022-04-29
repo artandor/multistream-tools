@@ -40,7 +40,7 @@ class SecurityController extends AbstractController
             ->getClient('google') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
                 'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.force-ssl',
-            ], ['access_type' => 'offline', 'prompt' => 'consent', 'include_granted_scopes' => "true"]);
+            ], ['access_type' => 'offline', 'prompt' => 'consent', 'include_granted_scopes' => 'true']);
     }
 
     #[Route(path: '/connect/google/check', name: 'connect_google_check')]
