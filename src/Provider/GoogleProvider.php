@@ -161,14 +161,14 @@ class GoogleProvider extends AbstractPlatformProvider
             }
 
             if (false === $this->shouldRetryRequest($response, $account)) {
-                return false;
+                return null;
             }
 
             $followerCount = $response->toArray()['items'][0]['statistics']['subscriberCount'];
         } catch (TransportExceptionInterface|ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
             $this->logger->error('An error occured : '.$e->getMessage());
 
-            return false;
+            return null;
         }
 
         return $followerCount;

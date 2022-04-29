@@ -29,3 +29,6 @@ home:
             detail: Zmieniaj tytuł i kategorie jednym przyciskiem myszki.
             title: Zarządzaj wszystkimi platformami jednocześnie
     improve: Masz pomysł który możemy wykorzystać? Przedstaw go nam!
+announce:
+    title: 'Aktualizacja integracji z YouTube'
+    description: 'Zaktualizowaliśmy integrację z YouTube. Aby uniknąć dalszych błędów, zalecamy ponowne zalogowanie się na youtube (kliknij ikonę youtube).'

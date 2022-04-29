@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\AccountRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation\Timestampable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=AccountRepository::class)
@@ -47,14 +47,14 @@ class Account
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="update")
      */
-    #[Timestampable(on: 'update')]
     private $updatedAt;
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * @Gedmo\Timestampable(on="create")
      */
-    #[Timestampable(on: 'create')]
     private $createdAt;
 
     /**

@@ -131,7 +131,7 @@ class TwitchProvider extends AbstractPlatformProvider
             }
 
             if (false === $this->shouldRetryRequest($response, $account)) {
-                return false;
+                return null;
             }
 
             $followerCount = json_decode($response->getContent(), true)['total'];

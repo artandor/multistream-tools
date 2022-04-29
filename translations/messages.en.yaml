@@ -37,3 +37,6 @@ moderator:
         helper: 'Moderators are able to modify your titles for you.'
 flash:
     updated: 'Updated'
+announce:
+    title: 'Youtube integration update'
+    description: 'We have updated the youtube integration. To avoid further bugs it is highly recommended that you log in with youtube again (click the youtube icon).'

@@ -147,7 +147,7 @@ class TrovoProvider extends AbstractPlatformProvider
             }
 
             if (false === $this->shouldRetryRequest($response, $account)) {
-                return false;
+                return null;
             }
 
             $followerCount = $response->toArray()['followers'];

@@ -47,6 +47,8 @@ class GetUsersStatsCommand extends Command
 
                 $followerCount = $provider->getFollowerCount($account);
 
+                // If the platform returned no data or 0, do not send stats.
+                if (!$followerCount || $followerCount <= 0) continue;
                 $resultData[$platform->getName()] = [
                     'followerCount' => $followerCount,
                 ];

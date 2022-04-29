@@ -33,3 +33,6 @@ home:
         ajouter vos pages préférées à un'
       detail2: 'avec facilité.'
   improve: 'Une idée pour nous aider à nous améliorer ? Postez-la ici'
+announce:
+  title: "Mise à jour de l'intégration Youtube"
+  description: "Nous avons mis à jour l'intégration YouTube. Pour éviter d'autres bogues, il est fortement recommandé de vous reconnecter avec youtube (cliquez sur l'icône youtube)."
