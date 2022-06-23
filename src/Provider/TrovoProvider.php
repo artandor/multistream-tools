@@ -157,4 +157,39 @@ class TrovoProvider extends AbstractPlatformProvider
 
         return $followerCount;
     }
+
+    public function getSubscriberCount(Account $account, int $retry = 1): ?int
+    {
+        $client = HttpClient::create();
+
+        try {
+            $response = $client->request(
+                'POST',
+                'https://open-api.trovo.live/openplatform/channels/id', [
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                        'Client-Id' => $_ENV['OAUTH_TROVO_CLIENT_ID'],
+                    ],
+                    'json' => [
+                        'channel_id' => $account->getExternalId(),
+                    ],
+                ]
+            );
+
+            if (true === $this->shouldRetryRequest($response, $account)) {
+                // If the token was refreshed, retry the whole function.
+                return $this->getFollowerCount($account, --$retry);
+            }
+
+            if (false === $this->shouldRetryRequest($response, $account)) {
+                return null;
+            }
+
+            $subscriberCount = $response->toArray()['subscriber_num'];
+        } catch (ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
+            return null;
+        }
+
+        return $subscriberCount;
+    }
 }

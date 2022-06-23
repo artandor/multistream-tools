@@ -29,7 +29,7 @@ class Version20210909154541 extends AbstractMigration
         $this->addSql('ALTER TABLE account ADD CONSTRAINT FK_7D3656A4FFE6496F FOREIGN KEY (platform_id) REFERENCES platform (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
 
         $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (1, 'Twitch', '".TwitchProvider::class."', 'connect_twitch_start', 'https://images-eu.ssl-images-amazon.com/images/I/21kRx-CJsUL.png')");
-        $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (2, 'Brime', '".BrimeProvider::class."', 'connect_brime_start', 'https://assets.brimecdn.com/brime/Brime_Logo_Gradient.png')");
+        $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (2, 'Brime', '".BrimeProvider::class."', 'connect_brime_start', 'https://f004.backblazeb2.com/file/brime-assets/brime_mst.png')");
         $this->addSql("INSERT INTO platform (id, name, provider, path, image) VALUES (3, 'Youtube', '".GoogleProvider::class."', 'connect_google_start', 'https://www.youtube.com/img/desktop/yt_1200.png')");
     }
 

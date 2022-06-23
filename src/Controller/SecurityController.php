@@ -23,7 +23,7 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('twitch') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
-                'user:read:email', 'channel:manage:broadcast',
+                'user:read:email', 'channel:manage:broadcast', 'channel:read:subscriptions',
             ], []);
     }
 
@@ -39,7 +39,9 @@ class SecurityController extends AbstractController
         return $clientRegistry
             ->getClient('google') // key used in config/packages/knpu_oauth2_client.yaml
             ->redirect([
-                'https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.force-ssl',
+                'https://www.googleapis.com/auth/youtube',
+                'https://www.googleapis.com/auth/youtube.force-ssl',
+                'https://www.googleapis.com/auth/youtube.channel-memberships.creator',
             ], ['access_type' => 'offline', 'prompt' => 'consent', 'include_granted_scopes' => 'true']);
     }
 
