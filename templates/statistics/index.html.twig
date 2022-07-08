@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StatisticsController!{% endblock %}
+
+{% block body %}
+<section class="relative block">
+<div class="container mx-auto px-4">
+    <p class="inline-block rounded-full text-white bg-blue-500 px-2 py-1 text-xs font-bold mr-3">Total followers
+        :</p>
+
+    {{ render_chart(followerStats) }}
+</div>
+</section>
+{% endblock %}
