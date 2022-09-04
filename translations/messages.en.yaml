@@ -40,3 +40,9 @@ flash:
 announce:
     title: 'Youtube integration update'
     description: 'We have updated the youtube integration. To avoid further bugs it is highly recommended that you log in with youtube again (click the youtube icon).'
+statistics:
+  title: 'Multi-platform follower stats for the last month'
+  followers:
+    total: 'Total followers'
+  meta:
+    title: 'Statistics'

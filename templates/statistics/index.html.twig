@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello StatisticsController!{% endblock %}
+{% block title %}{{ 'statistics.meta.title'|trans }}{% endblock %}
 
 {% block body %}
-<section class="relative block">
-<div class="container mx-auto px-4">
-    <p class="inline-block rounded-full text-white bg-blue-500 px-2 py-1 text-xs font-bold mr-3">Total followers
-        :</p>
+    <section class="relative block">
+        <div class="container mx-auto px-4">
+            <h1 class="text-2xl font-extrabold text-gray-900 mb-3">{{ 'statistics.title'|trans }}</h1>
+            <p class="inline-block rounded-full text-white bg-blue-500 px-2 py-1 text-xs font-bold mr-3">{{ 'statistics.followers.total'|trans }}
+                : {{ totalFollowers }}</p>
 
-    {{ render_chart(followerStats) }}
-</div>
-</section>
+            {{ render_chart(followerStats) }}
+        </div>
+    </section>
 {% endblock %}

@@ -43,7 +43,7 @@ class BrimeProvider extends AbstractPlatformProvider
                 $categoryId = 0;
 
                 foreach ($categories as $brimeCategory) {
-                    if ($brimeCategory['name'] === $category) {
+                    if (strtolower($brimeCategory['name']) === strtolower($category)) {
                         $selectedCategory = $brimeCategory;
                     }
                 }
@@ -159,7 +159,7 @@ class BrimeProvider extends AbstractPlatformProvider
                 return null;
             }
 
-            $followerCount = json_decode($response->getContent(), true)['channel']['follower_count'];
+            $followerCount = $response->toArray()['followers'];
         } catch (TransportExceptionInterface|ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
             $this->logger->error('An error occured : '.$e->getMessage());
 

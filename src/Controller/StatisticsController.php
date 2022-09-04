@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,10 +33,13 @@ class StatisticsController extends AbstractController
             'scales' => [
                 'xAxes' => [
                     'stacked' => true,
+                    'grid' => [
+                        'offset' => true,
+                    ],
                 ],
                 'yAxes' => [
                     'stacked' => true,
-                ]
+                ],
             ],
         ]);
 
@@ -48,61 +49,80 @@ class StatisticsController extends AbstractController
                 [
                     'label' => 'youtube',
                     'backgroundColor' => 'rgb(255, 0, 0)',
-                    'data' => $normalizedStats["youtube"],
+                    'data' => $normalizedStats['youtube'],
                 ],
                 [
                     'label' => 'trovo',
                     'backgroundColor' => 'rgb(25, 214, 107)',
-                    'data' => $normalizedStats["trovo"],
+                    'data' => $normalizedStats['trovo'],
                 ],
                 [
                     'label' => 'twitch',
                     'backgroundColor' => 'rgb(140, 68, 247)',
-                    'data' => $normalizedStats["twitch"],
+                    'data' => $normalizedStats['twitch'],
                 ],
                 [
                     'label' => 'brime',
                     'backgroundColor' => 'rgb(177, 56, 130)',
-                    'data' => $normalizedStats["brime"],
+                    'data' => $normalizedStats['brime'],
                 ],
-            ]
+            ],
         ]);
 
         return $this->render('statistics/index.html.twig', [
+            'totalFollowers' => $normalizedStats['total_followers'],
             'followerStats' => $chart,
         ]);
     }
 
     private function transformFollowerStats(array $elasticStats): array
     {
-        $stats = [];
-        foreach ($elasticStats["aggregations"][0]["buckets"] as $bucket) {
-            $stats["labels"][] = (new \DateTime($bucket["key_as_string"]))->format('Y M d H:i');
+        $latestData = end($elasticStats['aggregations'][0]['buckets']);
 
-            if (isset($bucket["youtube"]["hits"]["hits"][0]["fields"])) {
-                $stats["youtube"][] = $bucket["youtube"]["hits"]["hits"][0]["fields"]["data.Youtube.followerCount"][0];
+        $stats = ['total_followers' => 0];
+
+        foreach ($elasticStats['aggregations'][0]['buckets'] as $bucket) {
+            $stats['labels'][] = (new \DateTime($bucket['key_as_string']))->format('Y M d H:i');
+
+            $isLatest = $latestData === $bucket;
+
+            if (isset($bucket['youtube']['hits']['hits'][0]['fields'])) {
+                $stats['youtube'][] = $bucket['youtube']['hits']['hits'][0]['fields']['data.Youtube.followerCount'][0];
+                if ($isLatest) {
+                    $stats['total_followers'] += $bucket['youtube']['hits']['hits'][0]['fields']['data.Youtube.followerCount'][0];
+                }
             } else {
-                $stats["youtube"][] = null;
+                $stats['youtube'][] = null;
             }
 
-            if (isset($bucket["trovo"]["hits"]["hits"][0]["fields"])) {
-                $stats["trovo"][] = $bucket["trovo"]["hits"]["hits"][0]["fields"]["data.Trovo.followerCount"][0];
+            if (isset($bucket['trovo']['hits']['hits'][0]['fields'])) {
+                $stats['trovo'][] = $bucket['trovo']['hits']['hits'][0]['fields']['data.Trovo.followerCount'][0];
+                if ($isLatest) {
+                    $stats['total_followers'] += $bucket['trovo']['hits']['hits'][0]['fields']['data.Trovo.followerCount'][0];
+                }
             } else {
-                $stats["trovo"][] = null;
+                $stats['trovo'][] = null;
             }
 
-            if (isset($bucket["twitch"]["hits"]["hits"][0]["fields"])) {
-                $stats["twitch"][] = $bucket["twitch"]["hits"]["hits"][0]["fields"]["data.Twitch.followerCount"][0];
+            if (isset($bucket['twitch']['hits']['hits'][0]['fields'])) {
+                $stats['twitch'][] = $bucket['twitch']['hits']['hits'][0]['fields']['data.Twitch.followerCount'][0];
+                if ($isLatest) {
+                    $stats['total_followers'] += $bucket['twitch']['hits']['hits'][0]['fields']['data.Twitch.followerCount'][0];
+                }
             } else {
-                $stats["twitch"][] = null;
+                $stats['twitch'][] = null;
             }
 
-            if (isset($bucket["brime"]["hits"]["hits"][0]["fields"])) {
-                $stats["brime"][] = $bucket["brime"]["hits"]["hits"][0]["fields"]["data.Brime.followerCount"][0];
+            if (isset($bucket['brime']['hits']['hits'][0]['fields'])) {
+                $stats['brime'][] = $bucket['brime']['hits']['hits'][0]['fields']['data.Brime.followerCount'][0];
+                if ($isLatest) {
+                    $stats['total_followers'] += $bucket['brime']['hits']['hits'][0]['fields']['data.Brime.followerCount'][0];
+                }
             } else {
-                $stats["brime"][] = null;
+                $stats['brime'][] = null;
             }
         }
+
         return $stats;
     }
 
@@ -119,7 +139,7 @@ class StatisticsController extends AbstractController
     "0": {
       "date_histogram": {
         "field": "datetime",
-        "fixed_interval": "1h",
+        "fixed_interval": "12h",
         "time_zone": "Europe/Paris"
       },
       "aggs": {
@@ -226,7 +246,7 @@ class StatisticsController extends AbstractController
             "should": [
               {
                 "match": {
-                  "data.userId": "' . $this->getUser()->getId() . '"
+                  "data.userId": "'.$this->getUser()->getId().'"
                 }
               }
             ],
@@ -237,8 +257,8 @@ class StatisticsController extends AbstractController
           "range": {
             "datetime": {
               "format": "strict_date_optional_time",
-              "gte": "' . (new \DateTime())->sub(new \DateInterval("P1M"))->format('Y-m-d\TH:i:s.u\Z') . '",
-              "lte": "' . (new \DateTime('now'))->format('Y-m-d\TH:i:s.u\Z') .'"
+              "gte": "'.(new \DateTime())->sub(new \DateInterval('P1M'))->format('Y-m-d\TH:i:s.u\Z').'",
+              "lte": "'.(new \DateTime('now'))->format('Y-m-d\TH:i:s.u\Z').'"
             }
           }
         }
@@ -247,7 +267,7 @@ class StatisticsController extends AbstractController
       "must_not": []
     }
   }
-}'
+}',
         ]);
 
         return $response->toArray();
