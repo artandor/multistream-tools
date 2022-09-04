@@ -44,14 +44,14 @@ class BrimeProvider extends AbstractPlatformProvider
                 try {
                     $response = $client->request(
                         'POST',
-                        'https://api.brime.tv/v1/channels/stream', [
+                        'https://api.brime.tv/v1/channel_settings/stream', [
                             'headers' => [
-                                'Authorization' => 'Bearer '.$account->getAccessToken(),
+                                'Authorization' => 'Bearer ' . $account->getAccessToken(),
                                 'Content-Type' => 'application/json',
                             ],
                             'json' => [
                                 'title' => $title,
-                                'category' => $categoryId ?? 0,
+                                'category_xid' => $categoryId ?? 0,
                             ],
                         ]
                     );
