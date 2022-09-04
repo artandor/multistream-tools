@@ -36,9 +36,20 @@ class BrimeProvider extends AbstractPlatformProvider
                     return false;
                 }
 
-                $responseData = $response->toArray();
-                if (isset($responseData[0])) {
-                    $categoryId = $responseData[0]['xid'];
+                $categories = $response->toArray();
+
+                $selectedCategory = null;
+
+                $categoryId = 0;
+
+                foreach ($categories as $brimeCategory) {
+                    if ($brimeCategory['name'] === $category) {
+                        $selectedCategory = $brimeCategory;
+                    }
+                }
+
+                if ($selectedCategory) {
+                    $categoryId = $selectedCategory['xid'] ?? 0;
                 }
 
                 try {
@@ -46,12 +57,12 @@ class BrimeProvider extends AbstractPlatformProvider
                         'POST',
                         'https://api.brime.tv/v1/channel_settings/stream', [
                             'headers' => [
-                                'Authorization' => 'Bearer ' . $account->getAccessToken(),
+                                'Authorization' => 'Bearer '.$account->getAccessToken(),
                                 'Content-Type' => 'application/json',
                             ],
                             'json' => [
                                 'title' => $title,
-                                'category_xid' => $categoryId ?? 0,
+                                'category_xid' => $categoryId,
                             ],
                         ]
                     );
