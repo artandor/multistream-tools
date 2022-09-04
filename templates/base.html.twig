@@ -19,7 +19,7 @@
 </head>
 <body class="h-full w-full relative flex flex-col min-h-screen bg-gray-100">
 
-<div class="bg-red-200 border-t-4 border-red-400 rounded-b text-teal-darkest px-4 py-3 shadow-md text-center"
+{#<div class="bg-red-200 border-t-4 border-red-400 rounded-b text-teal-darkest px-4 py-3 shadow-md text-center"
      role="alert">
     <div class="w-full">
         <a href={{ path('account') }}>
@@ -29,10 +29,10 @@
             </div>
         </a>
     </div>
-</div>
+</div>#}
 
 {% include "sidebar.html.twig" %}
-<div class="pl-20 mx-auto px-4 sm:px-6 lg:px-8 flex-auto">
+<div class="pl-20 mx-auto px-4 sm:px-6 lg:px-8 flex-auto lg:w-11/12">
     <div class="max-w-2xl mx-auto py-16 sm:py-24 lg:py-32 lg:max-w-none">
         {% block body %}{% endblock %}
     </div>

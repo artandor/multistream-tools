@@ -36,22 +36,33 @@ class BrimeProvider extends AbstractPlatformProvider
                     return false;
                 }
 
-                $responseData = $response->toArray();
-                if (isset($responseData[0])) {
-                    $categoryId = $responseData[0]['xid'];
+                $categories = $response->toArray();
+
+                $selectedCategory = null;
+
+                $categoryId = 0;
+
+                foreach ($categories as $brimeCategory) {
+                    if (strtolower($brimeCategory['name']) === strtolower($category)) {
+                        $selectedCategory = $brimeCategory;
+                    }
+                }
+
+                if ($selectedCategory) {
+                    $categoryId = $selectedCategory['xid'] ?? 0;
                 }
 
                 try {
                     $response = $client->request(
                         'POST',
-                        'https://api.brime.tv/v1/channels/stream', [
+                        'https://api.brime.tv/v1/channel_settings/stream', [
                             'headers' => [
                                 'Authorization' => 'Bearer '.$account->getAccessToken(),
                                 'Content-Type' => 'application/json',
                             ],
                             'json' => [
                                 'title' => $title,
-                                'category' => $categoryId ?? 0,
+                                'category_xid' => $categoryId,
                             ],
                         ]
                     );
@@ -148,7 +159,7 @@ class BrimeProvider extends AbstractPlatformProvider
                 return null;
             }
 
-            $followerCount = json_decode($response->getContent(), true)['channel']['follower_count'];
+            $followerCount = $response->toArray()['followers'];
         } catch (TransportExceptionInterface|ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface $e) {
             $this->logger->error('An error occured : '.$e->getMessage());
 
