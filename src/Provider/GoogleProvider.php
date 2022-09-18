@@ -132,6 +132,9 @@ class GoogleProvider extends AbstractPlatformProvider
             $account->setAccessToken($accessToken);
         } catch (ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
             return null;
+        } catch (DecodingExceptionInterface $e) {
+            $this->logger->error('Refreshing token sent an empty body.');
+            return null;
         }
         $this->entityManager->flush();
         $this->logger->info('Refreshed token for '.$account->getPlatform()->getName());
