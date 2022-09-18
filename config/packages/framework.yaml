@@ -17,6 +17,14 @@ framework:
     php_errors:
         log: true
 
+    http_client:
+        scoped_clients:
+            elasticsearch.client:
+                base_uri: '%env(OPENSEARCH_ENDPOINT)%'
+
+                # HTTP Basic authentication
+                auth_basic: '%env(OPENSEARCH_AUTH)%'
+
 when@test:
     framework:
         test: true

@@ -12,6 +12,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 #[AsCommand(
     name: 'app:get-users-stats',
@@ -19,11 +21,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 class GetUsersStatsCommand extends Command
 {
-    public function __construct(private UserRepository $userRepository,
+    public function __construct(private UserRepository         $userRepository,
                                 private EntityManagerInterface $em,
-                                private LoggerInterface $logstashLogger,
-                                private LoggerInterface $logger,
-    ) {
+                                private LoggerInterface        $logger,
+                                private HttpClientInterface    $elasticsearchClient
+    )
+    {
         parent::__construct();
     }
 
@@ -55,9 +58,22 @@ class GetUsersStatsCommand extends Command
                     'followerCount' => $followerCount,
                 ];
                 $resultData['total'] = $resultData['total'] + $followerCount;
+                $resultData['datetime'] = (new \DateTime())->format('Y-m-d H:m:s');
             }
-            $this->logstashLogger->log(LogLevel::INFO, json_encode($resultData));
-            $io->info('Follower Count for User '.$user->getEmail().' : '.$resultData['total']);
+
+            try {
+                $response = $this->elasticsearchClient->request(
+                    'POST',
+                    '/logstash-user_stats/_doc',
+                    [
+                        'json' => $resultData
+                    ],
+                );
+            } catch (TransportExceptionInterface $e) {
+                $this->logger->log(LogLevel::CRITICAL, 'Error while posting data to elastic search : ' . $e->getMessage());
+            }
+
+            $io->info('Follower Count for User ' . $user->getEmail() . ' : ' . $resultData['total']);
         }
 
         return Command::SUCCESS;
