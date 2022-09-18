@@ -12,7 +12,7 @@ use Symfony\UX\Chartjs\Model\Chart;
 
 class StatisticsController extends AbstractController
 {
-    public function __construct(private ChartBuilderInterface $chartBuilder, private HttpClientInterface $client)
+    public function __construct(private ChartBuilderInterface $chartBuilder, private HttpClientInterface $elasticsearchClient)
     {
     }
 
@@ -86,37 +86,37 @@ class StatisticsController extends AbstractController
 
             $isLatest = $latestData === $bucket;
 
-            if (isset($bucket['youtube']['hits']['hits'][0]['fields'])) {
-                $stats['youtube'][] = $bucket['youtube']['hits']['hits'][0]['fields']['data.Youtube.followerCount'][0];
+            if (isset($bucket['youtube']['value'])) {
+                $stats['youtube'][] = $bucket['youtube']['value'];
                 if ($isLatest) {
-                    $stats['total_followers'] += $bucket['youtube']['hits']['hits'][0]['fields']['data.Youtube.followerCount'][0];
+                    $stats['total_followers'] += $bucket['youtube']['value'];
                 }
             } else {
                 $stats['youtube'][] = null;
             }
 
-            if (isset($bucket['trovo']['hits']['hits'][0]['fields'])) {
-                $stats['trovo'][] = $bucket['trovo']['hits']['hits'][0]['fields']['data.Trovo.followerCount'][0];
+            if (isset($bucket['trovo']['value'])) {
+                $stats['trovo'][] = $bucket['trovo']['value'];
                 if ($isLatest) {
-                    $stats['total_followers'] += $bucket['trovo']['hits']['hits'][0]['fields']['data.Trovo.followerCount'][0];
+                    $stats['total_followers'] += $bucket['trovo']['value'];
                 }
             } else {
                 $stats['trovo'][] = null;
             }
 
-            if (isset($bucket['twitch']['hits']['hits'][0]['fields'])) {
-                $stats['twitch'][] = $bucket['twitch']['hits']['hits'][0]['fields']['data.Twitch.followerCount'][0];
+            if (isset($bucket['twitch']['value'])) {
+                $stats['twitch'][] = $bucket['twitch']['value'];
                 if ($isLatest) {
-                    $stats['total_followers'] += $bucket['twitch']['hits']['hits'][0]['fields']['data.Twitch.followerCount'][0];
+                    $stats['total_followers'] += $bucket['twitch']['value'];
                 }
             } else {
                 $stats['twitch'][] = null;
             }
 
-            if (isset($bucket['brime']['hits']['hits'][0]['fields'])) {
-                $stats['brime'][] = $bucket['brime']['hits']['hits'][0]['fields']['data.Brime.followerCount'][0];
+            if (isset($bucket['brime']['value'])) {
+                $stats['brime'][] = $bucket['brime']['value'];
                 if ($isLatest) {
-                    $stats['total_followers'] += $bucket['brime']['hits']['hits'][0]['fields']['data.Brime.followerCount'][0];
+                    $stats['total_followers'] += $bucket['brime']['value'];
                 }
             } else {
                 $stats['brime'][] = null;
@@ -128,7 +128,7 @@ class StatisticsController extends AbstractController
 
     private function getStatsFromElastic(): array
     {
-        $response = $this->client->request('GET', 'http://elasticsearch:9200/*user_stats/_search', [
+        $response = $this->elasticsearchClient->request('GET', '/*user_stats/_search', [
             'headers' => [
                 'Content-Type' => 'application/json',
                 'Accept' => 'application/json',
@@ -140,86 +140,39 @@ class StatisticsController extends AbstractController
       "date_histogram": {
         "field": "datetime",
         "fixed_interval": "12h",
-        "time_zone": "Europe/Paris"
+        "time_zone": "Europe/Paris",
+        "min_doc_count": 1
       },
       "aggs": {
         "brime": {
-          "top_hits": {
-            "fields": [
-              {
-                "field": "data.Brime.followerCount"
-              }
-            ],
-            "_source": false,
-            "size": 1,
-            "sort": [
-              {
-                "datetime": {
-                  "order": "desc"
-                }
-              }
-            ]
+          "max": {
+            "field": "Brime.followerCount"
           }
         },
         "trovo": {
-          "top_hits": {
-            "fields": [
-              {
-                "field": "data.Trovo.followerCount"
-              }
-            ],
-            "_source": false,
-            "size": 1,
-            "sort": [
-              {
-                "datetime": {
-                  "order": "desc"
-                }
-              }
-            ]
+          "max": {
+            "field": "Trovo.followerCount"
           }
         },
         "twitch": {
-          "top_hits": {
-            "fields": [
-              {
-                "field": "data.Twitch.followerCount"
-              }
-            ],
-            "_source": false,
-            "size": 1,
-            "sort": [
-              {
-                "datetime": {
-                  "order": "desc"
-                }
-              }
-            ]
+          "max": {
+            "field": "Twitch.followerCount"
           }
         },
         "youtube": {
-          "top_hits": {
-            "fields": [
-              {
-                "field": "data.Youtube.followerCount"
-              }
-            ],
-            "_source": false,
-            "size": 1,
-            "sort": [
-              {
-                "datetime": {
-                  "order": "desc"
-                }
-              }
-            ]
+          "max": {
+            "field": "Youtube.followerCount"
           }
         }
       }
     }
   },
   "size": 0,
-  "fields": [
+  "stored_fields": [
+    "*"
+  ],
+  "script_fields": {},
+  "docvalue_fields": [
     {
       "field": "@timestamp",
       "format": "date_time"
@@ -229,11 +182,6 @@ class StatisticsController extends AbstractController
       "format": "date_time"
     }
   ],
-  "script_fields": {},
-  "stored_fields": [
-    "*"
-  ],
-  "runtime_mappings": {},
   "_source": {
     "excludes": []
   },
@@ -246,12 +194,15 @@ class StatisticsController extends AbstractController
             "should": [
               {
                 "match": {
-                  "data.userId": "'.$this->getUser()->getId().'"
+                  "userId": ' . $this->getUser()->getId() . '
                 }
               }
             ],
             "minimum_should_match": 1
           }
+        },
+        {
+          "match_all": {}
         },
         {
           "range": {
