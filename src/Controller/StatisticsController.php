@@ -6,6 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
@@ -77,6 +82,9 @@ class StatisticsController extends AbstractController
 
     private function transformFollowerStats(array $elasticStats): array
     {
+        if (!isset($elasticStats['aggregations']) || count($elasticStats['aggregations']) <= 0) {
+            return [];
+        }
         $latestData = end($elasticStats['aggregations'][0]['buckets']);
 
         $stats = ['total_followers' => 0];
@@ -126,14 +134,15 @@ class StatisticsController extends AbstractController
         return $stats;
     }
 
-    private function getStatsFromElastic(): array
+    private function getStatsFromElastic(): ?array
     {
-        $response = $this->elasticsearchClient->request('GET', '/*user_stats/_search', [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json',
-            ],
-            'body' => '
+        try {
+            $response = $this->elasticsearchClient->request('GET', '/*user_stats/_search', [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Accept' => 'application/json',
+                ],
+                'body' => '
 {
   "aggs": {
     "0": {
@@ -194,7 +203,7 @@ class StatisticsController extends AbstractController
             "should": [
               {
                 "match": {
-                  "userId": ' . $this->getUser()->getId() . '
+                  "userId": '.$this->getUser()->getId().'
                 }
               }
             ],
@@ -219,8 +228,11 @@ class StatisticsController extends AbstractController
     }
   }
 }',
-        ]);
+            ]);
 
-        return $response->toArray();
+            return $response->toArray();
+        } catch (ClientExceptionInterface|DecodingExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
+            return null;
+        }
     }
 }
