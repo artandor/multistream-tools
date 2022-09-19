@@ -72,6 +72,7 @@ class GetUsersStatsCommand extends Command
             } catch (TransportExceptionInterface $e) {
                 $this->logger->log(LogLevel::CRITICAL, 'Error while posting data to elastic search : ' . $e->getMessage());
             }
+            // @todo : Would it be great to send data as batch ? Reduces the charge over ES, but increase the risk of global failure.
 
             $io->info('Follower Count for User ' . $user->getEmail() . ' : ' . $resultData['total']);
         }

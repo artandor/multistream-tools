@@ -151,7 +151,7 @@ class TrovoProvider extends AbstractPlatformProvider
             }
 
             $followerCount = $response->toArray()['followers'];
-        } catch (ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|TransportExceptionInterface $e) {
+        } catch (ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|DecodingExceptionInterface|TransportExceptionInterface $e) {
             return null;
         }
 
