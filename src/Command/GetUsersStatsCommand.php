@@ -21,12 +21,11 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class GetUsersStatsCommand extends Command
 {
-    public function __construct(private UserRepository         $userRepository,
+    public function __construct(private UserRepository $userRepository,
                                 private EntityManagerInterface $em,
-                                private LoggerInterface        $logger,
-                                private HttpClientInterface    $elasticsearchClient
-    )
-    {
+                                private LoggerInterface $logger,
+                                private HttpClientInterface $elasticsearchClient
+    ) {
         parent::__construct();
     }
 
@@ -66,15 +65,15 @@ class GetUsersStatsCommand extends Command
                     'POST',
                     '/logstash-user_stats/_doc',
                     [
-                        'json' => $resultData
+                        'json' => $resultData,
                     ],
                 );
             } catch (TransportExceptionInterface $e) {
-                $this->logger->log(LogLevel::CRITICAL, 'Error while posting data to elastic search : ' . $e->getMessage());
+                $this->logger->log(LogLevel::CRITICAL, 'Error while posting data to elastic search : '.$e->getMessage());
             }
             // @todo : Would it be great to send data as batch ? Reduces the charge over ES, but increase the risk of global failure.
 
-            $io->info('Follower Count for User ' . $user->getEmail() . ' : ' . $resultData['total']);
+            $io->info('Follower Count for User '.$user->getEmail().' : '.$resultData['total']);
         }
 
         return Command::SUCCESS;

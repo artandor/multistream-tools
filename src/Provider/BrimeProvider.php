@@ -161,7 +161,7 @@ class BrimeProvider extends AbstractPlatformProvider
 
             $followerCount = $response->toArray()['followers'];
         } catch (TransportExceptionInterface|ClientExceptionInterface|RedirectionExceptionInterface|ServerExceptionInterface|DecodingExceptionInterface $e) {
-            $this->logger->error('An error occured : ' . $e->getMessage());
+            $this->logger->error('An error occured : '.$e->getMessage());
 
             return null;
         }
