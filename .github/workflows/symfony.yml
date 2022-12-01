@@ -61,7 +61,7 @@ jobs:
       - name: Start ES
         run: docker-compose up --build -d elasticsearch
       - name: Wait for elasticsearch
-        run: wait 30
+        run: sleep 30
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit --coverage-clover coverage.xml
       - name: Upload to codecov
