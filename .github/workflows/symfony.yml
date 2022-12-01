@@ -59,9 +59,7 @@ jobs:
       - name: Create Fixtures
         run: bin/console doctrine:fixtures:load -n
       - name: Start ES
-        run: |
-          docker-compose up --build -d elasticsearch
-          wait 10
+        run: docker-compose up --build -d elasticsearch
 #      - name: Wait for elasticsearch
 #        run: |
 #          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker-compose ps -q elasticsearch)")"; do
