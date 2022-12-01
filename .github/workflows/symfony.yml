@@ -60,9 +60,9 @@ jobs:
         run: bin/console doctrine:fixtures:load -n
       - name: Start ES
         run: docker-compose up --build -d elasticsearch
-      - name: Wait for services
+      - name: Wait for elasticsearch
         run: |
-          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker-compose ps -q php)")"; do
+          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker-compose ps -q elasticsearch)")"; do
             case $status in
               starting) sleep 1;;
               healthy) exit 0;;
