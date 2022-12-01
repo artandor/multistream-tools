@@ -54,6 +54,8 @@ jobs:
         run: |
           mkdir -p data
           touch data/database.sqlite
+      - name: Start services
+        run: docker-compose up --build elasticsearch
       - name: Update database schema
         run: bin/console doctrine:schema:update -f
       - name: Create Fixtures
