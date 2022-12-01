@@ -134,6 +134,7 @@ class GoogleProvider extends AbstractPlatformProvider
             return null;
         } catch (DecodingExceptionInterface $e) {
             $this->logger->error('Refreshing token sent an empty body.');
+
             return null;
         }
         $this->entityManager->flush();

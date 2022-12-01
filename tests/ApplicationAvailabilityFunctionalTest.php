@@ -3,7 +3,6 @@
 namespace App\Tests;
 
 use App\Repository\UserRepository;
-use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,7 +25,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $this->assertResponseStatusCodeSame($responseCode);
     }
 
-    public function urlProvider(): Generator
+    public function urlProvider(): \Generator
     {
         yield ['/'];
         yield ['/update-stream-infos', Response::HTTP_FOUND];

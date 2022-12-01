@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -40,7 +39,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return User[] Returns an array of User objects
      */
-    public function findNewUsersSinceDate(DateTime $date): array
+    public function findNewUsersSinceDate(\DateTime $date): array
     {
         return $this->createQueryBuilder('u')
             ->select('count(u.createdAt), DATE(u.createdAt) as dateCreated')

@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-versions: [ '8.0' ]
+        php-versions: [ '8.0', '8.1' ]
         phpunit-versions: [ 'latest' ]
     steps:
       - uses: shivammathur/setup-php@v2
@@ -44,10 +44,10 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - uses: borales/actions-yarn@v2.3.0
+      - uses: borales/actions-yarn@v4.1.0
         with:
           cmd: install
-      - uses: borales/actions-yarn@v2.3.0
+      - uses: borales/actions-yarn@v4.1.0
         with:
           cmd: build
       - name: Create Database
@@ -58,6 +58,10 @@ jobs:
         run: bin/console doctrine:schema:update -f
       - name: Create Fixtures
         run: bin/console doctrine:fixtures:load -n
+      - name: Start ES
+        run: docker-compose up --build -d elasticsearch
+      - name: Wait for elasticsearch
+        run: sleep 30
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit --coverage-clover coverage.xml
       - name: Upload to codecov
