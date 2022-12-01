@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\TitleHistoryRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -52,12 +51,12 @@ class TitleHistory
         return $this->getCreatedAt()->format('l d/M').' | '.$this->getTitle().' / '.$this->getCategory();
     }
 
-    public function getCreatedAt(): ?DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

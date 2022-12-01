@@ -58,7 +58,7 @@
   },
   "require-dev": {
     "doctrine/doctrine-fixtures-bundle": "^3.4",
-    "friendsofphp/php-cs-fixer": "^3.0",
+    "friendsofphp/php-cs-fixer": "^3.6.0",
     "phpro/grumphp-shim": "^1.6",
     "phpunit/phpunit": "^9.5",
     "symfony/browser-kit": "6.0.*",

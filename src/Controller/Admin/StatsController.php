@@ -3,8 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Repository\UserRepository;
-use DateInterval;
-use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +21,7 @@ class StatsController extends AbstractController
     #[Route('/users', name: 'admin_user_stats')]
     public function userStats(ChartBuilderInterface $chartBuilder): Response
     {
-        $thirtyDaysAgo = (new DateTime())->sub(DateInterval::createFromDateString('30 days'));
+        $thirtyDaysAgo = (new \DateTime())->sub(\DateInterval::createFromDateString('30 days'));
         $usersByDay = $this->userRepository->findNewUsersSinceDate($thirtyDaysAgo);
 
         $cleanedData = [];
