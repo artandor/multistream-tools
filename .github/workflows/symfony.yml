@@ -60,16 +60,8 @@ jobs:
         run: bin/console doctrine:fixtures:load -n
       - name: Start ES
         run: docker-compose up --build -d elasticsearch
-#      - name: Wait for elasticsearch
-#        run: |
-#          while status="$(docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" "$(docker-compose ps -q elasticsearch)")"; do
-#            case $status in
-#              starting) sleep 1;;
-#              healthy) exit 0;;
-#              unhealthy) exit 1;;
-#            esac
-#          done
-#          exit 1
+      - name: Wait for elasticsearch
+        run: wait 30
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit --coverage-clover coverage.xml
       - name: Upload to codecov
